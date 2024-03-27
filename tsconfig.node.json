@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    // "jsx": "react",
+    // "jsx": "react",
+    // "jsx": "react",
+    "jsx": "react",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "target": "ES2020",
+    "sourceMap": true,
+    "outDir": "dist",
+    "composite": true
+  },
+  "include": ["src/**/*"]
+}

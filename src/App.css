@@ -1,0 +1,8 @@
+@layer {
+  body {
+    /* @apply ; */
+  }
+  .error{
+  @apply text-rose-700 italic text-sm sm:text-lg mt-2
+  }
+}
