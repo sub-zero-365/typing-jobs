@@ -10,6 +10,7 @@ import axios from 'axios'
 import { Provider } from 'react-redux'
 import {
   createBrowserRouter,
+  Link,
   RouterProvider
 } from 'react-router-dom'
 import AuthLayout from './components/AuthLayout.js'
@@ -136,7 +137,10 @@ const router = createBrowserRouter([
 
   {
     path: "*",
-    element: <div>404 page</div>
+    element: <div>404 page
+    <Link to="home">home </Link>
+    
+    </div>
   }
 ])
 
