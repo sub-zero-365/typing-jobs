@@ -48,7 +48,7 @@ const queryClient = new QueryClient({
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: "/home",
     element: <RootElement />,
     children: [
       {
