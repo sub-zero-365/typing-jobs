@@ -85,8 +85,8 @@ const RenderLeeds = () => {
             state: "reject",
             message: "something happend"
         })
-        return
-        await customFetch.delete('/logistics/delete/' + id)
+        // return
+        // await customFetch.delete('/logistics/delete/' + id)
     }
     const { mutate, isPending,
         failureReason, reset

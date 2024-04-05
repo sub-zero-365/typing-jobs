@@ -8,9 +8,19 @@
     "moduleResolution": "NodeNext",
     "target": "ES2020",
     "sourceMap": true,
-    "outDir": "dist",
-    "rootDir": "src/",
+    // "outDir": "dist",
     "composite": true
   },
-  "include": ["src/**/*"]
+  "include": ["vite.config.ts"]
 }
+// {
+//   "compilerOptions": {
+//     "composite": true,
+//     "skipLibCheck": true,
+//     "module": "ESNext",
+//     "moduleResolution": "bundler",
+//     "allowSyntheticDefaultImports": true,
+//     "strict": true
+//   },
+//   "include": ["vite.config.ts"]
+// }
