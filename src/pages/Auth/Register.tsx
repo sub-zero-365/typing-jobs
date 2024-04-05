@@ -1,87 +1,136 @@
 // "use client"; not a nextjs app 
-import React from "react";
-import { Label } from "./Label.js";
+import React, { useEffect } from "react";
 import { Input } from "./Input.js";
+import { Label } from "./Label.js";
 // import { cn } from "@/utils/cn";
-import {
-  IconBrandGithub,
-  IconBrandGoogle,
-  IconBrandOnlyfans,
-} from "@tabler/icons-react";
-import { cn } from "../../lib/utils.js";
 import SubmitBtn from "../../components/buttons/SubmitBtn.js";
-import { toast } from "../../components/ui/use-toast.js";
-import customFetch from "../../utils/customFetch.js";
-import { Form, redirect, useActionData } from "react-router-dom";
+import { cn } from "../../lib/utils.js";
 import useError from "../../utils/useError.js";
-import wait from "../../constants/wait.js";
+import { z, ZodType } from "zod"
+import { userRegister } from "../../utils/types.js";
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
+import { useMutation } from "@tanstack/react-query";
+import customFetch from "../../utils/customFetch.js";
+import { isAxiosError } from "axios";
 
-export const action = (queryClient) => async ({ request }) => {
-  await wait(5000)
-  try {
-    const formData = await request.formData()
-    const data = Object.fromEntries(formData);
-    await customFetch.post("/auth/signup", data)
-    queryClient.invalidateQueries()
-    return redirect("/dashboard")
-    // return null
-  } catch (err) {
-
-    // alert("enter ")
-    toast({
-      variant: "destructive",
-      description: err?.response?.data?.msg || err?.response?.data || "something went wrong try again later  !!!"
-    })
-    // console.log(err.response.data)
-    return err?.response?.data?.msg || err?.response?.data || null
-    // return null
-  }
-
-}
-export const loader = ({ request }) => {
-
-  return null
-}
 export default function SignupFormDemo() {
 
-  const message = useActionData()
-  const errMessage = useError([message],
-    { ms: 1000 })
+  // const message = useActionData()
+  const UserSchema: ZodType<userRegister> = z
+    .object({
+      name: z.string({ required_error: "" })
+        .min(5, "full name should contain more than 5 character long"),
+      email: z.string({
+        description: "some desc",
+        required_error: "email address is required"
+      }).email(),
+      password: z
+        .string({ required_error: "password is required" })
+        .min(8, { message: "Password is too short" })
+        .max(20, { message: "Password is too long" })
+      ,
+      confirmPassword: z.string(),
+    })
+    .refine((data) => data.password === data.confirmPassword, {
+      message: "Passwords do not match",
+      path: ["confirmPassword"], // path of error
+    });
+
+  // console.log(UserSchema.parse({ name: "" }))
+  const { register, handleSubmit, formState: { errors, }, clearErrors, reset: _reset } = useForm({
+    resolver: zodResolver(UserSchema),
+  });
+
+   
+  // console.log(errors)
+  const createUser = async (data) => {
+    return await customFetch.post("/auth/signup", {
+      ...data
+    })
+  }
+
+
+  const { mutate, failureReason, error, reset } = useMutation({
+    mutationFn: createUser,
+    onError(error, _variables, _context) {
+      if (isAxiosError(error)) {
+        console.log("err is axios error", error)
+      }
+      console.log(error)
+    },
+    onSuccess(_data, _variables, _context) {
+      reset()
+      _reset()
+    },
+  });
+  const onSubmit = async (data: userRegister) => {
+    console.log(data);
+    mutate(data)// Submit the form data if passwords match
+
+  };
+  let msg = "88"
+  if (isAxiosError(error)) {
+    msg = error.response.data?.msg
+  }
+  useEffect(() => {
+    let timer = setTimeout(() => {
+      reset()
+    }, 5000);
+
+    return () => {
+      clearTimeout(timer)
+    }
+  }, [error])
   return (
-    <div className="max-w-md w-full mx-auto rounded-none md:rounded-2xl p-4 md:p-8 shadow-input bg-white dark:bg-black">
+    <div className="max-w-md w-full mx-auto rounded-none  p-4 md:p-8 shadow-input bg-white dark:bg-black">
       <h2 className="font-bold text-xl text-neutral-800 dark:text-neutral-200">
         Welcome to Aceternity
       </h2>
-      <p className="text-neutral-600 text-sm max-w-sm mt-2 dark:text-neutral-300">
-        Login to aceternity if you can because we don&apos;t have a login flow
-        yet
-      </p>
 
-      <Form className="my-8"
+      <form className="my-8"
         method="post"
-        replace
+        onSubmit={handleSubmit(onSubmit)}
       >
         <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-2 mb-4">
           <LabelInputContainer>
             <Label htmlFor="name">Full  Name</Label>
             <Input id="name" placeholder="example user" type="text" name="name"
-              required />
+              {...register('name')}
+            />
           </LabelInputContainer>
-
         </div>
+        {errors.name && <span className="error">{errors?.name?.message.toString()}</span>}
         <LabelInputContainer className="mb-4">
           <Label htmlFor="email">Email Address</Label>
-          <Input id="email" placeholder="example@fc.com" type="email" name="email" required />
+          <Input id="email" placeholder="example@fc.com" type="email" name="email"
+            {...register('email')}
+          />
         </LabelInputContainer>
+        {errors.email && <span className="error">{errors?.email?.message.toString()}</span>}
+
         <LabelInputContainer className="mb-4">
           <Label htmlFor="password">Password</Label>
           <Input id="password" placeholder="••••••••"
-            required
+            {...register('password')}
             type="password" name="password" />
         </LabelInputContainer>
-        {errMessage && <div className="error">
+        {errors.password && <span className="error">{errors?.password?.message.toString()}</span>}
+
+        <LabelInputContainer className="mb-4">
+          <Label htmlFor="confirmPassword">confirmPassword</Label>
+          <Input id="confirmPassword" placeholder="••••••••"
+
+            type="confirmPassword" name="confirmPassword"
+            {...register('confirmPassword')}
+          />
+        </LabelInputContainer>
+        {errors.confirmPassword && <span className="error">{errors?.confirmPassword?.message.toString()}</span>}
+
+        {/* {errMessage && <div className="error">
           {errMessage}
-        </div>}
+        </div>} */}
+        {failureReason?.message && <span className="error">{msg}</span>}
         <SubmitBtn
           className="bg-gradient-to-br relative group/btn
           disabled:bg-red-700
@@ -96,39 +145,7 @@ export default function SignupFormDemo() {
 
         <div className="bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent my-8 h-[1px] w-full" />
 
-        <div className="flex flex-col space-y-4">
-          <button
-            className=" relative group/btn flex space-x-2 items-center justify-start px-4 w-full text-black rounded-md h-10 font-medium shadow-input bg-gray-50 dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_var(--neutral-800)]"
-            type="submit"
-          >
-            <IconBrandGithub className="h-4 w-4 text-neutral-800 dark:text-neutral-300" />
-            <span className="text-neutral-700 dark:text-neutral-300 text-sm">
-              GitHub
-            </span>
-            <BottomGradient />
-          </button>
-          <button
-            className=" relative group/btn flex space-x-2 items-center justify-start px-4 w-full text-black rounded-md h-10 font-medium shadow-input bg-gray-50 dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_var(--neutral-800)]"
-            type="submit"
-          >
-            <IconBrandGoogle className="h-4 w-4 text-neutral-800 dark:text-neutral-300" />
-            <span className="text-neutral-700 dark:text-neutral-300 text-sm">
-              Google
-            </span>
-            <BottomGradient />
-          </button>
-          <button
-            className=" relative group/btn flex space-x-2 items-center justify-start px-4 w-full text-black rounded-md h-10 font-medium shadow-input bg-gray-50 dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_var(--neutral-800)]"
-            type="submit"
-          >
-            <IconBrandOnlyfans className="h-4 w-4 text-neutral-800 dark:text-neutral-300" />
-            <span className="text-neutral-700 dark:text-neutral-300 text-sm">
-              OnlyFans
-            </span>
-            <BottomGradient />
-          </button>
-        </div>
-      </Form>
+      </form>
     </div>
   );
 }

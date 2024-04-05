@@ -15,7 +15,7 @@ import {
 import AuthLayout from './components/AuthLayout.js'
 import { RootElement } from './components/index.js'
 import Login, { action as loginAction, loader as loginLoader } from './pages/Auth/Login.js'
-import Register, { action as registerAction } from './pages/Auth/Register.js'
+// import Register, { action as registerAction } from './pages/Auth/Register.js'
 import { Home, TrackingPage, } from './pages/index.js'
 import Dashboard, { loader as dashboardLoader } from './pages/ProtectedRoute/Dashboard.js'
 import DashBoardHome from './pages/ProtectedRoute/DashBoardHome.js'
@@ -64,12 +64,14 @@ const router = createBrowserRouter([
             element: <Login />,
             action: loginAction(queryClient),
             loader: loginLoader
-          }, {
-            path: "register",
-            element: <Register />,
-            action: registerAction(queryClient),
-            loader: registerAction
-          }
+          },
+          
+          // {
+          //   path: "register",
+          //   element: <Register />,
+          //   action: registerAction(queryClient),
+          //   loader: registerAction
+          // }
         ]
       }, {
         path: "tracking",

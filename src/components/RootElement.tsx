@@ -50,6 +50,9 @@ const RootElement = () => {
           <Outlet />
         </div>
         <Footer className='flex-none' />
+        <Footer className='flex-none' />
+        <Footer className='flex-none' />
+        <Footer className='flex-none' />
       </div>
       <Toaster />
     </AppContext.Provider>

@@ -25,6 +25,7 @@ import {
     DialogTrigger,
 } from "./ui/dialog.js"
 import ModalComponents from './Modal.js';
+import { NextButton, PreButton } from './Navigations/navigation.js';
 // import "./style.css"
 interface iLogistic {
     price: number;
@@ -47,17 +48,27 @@ const SingleLogistic = (
         swiperRef?.slideTo(index);
     };
     return (
-        <div className=''
+        <div className='px-6'
 
         >
+
             <ModalComponents
                 isOpen={isOpen}
                 setIsOpen={setIsOpen}
                 className=" "
-                className2="!w-fit !h-[min(var(--h),calc(100vh-2rem))] !p-0 !bg-transparent"
+                className2="!w-fit !relative !h-[min(var(--h),calc(100%-10rem))] !p-0 !bg-transparent"
             >
-                {/* <div className='
-                 relative w-full   h-full '> */}
+                <PreButton
+                    className='absolute top-1/2 z-[20] left-2 translate-y-1/2'
+                    size={40} color='blue'
+                    onClick={() => swiperRef?.slidePrev()}
+                />
+                <NextButton
+                    className='absolute top-1/2 z-[20] right-2 translate-y-1/2'
+                    size={40} color='blue'
+                    onClick={() => swiperRef?.slideNext()}
+                />
+
 
                 <Swiper
                     onSwiper={setSwiperRef}
@@ -70,8 +81,9 @@ const SingleLogistic = (
                         shadowScale: 0.94,
                     }}
                     pagination={true}
+                    navigation={true}
                     modules={[EffectCube, Pagination]}
-                    className="mySwiper-   h-full 
+                    className="mySwiper- relative  h-full 
                             
                             "
                 >  {
@@ -102,22 +114,21 @@ const SingleLogistic = (
             </ModalComponents>
 
 
+            <div className='sm:flex lg:space-x-4 items-center flex-wrap gap-y-4 my-6'>
+                <div className='flex  items-center flex-none '>
+                    <Heading className='mr-2'>Name :</Heading>
+                    <p className="text-lg text-gray-700 ">{name}</p>
+                </div>
+                <div className='flex  items-center flex-none '>
+                    <Heading className='mr-2'>Price :</Heading>
+                    <p className="text-lg text-gray-700 ">{price}</p>
+                </div>
+                <div className='flex  items-center flex-none '>
+                    <Heading className='mr-2'>Status :</Heading>
+                    <p className="text-lg text-gray-700 ">{status}</p>
+                </div>
+            </div>
 
-
-            <div className='flex gap-4 items-center'>
-                <Heading>Name</Heading>
-                <p>{name}</p>
-            </div>
-            <div className='flex gap-4 items-center'>
-                <Heading>Price</Heading>
-                <p>${price}</p>
-            </div>
-            <div className='flex gap-4 items-center'>
-                <Heading>status</Heading>
-                <p>{status}</p>
-            </div>
-            {/* <p>{price}</p>
-            <p>{status}</p> */}
             <div
 
                 className='

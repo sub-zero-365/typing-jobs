@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import StatsCard from '../../components/Cards/StatsCard.js'
 import Heading from '../../components/Heading.js'
 import { LucideIcon, PercentSquare } from 'lucide-react'
@@ -29,7 +29,7 @@ const DashBoardHome = () => {
     },
 
   ]
-
+  const [hoverIndex, setHoveredIndex] = useState<number | null>(0)
   return (
     <div
       className="flex-1 w-full max-w-full"
@@ -39,7 +39,11 @@ const DashBoardHome = () => {
       gap-x-4 
       grid-cols-[repeat(auto-fit,minmax(min(20rem,calc(100%-0.3rem)),1fr))]">
         {dashBoardItems.map((items, index) => {
-          return (<StatsCard key={index}
+          return (<StatsCard
+            hoverIndex={hoverIndex}
+            setHoverIndex={setHoveredIndex}
+            key={index}
+            index={index}
             {...items}
           />)
         })}

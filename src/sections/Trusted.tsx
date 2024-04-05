@@ -25,7 +25,7 @@ export const projects = [
   // ...rest of the projects
 ];
 
- const HoverEffect = () => {
+const HoverEffect = () => {
   let [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   return (
@@ -44,7 +44,8 @@ export const projects = [
                   className="absolute inset-0 h-full w-full bg-slate-800/[0.8] block  rounded-3xl"
                   // layoutId="hoverBackgroundhh" // required for the background to follow
                   initial={{ opacity: 0 }}
-                  layoutId
+                  // layoutId
+                  layoutId="hoverBackground"
                   // layout
                   animate={{
                     opacity: 1,

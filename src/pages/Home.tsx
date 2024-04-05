@@ -1,11 +1,10 @@
+import { motion } from "framer-motion";
 import React from "react";
-import { cn } from "../lib/utils.js";
-import TypewriterEffectSmooth, { TypewriterEffect } from "../components/TypeWriter.js";
-import { motion } from "framer-motion"
-import Trusted from "../sections/Trusted.js";
-import { Input } from "../components/ui/input.js";
-import TrackingInput from "../components/TrackingInput.js";
 import { useNavigate } from "react-router-dom";
+import TrackingInput from "../components/TrackingInput.js";
+import { TypewriterEffect } from "../components/TypeWriter.js";
+import { cn } from "../lib/utils.js";
+import Trusted from "../sections/Trusted.js";
 // import { Spotlight } from "../ui/spotlight";
 const words: {
     text: string,
@@ -87,7 +86,7 @@ export default function Home() {
     const navigate = useNavigate()
     return (
         <div>
-            <div className="h-[40rem] flex-col w-full rounded-none flex md:items-center md:justify-center  bg-black/[0.96] antialiased bg-grid-white/[0.02] relative overflow-hidden">
+            <div className="h-[min(calc(100vh-4rem),40rem)] flex-col w-full rounded-none flex md:items-center md:justify-center  bg-black/[0.96] antialiased bg-grid-white/[0.02] relative overflow-hidden">
                 <Spotlight
                     className="-top-40 left-0 md:left-60 md:-top-20"
                     fill="white"
@@ -114,10 +113,7 @@ export default function Home() {
 
 
 
-                    {/*       
-        <h1 className="text-4xl md:text-7xl font-bold text-center bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-400 bg-opacity-50">
-          Spotlight <br /> is the new trend.
-        </h1> */}
+                 
 
                     <motion.p
                         initial={{

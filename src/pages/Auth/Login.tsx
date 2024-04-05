@@ -1,34 +1,30 @@
-import React, { useEffect, useState } from 'react'
-import { Button } from '../../components/ui/button.js'
-import { Input } from '../../components/ui/input.js'
 import { Label } from '@radix-ui/react-label'
-import { useForm, SubmitHandler } from "react-hook-form"
-import { Form, redirect, useActionData, useNavigation, useSubmit } from 'react-router-dom'
+import React from 'react'
+import { useForm } from "react-hook-form"
+import { Form, redirect, useActionData } from 'react-router-dom'
 import SubmitBtn from '../../components/buttons/SubmitBtn.js'
-import wait from '../../constants/wait.js'
-import customFetch from '../../utils/customFetch.js'
+import { Input } from '../../components/ui/input.js'
 import { toast } from '../../components/ui/use-toast.js'
-import { useLoaderData } from '../../utils/utils.js'
+import customFetch from '../../utils/customFetch.js'
 import useError from '../../utils/useError.js'
+import { useLoaderData } from '../../utils/utils.js'
 // import { useToast } from "./ui/use-toast.js"
-
+import { AnimateError } from "../../components/Animated/animated.js"
+import { Loader } from '../../components/Loaders/loader.js'
+import wait from '../../constants/wait.js'
 export const action = (queryClient) => async ({ request }) => {
   // await wait(5000)
   const formData = await request.formData();
   const data = Object.fromEntries(formData);
   var from = data.from
   try {
+    await wait(2000)
     await customFetch.post('/auth/login', data);
     toast({
       description: "Login successfull",
     })
     return redirect("/dashboard")
   } catch (err) {
-    toast({
-      variant: "destructive",
-      description: err?.response?.data?.msg,
-    })
-    console.log("err: ", err)
     return err?.response?.data?.msg || null
   }
 
@@ -55,27 +51,14 @@ const Login = () => {
     clearErrors,
     formState: { errors, isLoading },
   } = useForm<ILoginUser>();
-  const submit = useSubmit()
-  console.log("errors", Object.values(errors).length)
-  const isError = Object.values(errors).length > 0
-  const onSubmit = (data) => console.log("this is data",data)
+  const onSubmit = (data) => console.log("this is data", data)
   // handleSubmit(onSubmit)
-  const formSubmit = async (data) => {
-    // const isValid = await trigger()
-    // event.preventDefault();
-    // if (isValid) {
-    //   submit(event.currentTarget);
-    // }
-    // await trigger()
-    // setTimeout(() => {
-    //   clearErrors()
-    // }, 3000);
-  }
   const errorMessage = useActionData();
 
   const errorMessageLoader = useLoaderData();
 
-  const errorMsg = useError([errorMessage, errorMessageLoader])
+  const errorMsg = useError([errorMessage,
+    errorMessageLoader],)
   return (
     <div>
 
@@ -117,6 +100,7 @@ const Login = () => {
 
               })}
             />
+
             {errors.password && (
               <p role="alert" className="error">
                 {errors.password?.message}
@@ -129,19 +113,34 @@ const Login = () => {
               <span className='error'>Max length exceeded</span>
             )}
           </div>
-          {(errorMsg) && <div className='error'>
+          {/* {(errorMsg) && <div className='error'>
             {errorMsg}
-          </div>}
+          </div>} */}
+          <AnimateError
+            duration={0.3}
+            error={errorMsg}
+            errorMessage={errorMsg}
+          />
+
+
           <SubmitBtn type='submit'
-            submittingText='logging ....'
+            // submittingText='logging ....'
+            submittingText={
+              <Loader
+                className='h-full relative z-10'
+                childrenClassName='size-4'
+              />
+            }
             className='w-[min(25rem,calc(100%-0.5rem))] mx-auto  uppercase
             disabled:bg-blue-800
             '
             onSubmit={handleSubmit(onSubmit)}
 
           >
-            Login
+            login
           </SubmitBtn>
+
+
         </Form>
       </div>
 

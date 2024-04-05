@@ -1,12 +1,12 @@
 // import { Table } from 'lucide-react'
-import React from 'react'
-import Table, { payments } from '../../components/Table.js'
-import Search from '../../components/Search.js'
-import customFetch from '../../utils/customFetch.js';
-import { Await, defer, useAsyncError,useLoaderData } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
-import wait from '../../constants/wait.js';
+import React from 'react';
+import { Await, defer, useAsyncError, useLoaderData } from 'react-router-dom';
+import Search from '../../components/Search.js';
+import Table from '../../components/Table.js';
 import { columns } from '../../types/data.js';
+import customFetch from '../../utils/customFetch.js';
+import { logisticsResponse } from '../../utils/types.js';
 // import { useLoaderData } from '../../utils/utils.js';
 type Params = {
   search?: string,
@@ -20,14 +20,14 @@ const AllLogisticsQuery = (params: Params) => {
     sort, page, status } = params;
   return {
     queryKey: [
-      'jobs',
+      'logistics',
       search ?? '',
       status ?? 'all',
       sort ?? 'asc',
       page ?? 1,
     ],
     queryFn: async () => {
-    // await wait(10000)
+      // await wait(10000)
       const { data } = await customFetch.get('/logistics/all', {
         params,
       });
@@ -49,8 +49,7 @@ const RenderTable = () => {
   const params = Object.fromEntries([
     ...new URL(window.location.href).searchParams.entries(),
   ]);
-  const { logistics } = useQuery(AllLogisticsQuery(params)).data
-
+  const { logistics } = useQuery(AllLogisticsQuery(params)).data as logisticsResponse
   return (
     <div>
       {/* {JSON.stringify(logistics)} */}

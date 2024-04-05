@@ -6,21 +6,6 @@ const AuthLayout = () => {
             <h1
                 className='text-xl  my-5'
             >Welcome Back !!!</h1>
-            <div className='space-x-4 items-center '>
-                <Link
-                    to={"./"}
-                >
-                    Login
-                </Link>
-                <Link
-                    replace
-                    to={"register"}
-                >
-                    Register
-                </Link>
-
-            </div>
-
             <Outlet />
         </div>
     )

@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigation } from "react-router-dom";
+
 type optionsProps = {
   ms?: number | null;
 };
@@ -9,24 +10,33 @@ const useError = (
   options: optionsProps = {
     ms: null,
   }
-) => {
+): any => {
   const ms = options.ms || 5000;
-
+  const timerRef = useRef(null);
   const navigation = useNavigation();
-  const isPageIdle = navigation.state === "idle";
+  const isPageIdle = navigation.state === "submitting";
   const [errMsg, setErrMsg] = useState<string | null>(null);
   useEffect(() => {
-    errors.forEach((err: string | null) => {
-      if (!isPageIdle) return;
-      if (err) setErrMsg(err);
-    });
-
-    const timer = setTimeout(() => {
-      clearTimeout(timer);
+    if (errMsg) {
       setErrMsg(null);
-    }, ms);
+      clearTimeout(timerRef.current);
+    } else {
+      setErrMsg(null);
+      if (isPageIdle) return;
+      errors.forEach((err: string | null) => {
+        if (err) {
+          setErrMsg(err);
+        }
+      });
+
+      timerRef.current = setTimeout(() => {
+        clearTimeout(timerRef.current);
+        setErrMsg(null);
+      }, ms);
+    }
+
     return () => {
-      clearTimeout(timer);
+      clearTimeout(timerRef.current);
     };
   }, [...errors.map((err) => err), isPageIdle]);
   return errMsg;

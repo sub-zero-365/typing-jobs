@@ -28,7 +28,7 @@ const CustomNavLink = ({
         <NavLink to={to}
             end={end}
             replace={replace}
-            className={({ isActive }) => `relative`}
+        className={({ isActive }) => `relative`}
         >
             {({ isActive }) => (
                 <>
@@ -40,7 +40,7 @@ const CustomNavLink = ({
 
                     > {children}</Button>
 
-                    {isActive && <AnimatePresence>
+                    { <AnimatePresence>
 
                         {isActive && <motion.span
 
@@ -54,7 +54,9 @@ const CustomNavLink = ({
                                 opacity: 0,
                                 transition: { duration: 0.15, delay: 0.2 },
                             }}
-                            layoutId
+                            // layoutId
+                            layoutId="hoverBackground"
+
                             className={cn("absolute left-0 right-0 bottom-0 h-[2px] w-full bg-blue-500 rounded-lg", animateClassName)}
                         ></motion.span>}
                     </AnimatePresence>}

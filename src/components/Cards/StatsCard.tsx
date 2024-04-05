@@ -3,13 +3,49 @@ import React from 'react'
 import { cn } from '../../lib/utils.js'
 import { dashBoardItemsProps } from '../../pages/ProtectedRoute/DashBoardHome.js'
 import { Link } from 'react-router-dom'
+import { AnimatePresence, motion } from 'framer-motion'
 interface IStatsCard extends dashBoardItemsProps {
-    className?: string
+    className?: string;
+    hoverIndex?: number;
+    setHoverIndex?: any;
+    index?: number
 }
-function StatsCard({ className, Icon, name, to }: IStatsCard) {
+function StatsCard({ className,
+    Icon,
+    name,
+    to,
+    hoverIndex,
+    setHoverIndex,
+    index
+}: IStatsCard) {
+    const isActive = hoverIndex == index
     return (
-        <Link to={to} className={cn(
-            ' flex-none p-2 border py-4 mb-4 block rounded-md shadow-lg hover:ring-2 transition-all duration-300 bg-white', className)}>
+        <Link to={to}
+            onMouseEnter={() => setHoverIndex(index)}
+            onMouseLeave={() => setHoverIndex(null)}
+            className={cn(
+                ' flex-none relative p-2 border py-4 mb-4 block rounded-md shadow-lg  transition-all duration-300 bg-white', className)}>
+            <AnimatePresence>
+                {
+                    isActive && <motion.div
+                        layoutId="hoverBackgroundee"
+                        // layout
+                        animate={{
+                            opacity: 1,
+                            transition: { duration: 0.15 },
+                        }}
+                        exit={{
+                            opacity: 0,
+                            transition: { duration: 0.15, delay: 0.2 },
+                        }}
+                        className='absolute size-full ring-2 inset-0 rounded-sm'
+                    />
+                }
+
+
+            </AnimatePresence>
+
+
             <div>
                 <figure className='flex mx-auto mb-2 w-full px-2
                 
@@ -20,7 +56,7 @@ function StatsCard({ className, Icon, name, to }: IStatsCard) {
                     <h4
                         className='text-start flex-1 text-sm font-semibold capitalize '
                     >total {name}</h4>
-                    
+
                 </figure>
                 <div className='px-4 mb-2'>
                     <h1 className='font-bold text-xl '>

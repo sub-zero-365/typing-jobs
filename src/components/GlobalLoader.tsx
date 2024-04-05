@@ -1,11 +1,14 @@
 import React from 'react'
+import { Loader } from './Loaders/loader.js'
 
 export const GlobalLoader = () => {
   return (
     <div
-    className='bg-red-600 text-6xl fixed inset-0 h-screen w-screen z-50
+      className=' text-6xl fixed inset-0 h-screen w-screen z-[10]
     grid place-items-center
     '
-    >Loading please Wait ...</div>
+    >
+      <Loader />
+    </div>
   )
 }

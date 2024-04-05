@@ -325,7 +325,7 @@ export default function DataTable<TData, TValue>({
           {table.getRowModel().rows?.length ? (
             table.getRowModel().rows.map((row, index) => (
               <TableRow
-                className={cn("text-orange-500 border-b border-blue-50",
+                className={cn(" border-b border-blue-50 hover:bg-gray-500" ,
                   index & 1 && "bg-slate-600"
                 )}
                 key={row.id}

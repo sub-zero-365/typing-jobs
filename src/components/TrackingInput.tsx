@@ -20,7 +20,7 @@ const TrackingInput = ({
 }: ITrackingProps) => {
     return (
         <div
-            className='max-w-[40rem] w-full border h-14 my-8 rounded-sm mx-auto bg-white'
+            className='max-w-[40rem]  w-full border h-16 my-8 rounded-sm mx-auto bg-white'
         >
             <form
                 method='post'
@@ -29,29 +29,34 @@ const TrackingInput = ({
             >
                 <div
 
-                    className='flex-1 overflow-hidden relative
+                    className='flex-1 overflow-hidden relative pl-2 py-2
                     h-full
                     flex 
                     flex-col
                     justify-end
-                    
                     '
                 >
 
-                    <Input
+                    <input
                         defaultValue={defaultValue}
                         type='text'
                         required
-                        className='rounded-none w-full focus:outline-none
-                    ring-0
+                        className='rounded-none
+                        text-lg
+                        h-10 w-full focus:outline-none
+                    !ring-0
                     focus:border-none hover:outline-none hover:border-none shadow-none 
                     peer 
+                    
                     shadow-0
                     ring-offset-0
-                    outline-none
+                    !outline-none
                     cursor-pointer
-                    focus-visible:outline-none focus-visible:ring-0
+                    focus-visible:outline-none 
+                    focus-visible:font-medium
+                    focus-visible:ring-0
                     focus-visible:border-none
+                    
                     '
                         id='tracking_number'
                         name='tracking_number'
@@ -59,6 +64,7 @@ const TrackingInput = ({
                     <label
                         htmlFor='tracking_number'
                         className='absolute ml-2 
+                        left-0
                 width-
                 cursor-pointer
                 peer-focus:top-0
@@ -70,16 +76,17 @@ const TrackingInput = ({
                 peer-valid:text-xs
                 peer-invalid:top-1/2
                 peer-valid:top-0
+                peer-valid:translate-y-2
                 peer-invalid:-translate-y-1/2
-                peer-focus:translate-y-0
+                peer-focus:translate-y-2
                 peer-valid:italic
+                text-gray-500
                 '
                     >
-                        Enter  your tracking number(s)
+                        Enter  your tracking number
                     </label>
                 </div>
                 <Button
-                    // type='submit'
                     type='submit'
                     className='rounded-sm h-full my-0 px-6 lg:px-7'
                 >

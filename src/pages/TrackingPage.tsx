@@ -6,6 +6,7 @@ import wait from '../constants/wait.js'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import SingleLogistic from '../components/SingleLogistic.js'
 import { iMiniPost } from './ProtectedRoute/NewLogistics.js'
+import axios from 'axios'
 // import {queryClient} from '@tanstack/react-query'
 // import axios from "axios"
 const singleLogistic = (tracking_numbers: any) => {
@@ -53,7 +54,11 @@ const RenderLeeds = () => {
 }
 const ErrorGettingLogistic = () => {
     const err = useAsyncError() as any;
-    const erMsg = err?.response?.data?.msg || err?.response?.data || "something went wrong try agai later"
+    let erMsg = err?.response?.data?.msg || err?.response?.data || "something went wrong try agai later"
+
+    if (axios.isAxiosError(err)) {
+        erMsg = err.response?.data?.msg
+    }
 
     return (
         <div className=''>
