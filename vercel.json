@@ -1,0 +1,19 @@
+{
+    "routes": [
+      {
+        "src": "/(.*).html",
+        "dest": "/index.html"
+      }
+    ],
+    "headers": [
+        {
+          "source": "/(.*).(html|js|css)",
+          "headers": [
+            {
+              "key": "Cache-Control",
+              "value": "no-store"
+            }
+          ]
+        }
+      ]
+  }
