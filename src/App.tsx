@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Suspense } from 'react'
 import './App.css'
 // import { QueryClient } from '@tanstack/react-query'
 
@@ -14,8 +14,8 @@ import {
 } from 'react-router-dom'
 import AuthLayout from './components/AuthLayout.js'
 import { RootElement } from './components/index.js'
-import  { action as loginAction, loader as loginLoader } from './pages/Auth/Login.js'
-import {Login} from "./pages/Auth"
+import { action as loginAction, loader as loginLoader } from './pages/Auth/Login.js'
+import { Login } from "./pages/Auth"
 // import Register, { action as registerAction } from './pages/Auth/Register.js'
 import { Home, TrackingPage, } from './pages/index.js'
 import Dashboard, { loader as dashboardLoader } from './pages/ProtectedRoute/Dashboard.js'
@@ -62,11 +62,12 @@ const router = createBrowserRouter([
           {
             index: true,
             // path: "login",
-            element: <Login />,
+            element: <Suspense fallback={<div>loading ... </div>}>
+              <Login /></Suspense>,
             action: loginAction(queryClient),
             loader: loginLoader
           },
-          
+
           // {
           //   path: "register",
           //   element: <Register />,
