@@ -5,6 +5,7 @@
         "dest": "/index.html"
       }
     ],
+    
     "headers": [
         {
           "source": "/(.*).(html|js|css)",
