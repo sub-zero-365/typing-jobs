@@ -93,7 +93,7 @@ const MainDropDown = () => {
 const DashBoardHeader = () => {
     const { setToggleSideBar, setShowFullContent, direction } = useDashBoardContext()
     return (
-        <div className='flex-none h-14 sticky top-0 left-0 ring-0 z-[10000]  w-full shadow-lg bg-white px-2  flex items-center'>
+        <div className='flex-none h-14 sticky top-0 left-0 ring-0 z-[10]  w-full shadow-lg bg-white px-2  flex items-center'>
             <div className={cn('flex gap-x-4  justify-between items-center flex-1',
                 direction && "flex-row-reverse"
             )}>

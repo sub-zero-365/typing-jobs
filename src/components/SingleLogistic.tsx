@@ -2,10 +2,8 @@
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
 import Heading from './Heading.js';
-import { CopyIcon } from "@radix-ui/react-icons"
 
-import { Button } from "@/components/ui/button"
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
 
@@ -14,16 +12,6 @@ import 'swiper/css';
 import 'swiper/css/effect-cube';
 import 'swiper/css/pagination';
 import { EffectCube, Pagination } from 'swiper/modules';
-import {
-    Dialog,
-    DialogClose,
-    DialogContent,
-    DialogDescription,
-    DialogFooter,
-    DialogHeader,
-    DialogTitle,
-    DialogTrigger,
-} from "./ui/dialog.js"
 import ModalComponents from './Modal.js';
 import { NextButton, PreButton } from './Navigations/navigation.js';
 // import "./style.css"

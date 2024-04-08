@@ -11,7 +11,7 @@ import {
 } from "lucide-react";
 export interface INavItemsLinks {
   name: string;
-  link?: string;
+  link: string;
   icon: LucideIcon;
 }
 interface filterLinks extends Omit<INavItemsLinks, "icon"> {
@@ -42,7 +42,7 @@ export const DashboardNavLinks: (typeof NavItemsLinks)[number][] = [
   },
   {
     name: "Users",
-    link: "user",
+    link: "users",
     icon: Users,
   },
   {

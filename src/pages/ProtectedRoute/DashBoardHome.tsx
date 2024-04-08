@@ -4,28 +4,36 @@ import Heading from '../../components/Heading.js'
 import { LucideIcon, PercentSquare } from 'lucide-react'
 // import { Table } from '../../components/ui/table.js'
 import Table, { columns, payments } from '../../components/Table.js'
+import { Bar_Chart } from '../../components/charts/recharts.js'
 
 export type dashBoardItemsProps = {
-  name: string,
+  title: string,
   to: string,
-  Icon: LucideIcon
+  Icon: LucideIcon,
+  className?: string
 }
 const DashBoardHome = () => {
   const dashBoardItems: readonly dashBoardItemsProps[] = [
     {
-      name: "Logistics",
+      title: "Logistics",
       to: "logistics",
-      Icon: PercentSquare
+      Icon: PercentSquare,
+      className: 'bg-green-500',
+
     },
     {
-      name: "Users",
+      title: "Users",
       to: "users",
-      Icon: PercentSquare
+      Icon: PercentSquare,
+      className: 'bg-blue-200',
+
     },
     {
-      name: "Logistics",
+      title: "Logistics",
       to: "logisitics",
-      Icon: PercentSquare
+      Icon: PercentSquare,
+      className: 'bg-orange-200',
+
     },
 
   ]
@@ -40,6 +48,8 @@ const DashBoardHome = () => {
       grid-cols-[repeat(auto-fit,minmax(min(20rem,calc(100%-0.3rem)),1fr))]">
         {dashBoardItems.map((items, index) => {
           return (<StatsCard
+
+            asLink
             hoverIndex={hoverIndex}
             setHoverIndex={setHoveredIndex}
             key={index}
@@ -48,7 +58,7 @@ const DashBoardHome = () => {
           />)
         })}
       </div>
-
+      <Bar_Chart />
       <Table columns={columns} data={payments} />
     </div>
   )

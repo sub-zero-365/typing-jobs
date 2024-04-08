@@ -51,21 +51,23 @@ const Dashboard = () => {
     }
 
     setUserData(user)
-    const [toggleSideBar, setToggleSideBar] = useState<null | boolean>(false);
-    const [showFullContent, setShowFullContent] = useState<null | boolean>(true);
-    const [direction, setDirection] = useState<null | boolean>(false);
-    const [toggle, setToggle] = useState<boolean>(false)
+    const [toggleSideBar, setToggleSideBar] = useState< boolean>(false);
+    const [showFullContent, setShowFullContent] = useState<boolean>(true);
+    const [direction, setDirection] = useState< boolean>(false);
+    // const [toggle, setToggle] = useState<boolean>(false)
     return (
         <DashBoardContext.Provider value={{
             toggleSideBar,
             setToggleSideBar, setShowFullContent
-            , showFullContent, setDirection, direction
+            , showFullContent, 
+            setDirection,
+            direction
         }}>
             {/* overlay here */}
-            <SideDrawer
+            {/* <SideDrawer
                 toggle={toggle}
                 setToggle={setToggle}
-            />
+            /> */}
 
             {/* overlay ends here  */}
 
@@ -73,15 +75,15 @@ const Dashboard = () => {
                 <div className={cn("flex flex-row",
                     direction && "flex-row-reverse"
                 )}>
-                    <div className='flex-none h-screen z-[1001] sticky left-0 top-0 bottom-0'>
+                    <div className='flex-none h-screen z-[10001] sticky left-0 top-0 bottom-0'>
                         <Sidebar></Sidebar>
                     </div>
                     <div
-                        className='flex-1 flex flex-col  '
+                        className='flex-1 w-[calc(100%-25rem)]  overflow-y-auto--  flex flex-col  '
                     >
                         <DashBoardHeader />
-                        <div className='flex-1 p-2 overflow-x-hidden 
-                        h-[calc(100vh-3.5rem)] overflow-y-auto'>
+                        <div className='flex-1 p-2 overflow-x-hidden
+                        h-[calc(100vh-3.5rem)] overflow-y-auto-'>
                             <Outlet context={{ user }} />
                         </div>
                     </div>

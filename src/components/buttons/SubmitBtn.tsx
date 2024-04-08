@@ -5,20 +5,23 @@ import { cn } from '../../lib/utils.js'
 import { ButtonProps } from '../ui/button.js'
 interface iSubmitProps extends ButtonProps {
     children: ReactNode,
-    // className?: string,
     isError?: boolean,
     submittingText?: string | ReactNode,
-    isLoading?:boolean
+    isLoading?:boolean,
+    refE?:any
 }
 const SubmitBtn = ({
     children,
     className,
-    submittingText,isLoading,...props
+    submittingText,isLoading,
+    refE,
+    ...props
 }: iSubmitProps) => {
     const navigation = useNavigation()
     const isSubmitting = isLoading ?? navigation.state == "submitting" 
     return (
         <Button
+        ref={refE}
             disabled={isSubmitting}
             className={cn(`
             disabled:bg-red-800

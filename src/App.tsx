@@ -24,14 +24,15 @@ import DashBoardHome from './pages/ProtectedRoute/DashBoardHome.js'
 import NewLogistics from './pages/ProtectedRoute/NewLogistics.js'
 import AllLogisticsPage from './pages/ProtectedRoute/AllLogisticsPage.js'
 import UpdateUserProfile from './pages/ProtectedRoute/UpdateUserProfile.js'
-import User, { loader as userLoader } from './pages/ProtectedRoute/User.js'
+import Users, { loader as userLoader } from './pages/ProtectedRoute/Users.js'
 import UserProfilePage from './pages/ProtectedRoute/UserProfilePage.js'
 import { loader as TrackingLoader } from "./pages/TrackingPage.js"
 import { loader as allLogisticsLoader } from "./pages/ProtectedRoute/AllLogisticsPage.js"
 import { store } from './store/store.js'
-
+import * as SingleUser from './pages/ProtectedRoute/SingleUser.js'
 import { action as newLogisticAction } from "./pages/ProtectedRoute/NewLogistics.js"
 import SingleLogisticPage, { loader as singleLogisticPageLoader } from './pages/SingleLogisticPage.js'
+import NotFoundPage from './pages/ProtectedRoute/404Page.js'
 // import { User } from 'lucide-react'
 
 axios.defaults.withCredentials = true;
@@ -97,9 +98,15 @@ const router = createBrowserRouter([
       },
       {
         // index: true,
-        path: "user",
-        element: <User />,
+        path: "users",
+        element: <Users />,
         loader: userLoader(queryClient)
+      },
+      {
+
+        path: "user/:userId",
+        element: <SingleUser.default />,
+        loader: SingleUser.loader(queryClient)
       },
       {
         path: "newlogistic",
@@ -137,10 +144,7 @@ const router = createBrowserRouter([
 
   {
     path: "*",
-    element: <div>404 page
-    <Link to="home">home </Link>
-    
-    </div>
+    element: <NotFoundPage/>
   }
 ])
 

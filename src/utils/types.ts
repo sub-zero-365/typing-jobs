@@ -1,8 +1,8 @@
 export interface iLogistic {
   price: number;
   name: string;
-  tracking_number: string;
   status: boolean;
+  tracking_number: string;
   descriptions?: {
     name?: string;
     avatarPublicId?: string;
@@ -23,5 +23,7 @@ export interface user
   role: "user" | "admin";
   _id: number;
   userId: number;
-
+  isVerified: boolean;
+  total:number,
+  percent:number
 }

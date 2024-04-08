@@ -12,7 +12,6 @@ import SpringModal from './modals/MainModal.js';
 import { Button } from './ui/button.js';
 import { Theme } from './Theme.js';
 import useAuthenticalUser from '../hooks/Authentication.js';
-import.meta.env.VITE_APP_NAME
 
 const NavBar = () => {
   const { logOut } = useAuthenticalUser()
@@ -119,7 +118,7 @@ const NavBar = () => {
               <div className='flex justify-between sm:container mx-auto items-center'>
                 <AnimatedLinks
                   to='/home'
-                  text={import.meta.env.VITE_APP_NAME}
+                  text={import.meta?.env?.VITE_APP_NAME }
                 />
                 <div className=' space-x-4 hidden lg:flex'>
                   {
@@ -152,7 +151,7 @@ const NavBar = () => {
                 <div
                   className='lg:flex items-center  space-x-2 hidden '
                 >
-                  <div className='flex relative cursor-pointer border items-baseline  group  space-x-1'>
+                  {/* <div className='flex relative cursor-pointer border items-baseline  group  space-x-1'>
                     <Search size={20}
                       className='peer cursor-pointer '
                     />
@@ -162,7 +161,7 @@ const NavBar = () => {
                       overflow-hidden
                    duration-700 transition-all '
                     >Search</h5>
-                  </div>
+                  </div> */}
 
 
                   {

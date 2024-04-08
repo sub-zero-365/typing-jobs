@@ -48,8 +48,7 @@ const NewLogistics = () => {
     const {
         register,
         handleSubmit,
-        watch,
-        trigger,
+       
         clearErrors,
         formState: { errors, isLoading, isSubmitting },
     } = useForm<iLogistic>();
@@ -58,6 +57,7 @@ const NewLogistics = () => {
     const [description, setDescription] = useState<iMiniPost[]>([])
 
     // const fileRef = useRef(null)
+    console.log(errors)
     const deleteImg = (id: any) => {
         console.log("this is the id ", id)
         const temp = description.filter(item => item.createdAt != id);
@@ -121,7 +121,7 @@ const NewLogistics = () => {
 
 
                     </div>
-                    <form method='POST'
+                    <form 
                         encType="multipart/form-data"
                         onSubmit={handleSubmit(onSubmit)}
                         ref={formRef}
@@ -136,7 +136,7 @@ const NewLogistics = () => {
                             >
                                 Name
                             </Label>
-                            <Input id="name" name='name' type="text"
+                            <Input id="name"  type="text"
                                 className={cn(""
                                     ,
                                     errors.name && "ring-rose-400"
@@ -170,7 +170,8 @@ const NewLogistics = () => {
                             </Label>
                             <Input
 
-                                id="price" name='price' type="number"
+                                id="price"
+                                type="number"
                                 placeholder='price here'
                                 {...register("price", {
                                     required: "This field is required",
@@ -178,7 +179,7 @@ const NewLogistics = () => {
                             />
                             {errors.price && (
                                 <p role="alert" className="error">
-                                    {errors.price?.message}
+                              error validate
                                 </p>
                             )}
                         </div>
@@ -206,8 +207,8 @@ const NewLogistics = () => {
                             <SubmitBtn
                                 isLoading={isSubmitting}
                                 submittingText="creating logistic ..."
-                                type="button"
-                                variant='outline'
+                                type="submit"
+                                // variant='outline'
                                 className='
                                 w-[min(250px,calc(100%-0.2rem))] py-6
                                 text-lg

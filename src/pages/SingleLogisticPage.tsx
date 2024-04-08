@@ -1,12 +1,14 @@
-import { useQuery, useQueryClient } from '@tanstack/react-query'
-import { ChevronLeft, FilePenLine, SlashIcon } from 'lucide-react'
-import React, { createContext, useContext, useEffect, useRef, useState } from 'react'
-import { Await, Link, defer, redirect, useAsyncError, useLoaderData, useLocation, useNavigate, useParams } from 'react-router-dom'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import copy from 'copy-text-to-clipboard'
+import { Ban, ChevronLeft, FilePenLine, SlashIcon } from 'lucide-react'
+import React, { createContext, useContext, useRef, useState } from 'react'
+import { Await, Link, defer, useAsyncError, useLoaderData, useLocation, useNavigate, useParams } from 'react-router-dom'
+import { AnimateError } from "../components/Animated/animated.js"
 import Heading from '../components/Heading.js'
 import { Loader, SkeletonCard } from '../components/Loaders/loader.js'
 import SingleLogistic from '../components/SingleLogistic.js'
 import UpdateLogistic from '../components/UpdateLogistic.js'
-import { Ban } from "lucide-react"
+import { ErrorElement } from '../components/error/errorComponents.js'
 import {
     Breadcrumb,
     BreadcrumbItem,
@@ -15,7 +17,6 @@ import {
     BreadcrumbSeparator
 } from "../components/ui/breadcrumb.js"
 import { Button } from '../components/ui/button.js'
-import customFetch from '../utils/customFetch.js'
 import {
     Dialog,
     DialogContent,
@@ -27,14 +28,13 @@ import {
 } from "../components/ui/dialog.js"
 import { Input } from '../components/ui/input.js'
 import wait from '../constants/wait.js'
-import { useMutation } from '@tanstack/react-query';
-import { AnimateError } from "../components/Animated/animated.js"
+import customFetch from '../utils/customFetch.js'
 
 const singleLogistic = (id: any) => {
     return ({
         queryKey: ["logistics", id],
         queryFn: async (): Promise<any> => {
-            // await wait(10000)
+            // await wait(500, { state: "reject" })
             const { data } = await customFetch.get(`/logistics?tracking_numbers=${id}`)
             return data
         }
@@ -43,7 +43,7 @@ const singleLogistic = (id: any) => {
 interface iLogistic {
     logistics?: any
 }
-const LogisticsContext = createContext<iLogistic>(null)
+const LogisticsContext = createContext<iLogistic>({})
 export const loader = (queryClient) => ({ params }) => {
     return defer({
         id: params.tracking_number,
@@ -111,7 +111,11 @@ const RenderLeeds = () => {
                 <DialogHeader>
                     <DialogTitle>Delete logistic <span><Ban className="inline-block" /></span></DialogTitle>
                     <DialogDescription className='text-rose-800 font-medium'>
-                        Enter logistics name to delete it  <span className='font-bold text-rose-950 uppercase ml-2'>{logistics[0]?.name}</span>
+                        Enter logistics name to delete it  <span className='font-bold text-rose-950 uppercase ml-2 '
+                            onClick={() => {
+                                copy("text")
+                            }}
+                        >{logistics[0]?.name}</span>
                     </DialogDescription>
                 </DialogHeader>
                 <Input
@@ -189,16 +193,7 @@ const RenderLeeds = () => {
         </Dialog>
     )
 }
-const ErrorGettingLogistic = () => {
-    const err = useAsyncError() as any;
-    const erMsg = err?.response?.data?.msg || err?.response?.data || "something went wrong try agai later"
 
-    return (
-        <div className=''>
-            <p className='error mb-10 p-5 '>Error:!{erMsg} {JSON.stringify(err)}</p>
-        </div>
-    )
-}
 
 const TrackingPage = () => {
     // const queryClient = useQueryClient()
@@ -246,9 +241,7 @@ const TrackingPage = () => {
             >
                 <Await
                     resolve={Logistic}
-                    errorElement={
-                        <ErrorGettingLogistic />
-                    }
+                    errorElement={<ErrorElement />}
                 >
                     <RenderLeeds />
                 </Await>

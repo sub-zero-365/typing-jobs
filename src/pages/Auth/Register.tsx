@@ -6,8 +6,8 @@ import { Label } from "./Label.js";
 import SubmitBtn from "../../components/buttons/SubmitBtn.js";
 import { cn } from "../../lib/utils.js";
 import useError from "../../utils/useError.js";
-import { z, ZodType } from "zod"
 import { userRegister } from "../../utils/types.js";
+import { z, ZodType } from "zod"
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { useMutation } from "@tanstack/react-query";
@@ -38,11 +38,11 @@ export default function SignupFormDemo() {
     });
 
   // console.log(UserSchema.parse({ name: "" }))
-  const { register, handleSubmit, formState: { errors, }, clearErrors, reset: _reset } = useForm({
+  const { register, handleSubmit, formState: { errors, }, clearErrors, reset: _reset } = useForm<userRegister>({
     resolver: zodResolver(UserSchema),
   });
 
-   
+
   // console.log(errors)
   const createUser = async (data) => {
     return await customFetch.post("/auth/signup", {
@@ -100,7 +100,7 @@ export default function SignupFormDemo() {
             />
           </LabelInputContainer>
         </div>
-        {errors.name && <span className="error">{errors?.name?.message.toString()}</span>}
+        {errors.name && <span className="error">{errors?.name?.message?.toString()}</span>}
         <LabelInputContainer className="mb-4">
           <Label htmlFor="email">Email Address</Label>
           <Input id="email" placeholder="example@fc.com" type="email" name="email"

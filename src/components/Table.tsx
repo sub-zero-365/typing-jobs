@@ -229,6 +229,7 @@ import {
   TableRow,
 } from "./ui/table.js"
 import { cn } from '../lib/utils.js'
+import SearchComponent from './Search.js'
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
@@ -264,15 +265,17 @@ export default function DataTable<TData, TValue>({
   })
   return (
     <div className="rounded-md border">
+      {/* <SearchComponent /> */}
       <div className="flex items-center py-4">
-        <Input
+        <SearchComponent type='search' />
+        {/* <Input
           placeholder="Filter emails..."
           value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
           onChange={(event) =>
             table.getColumn("name")?.setFilterValue(event.target.value)
           }
           className="max-w-sm"
-        />
+        /> */}
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="outline" className="ml-auto">
@@ -325,8 +328,8 @@ export default function DataTable<TData, TValue>({
           {table.getRowModel().rows?.length ? (
             table.getRowModel().rows.map((row, index) => (
               <TableRow
-                className={cn(" border-b border-blue-50 hover:bg-gray-500" ,
-                  index & 1 && "bg-slate-600"
+                className={cn(" border-b border-blue-50 hover:bg-gray-300",
+                  index & 1 && "bg-slate-200"
                 )}
                 key={row.id}
                 data-state={row.getIsSelected() && "selected"}
@@ -347,7 +350,8 @@ export default function DataTable<TData, TValue>({
           )}
         </TableBody>
       </Table>
-      <div className="flex items-center justify-end space-x-2 py-4">
+      {/* do later  */}
+      <div className="flex- hidden items-center justify-end space-x-2 py-4">
         <Button
           variant="outline"
           size="sm"
@@ -365,7 +369,7 @@ export default function DataTable<TData, TValue>({
           Next
         </Button>
       </div>
-      <div className="flex-1 text-sm text-muted-foreground">
+      <div className="flex-1 hidden text-sm text-muted-foreground">
         {table.getFilteredSelectedRowModel().rows.length} of{" "}
         {table.getFilteredRowModel().rows.length} row(s) selected.
       </div>

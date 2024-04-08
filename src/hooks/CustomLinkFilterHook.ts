@@ -1,7 +1,16 @@
 import { useSearchParams } from "react-router-dom";
 export const useFilter = () => {
   const [querySearch, setQuerySearch] = useSearchParams();
-  const handleFilterChange = ({ key, value = null }, replace = true) => {
+  const handleFilterChange = (
+    {
+      key,
+      value = null,
+    }: {
+      key: string;
+      value?: null | string ;
+    },
+    replace = true
+  ) => {
     setQuerySearch(
       (preParams) => {
         if (value == null) {

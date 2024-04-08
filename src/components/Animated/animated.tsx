@@ -43,17 +43,17 @@ interface iAnimatedProps {
     className?: string,
     inView?: boolean;
     amount?: number;
-    text?: string
+    text: string
 }
-const AnimatedText = ({
+export const AnimatedText = ({
     text,
     className = "",
     inView,
     amount }: iAnimatedProps) => {
     return (
         <div
-            className={` w-full  mx-auto  py-2 flex items-center justify-center text-center 
-            overflow-hidden`}
+            className={cn(` w-full  mx-auto  py-2 flex items-center justify-center text-center 
+            overflow-hidden`,)}
         >
             <motion.h1
                 variants={qoute}
@@ -61,9 +61,9 @@ const AnimatedText = ({
                 animate={inView ? false : "animate"}
                 whileInView={inView ? "animate" : ""}
                 viewport={{ once: true, amount: amount ? amount : 0.2 }}
-                className={`${className} break-words
-            inline-block w-full text-dark font-black  capitalize
-            text-8xl`}>
+                className={cn(`break-words
+                inline-block w-full text-dark font-black  capitalize
+                text-6xl`,className)}>
                 <SplitText text={text} />
             </motion.h1>
 
@@ -82,6 +82,7 @@ export function AnimateError({
     errorMessage,
     className, duration }: iAnimateError) {
     return (
+       
         <div className={
             cn(`mb-6 flex max-w-sm mx-auto
         items-center
@@ -93,7 +94,7 @@ export function AnimateError({
             <motion.h1
                 animate={{
                     opacity: error ? 1 : 0,
-                    x: error ? [-50, 50, 0, -50, 50, 0] : null
+                    x: error ? [-50, 50, 0, -50, 50, 0] :undefined
 
                 }}
                 transition={{ duration: duration || 0.3 }}
@@ -102,4 +103,4 @@ export function AnimateError({
 
     )
 }
-export default AnimatedText
+// export default AnimatedText
