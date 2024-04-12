@@ -1,10 +1,10 @@
-import { Menu, Search, Settings2 } from 'lucide-react'
+import { Menu, Settings2 } from 'lucide-react'
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import useAuthenticalUser from '../hooks/Authentication.js'
 import { cn } from '../lib/utils.js'
 import { useDashBoardContext } from '../pages/ProtectedRoute/Dashboard.js'
-import { Theme } from './Theme.js'
+import Theme from './Theme.js'
 import { Button } from './ui/button.js'
 import {
     DropdownMenu,
@@ -91,6 +91,8 @@ const MainDropDown = () => {
     </DropdownMenu>)
 }
 const DashBoardHeader = () => {
+const {pathname} =useLocation()
+const currentLocation=pathname.split('/').reverse()[0].toString()
     const { setToggleSideBar, setShowFullContent, direction } = useDashBoardContext()
     return (
         <div className='flex-none h-14 sticky top-0 left-0 ring-0 z-[10]  w-full shadow-lg bg-white px-2  flex items-center'>
@@ -115,7 +117,9 @@ const DashBoardHeader = () => {
                         <Link to={"/dashboard"}
                             className='block  font-semibold mx-4 text-lg'
                         >
-                            Dashboard
+                            {
+                            currentLocation
+                            }
                         </Link>  </h1>
                 </div>
                 <div className='md:block hidden    flex-none

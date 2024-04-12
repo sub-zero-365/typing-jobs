@@ -1,15 +1,26 @@
 import React, { Suspense } from 'react'
 // import wait from '../../constants/wait.js'
 import { useQuery } from '@tanstack/react-query'
+import { useLoaderData } from 'react-router-dom'
 import DataTable from '../../components/Table.js'
+import { AreaChart, BarChart, data } from '../../components/charts/react-chartjs-2.js'
 import wait from '../../constants/wait.js'
 import { allUsersColumns } from '../../types/data.js'
 import customFetch from '../../utils/customFetch.js'
 import { user } from '../../utils/types.js'
 import { Register } from '../Auth/index.js'
-import { useLoaderData } from 'react-router-dom'
-import { Bar_Chart } from '../../components/charts/recharts.js'
-import { AreaChart, BarChart, data, options } from '../../components/charts/react-chartjs-2.js'
+import { Button } from '../../components/ui/button.js'
+import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogFooter,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+} from "@/components/ui/dialog"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
 interface Props {
     search?: string,
     page?: number
@@ -56,9 +67,22 @@ const User = () => {
     ).data
     // data?.users
     return (
-        <div>
-            <div className=" lg:grid grid-cols-[1fr,auto]">
-                <div className=''>
+        <Dialog>
+            <DialogTrigger asChild>
+                <Button variant="outline">Edit Profile</Button>
+            </DialogTrigger>
+            <DialogContent className="sm:max-w-[425px]">
+                <div className='max-w-sm w-full'>
+                    <Suspense fallback={<div>loading ...</div>}
+
+                    >
+                        <Register />
+                    </Suspense>
+
+                </div>
+            </DialogContent>
+            <div className=" lg:flex gap-x-4">
+                <div className='lg:w-[calc(100%-20rem)]'>
                     {/* <Bar_Chart /> */}
                     <BarChart
                         // options={options}
@@ -70,7 +94,7 @@ const User = () => {
                     />
 
                 </div>
-                <div className='max-w-sm w-full'>
+                <div className='w-[20rem]  flex-none'>
                     <Suspense fallback={<div>loading ...</div>}
 
                     >
@@ -78,11 +102,10 @@ const User = () => {
                     </Suspense>
 
                 </div>
-
-            </div>
+</div>
             {/* dont know how to removethis error cause it not an error */}
             <DataTable columns={allUsersColumns} data={users?.users} />
-        </div>
+        </Dialog>
     )
 }
 User.displayName = "userPage"

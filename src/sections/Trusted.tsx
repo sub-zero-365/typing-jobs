@@ -1,6 +1,7 @@
 import React from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
+import { pageAnimationVariants } from "../utils/framervariants";
 
 export const projects = [
   {
@@ -32,7 +33,14 @@ const HoverEffect = () => {
     <div className="max-w-5xl mx-auto px-8">
       <div className="grid grid-cols-1 md:grid-cols-2  lg:grid-cols-3  py-10">
         {projects.map((project, idx) => (
-          <div
+          <motion.div
+            transition={{
+              delay: idx * 0.05,
+              ease:'easeInOut'
+            }}
+            variants={pageAnimationVariants}
+            initial='initial'
+            whileInView='animate'
             key={project?.link}
             className="relative group  block p-2 h-full w-full "
             onMouseEnter={() => setHoveredIndex(idx)}
@@ -70,7 +78,7 @@ const HoverEffect = () => {
                 </div>
               </div>
             </div>
-          </div>
+          </motion.div>
         ))}
       </div>
     </div>

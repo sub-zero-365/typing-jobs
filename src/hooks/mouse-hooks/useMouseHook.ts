@@ -4,11 +4,11 @@ interface mouseRef {
 }
 const useMousePosition = ({ ref }:mouseRef) => {
   const [mousePosition, setMousePosition] = React.useState<{
-    x: number | null;
-    y: number | null;
+    x: number ;
+    y: number ;
   }>({
-    x: null,
-    y: null,
+    x: 0,
+    y: 0,
   });
   React.useEffect(() => {
     const updateMousePosition = (ev: any) => {
