@@ -28,7 +28,7 @@ const CustomNavLink = ({
         <NavLink to={to}
             end={end}
             replace={replace}
-        className={({ isActive }) => `relative`}
+        className={`relative`}
         >
             {({ isActive }) => (
                 <>

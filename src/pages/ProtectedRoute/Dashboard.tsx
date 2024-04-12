@@ -22,7 +22,7 @@ const userQuery = {
 
     }
 }
-export const loader = (queryClient) => async ({ request }) => {
+export const loader = (queryClient) => async () => {
     try {
         return await queryClient.ensureQueryData(userQuery)
     } catch (error) {
@@ -72,6 +72,8 @@ const Dashboard = () => {
             {/* overlay ends here  */}
 
             <div className='h-screen max-w-7xl  overflow-y-auto  rounded-md mx-auto '>
+                
+                
                 <div className={cn("flex flex-row",
                     direction && "flex-row-reverse"
                 )}>

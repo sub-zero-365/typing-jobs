@@ -33,7 +33,7 @@ const SingleLogistic = (
     const [swiperRef, setSwiperRef] = useState(null);
     const [isOpen, setIsOpen] = useState(false)
     const slideTo = (index) => {
-        swiperRef?.slideTo(index);
+        if (swiperRef!=null&&swiperRef.slideTo) swiperRef.slideTo(index)
     };
     return (
         <div className='px-6'

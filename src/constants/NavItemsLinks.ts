@@ -19,18 +19,23 @@ interface filterLinks extends Omit<INavItemsLinks, "icon"> {
 }
 export const NavItemsLinks: INavItemsLinks[] = [
   {
+    name: "Home",
+    link: "/home",
+    icon: LogInIcon,
+  },
+  {
     name: "DashBoard",
     link: "/dashboard",
     icon: LogInIcon,
   },
   {
     name: "About Us",
-    link: "/About-us",
+    link: "/home/about-us",
     icon: LogInIcon,
   },
   {
     name: "Contact Us",
-    link: "/contact-us",
+    link: "/home/contact-us",
     icon: LogInIcon,
   },
 ];

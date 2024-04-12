@@ -33,8 +33,8 @@ import * as SingleUser from './pages/ProtectedRoute/SingleUser.js'
 import { action as newLogisticAction } from "./pages/ProtectedRoute/NewLogistics.js"
 import SingleLogisticPage, { loader as singleLogisticPageLoader } from './pages/SingleLogisticPage.js'
 import NotFoundPage from './pages/ProtectedRoute/404Page.js'
-// import { User } from 'lucide-react'
-
+import Contact from './pages/Contact.js'
+import About from './pages/About.js'
 axios.defaults.withCredentials = true;
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -55,6 +55,15 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <Home />
+      }, 
+      {
+        path: 'contact-us',
+        element:<Contact/>
+      }
+      ,
+      {
+        path: 'about-us',
+        element:<About/>
       }
       ,
       {
@@ -70,12 +79,7 @@ const router = createBrowserRouter([
             loader: loginLoader
           },
 
-          // {
-          //   path: "register",
-          //   element: <Register />,
-          //   action: registerAction(queryClient),
-          //   loader: registerAction
-          // }
+
         ]
       }, {
         path: "tracking",
@@ -144,7 +148,7 @@ const router = createBrowserRouter([
 
   {
     path: "*",
-    element: <NotFoundPage/>
+    element: <NotFoundPage />
   }
 ])
 
