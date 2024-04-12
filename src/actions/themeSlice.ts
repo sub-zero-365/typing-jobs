@@ -1,36 +1,36 @@
-import { createSlice } from "@reduxjs/toolkit";
-import type { PayloadAction } from "@reduxjs/toolkit";
-import type { RootState } from "../store/store.js";
-// import { reducer } from "../components/ui/use-toast.js";
-
-export type tTheme = {
-  theme: "light" | "dark";
+import { createSlice } from '@reduxjs/toolkit';
+type iThemeState = {
+  currentTheme: 'light' | 'dark';
 };
-const checkDefaultTheme = (): tTheme => {
-  const theme = localStorage.getItem("theme") === "light" ? "light" : "dark";
-  document.body.classList.add(theme);
-  return {theme};
+const checkDefaultTheme = (): boolean => {
+  const isDarkTheme = localStorage.getItem('darkTheme') === 'true' || !(window.matchMedia('(prefers-color-scheme: dark)').matches)
+  if(isDarkTheme){
+        document.documentElement.classList.add('dark');
+    }
+  return isDarkTheme;
 };
-const initialState: tTheme = checkDefaultTheme();
 
-export const themeSlice = createSlice({
-  name: "theme",
-  // `createSlice` will infer the state type from the `initialState` argument
+const isDarkThemeEnabled = checkDefaultTheme();
+
+const initialState: iThemeState = {
+  currentTheme: !isDarkThemeEnabled ? 'light' : 'dark', // Initial theme
+};
+const toggleDarkTheme = (currentTheme: iThemeState['currentTheme']) => {
+  const newDarkTheme = currentTheme == 'dark';
+
+  document.documentElement.classList.toggle('dark', newDarkTheme);
+  localStorage.setItem('darkTheme', String(newDarkTheme));
+};
+const themeSlice = createSlice({
+  name: 'theme',
   initialState,
   reducers: {
-    // Use the PayloadAction type to declare the contents of `action.payload`
-    setActionTheme: (state, action: PayloadAction<"light"|"dark">) => {
-      state.theme = action.payload ?? "light";
-    
-      document.documentElement.className = "";
-      document.documentElement.classList.add(action.payload);
-      document.documentElement.setAttribute("data-theme", action.payload);
-      localStorage.setItem("theme", action.payload);
+    toggleTheme(state) {
+      state.currentTheme = state.currentTheme === 'light' ? 'dark' : 'light';
+      toggleDarkTheme(state.currentTheme);
     },
-    getCurrentTheme: (state) => state,
   },
 });
 
-export const { setActionTheme, getCurrentTheme } = themeSlice.actions;
-// export const getUserState = (state: RootState) => state;
-export default themeSlice.reducer;
+export const { toggleTheme } = themeSlice.actions;
+export default themeSlice;

@@ -6,7 +6,7 @@ import themeReducer from "../actions/themeSlice.js";
 export const store = configureStore({
   reducer: {
     user: userReducer,
-    theme: themeReducer,
+    theme: themeReducer.reducer,
     // comments: commentsReducer,
     // users: usersReducer,
   },
