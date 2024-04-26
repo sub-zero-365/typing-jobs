@@ -80,7 +80,6 @@
   }
   body {
     @apply bg-[var(--main-bg-color)] text-foreground font-poppins;
-   
   }
 
   .parent:focus-within {
@@ -115,8 +114,11 @@
 .overlay.active {
   @apply opacity-100 pointer-events-auto visible z-[10000];
 }
+.popover:not(:hover) {
+  scale: 0.9;
+}
 .notificationframes {
-  animation: notificationframes 2s infinite ;
+  animation: notificationframes 2s infinite;
   animation-delay: 0s;
   /* animation-play-state: paused; */
   @apply lg:left-[calc(min(80rem,100%)/2)] lg:-translate-x-1/2;
@@ -134,12 +136,10 @@
   @keyframes notificationframes {
     from {
       @apply -top-[8rem] opacity-0;
-    
     }
     20%,
     to {
       @apply top-[2rem] opacity-100;
-      
     }
   }
 }
