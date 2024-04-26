@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import type { RootState } from "../store/store.js";
+import { userRole } from "../types/usertype.js";
 // import { reducer } from "../components/ui/use-toast.js";
 export interface IUserState {
   user: null | {
@@ -8,7 +9,7 @@ export interface IUserState {
     fullname: string | null;
     email: string;
     userId: number;
-    role: "admin" | "user" | "moderator";
+    role: userRole;
   };
 }
 const initialState: IUserState = {

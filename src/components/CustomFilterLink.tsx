@@ -8,16 +8,16 @@ import { cn } from "../lib/utils.js";
 import { AnimatePresence, motion } from "framer-motion"
 
 
-interface IFilterProps extends ButtonProps {
+interface IFilterProps extends Omit<ButtonProps, "value"> {
     className?: string;
-    filterType?: string | null;
+    filterType: string ;
     children?: React.ReactNode;
     label?: string;
-    value?: string | null | number;
+    value?: string | null ;
     selectedClassName?: string;
     show?: boolean;
     animateClassName?: string;
-    
+
 };
 
 const FilterButton = ({
@@ -28,12 +28,12 @@ const FilterButton = ({
     const { handleFilterChange } = useFilter()
     const [querySearch] = useSearchParams()
     // const { value } = props
-    const isSelected = value == querySearch.get(filterType)
+    const isSelected = value == querySearch.get(filterType || "")
     return (
         <Button
             {...props}
             onClick={() => handleFilterChange({ key: filterType, value }, true)}
-            className={cn("flex-none relative", className, isSelected && "",
+            className={cn("flex-none relative", className, isSelected && "bg-red-500",
                 isSelected && selectedClassName
             )}
 
@@ -52,7 +52,7 @@ const FilterButton = ({
                         opacity: 0,
                         transition: { duration: 0.15, delay: 0.2 },
                     }}
-                    layoutId
+                    layoutId='somecodehere'
                     className="absolute left-0 right-0 bottom-0 h-[2px] w-full 
                      bg-blue-500/50 rounded-lg"
                 ></motion.span>}

@@ -1,9 +1,8 @@
 import React from "react";
-import { Link, useRouteError, useNavigate, useAsyncError } from "react-router-dom"
+import { useAsyncError, useRouteError } from "react-router-dom";
 import { AnimatedText } from "../Animated/animated";
 // import { Button } from "react-day-picker";
 import { isAxiosError } from "axios";
-import { Button } from "../ui/button";
 // import UiButton from "./UiButton"
 // import AnimatedText from "./AnimateText"
 // import UserRole from "../utils/userRole"
@@ -13,7 +12,7 @@ export const ErrorElement = () => {
     const error = useRouteError() || useAsyncError();
 
     // const isAsyncError = useAsyncError()
-    const navigate = useNavigate()
+    // const navigate = useNavigate()
     let errMsg = "";
     if (isAxiosError(error)) {
         errMsg = error.response?.data?.msg || error.response?.data

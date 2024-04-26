@@ -23,7 +23,7 @@ export const action = (queryClient) => async ({ request }) => {
     toast({
       description: "Login successfull",
     })
-    return redirect("/dashboard")
+    return redirect("/")
   } catch (err) {
     return err?.response?.data?.msg || null
   }

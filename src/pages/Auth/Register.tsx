@@ -5,7 +5,6 @@ import { Label } from "./Label.js";
 // import { cn } from "@/utils/cn";
 import SubmitBtn from "../../components/buttons/SubmitBtn.js";
 import { cn } from "../../lib/utils.js";
-import useError from "../../utils/useError.js";
 import { userRegister } from "../../utils/types.js";
 import { z, ZodType } from "zod"
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -13,9 +12,11 @@ import { useForm } from 'react-hook-form';
 import { useMutation } from "@tanstack/react-query";
 import customFetch from "../../utils/customFetch.js";
 import { isAxiosError } from "axios";
-
+import useGetLoginUser from "../../utils/getLogInUser.js";
+import UserSelect from 'react-select'
+import { usersoptions } from "../../constants/options.js";
 export default function SignupFormDemo() {
-
+  const user = useGetLoginUser()
   // const message = useActionData()
   const UserSchema: ZodType<userRegister> = z
     .object({
@@ -31,6 +32,11 @@ export default function SignupFormDemo() {
         .max(20, { message: "Password is too long" })
       ,
       confirmPassword: z.string(),
+      role: z.union([z.literal("user"),
+      z.literal("employee")]
+      ).optional(),
+      phoneNumber:z.string({invalid_type_error:'number is required here'})
+      .min(9,'please 9 numbers are required to register ').max(12)
     })
     .refine((data) => data.password === data.confirmPassword, {
       message: "Passwords do not match",
@@ -38,18 +44,20 @@ export default function SignupFormDemo() {
     });
 
   // console.log(UserSchema.parse({ name: "" }))
-  const { register, handleSubmit, formState: { errors, }, clearErrors, reset: _reset } = useForm<userRegister>({
-    resolver: zodResolver(UserSchema),
-  });
+  const { register, handleSubmit,
+    formState: { errors, }, setValue,
+    clearErrors, reset: _reset } = useForm<userRegister>({
+      resolver: zodResolver(UserSchema),
+    });
 
 
   // console.log(errors)
-  const createUser = async (data) => {
+  const createUser = async (data: userRegister): Promise<any> => {
     return await customFetch.post("/auth/signup", {
       ...data
     })
   }
-
+  console.error(errors)
 
   const { mutate, failureReason, error, reset } = useMutation({
     mutationFn: createUser,
@@ -102,12 +110,19 @@ export default function SignupFormDemo() {
         </div>
         {errors.name && <span className="error">{errors?.name?.message?.toString()}</span>}
         <LabelInputContainer className="mb-4">
+          <Label htmlFor="phoneNumber">Phone Number</Label>
+          <Input id="phoneNumber" placeholder="6........" type="number" name="phoneNumber"
+            {...register('phoneNumber')}
+          />
+        </LabelInputContainer>
+        {errors.phoneNumber && <span className="error">{errors?.phoneNumber?.message?.toString()}</span>}
+        <LabelInputContainer className="mb-4">
           <Label htmlFor="email">Email Address</Label>
           <Input id="email" placeholder="example@fc.com" type="email" name="email"
             {...register('email')}
           />
         </LabelInputContainer>
-        {errors.email && <span className="error">{errors?.email?.message.toString()}</span>}
+        {errors.email && <span className="error">{errors?.email?.message?.toString()}</span>}
 
         <LabelInputContainer className="mb-4">
           <Label htmlFor="password">Password</Label>
@@ -115,7 +130,7 @@ export default function SignupFormDemo() {
             {...register('password')}
             type="password" name="password" />
         </LabelInputContainer>
-        {errors.password && <span className="error">{errors?.password?.message.toString()}</span>}
+        {errors.password && <span className="error">{errors?.password?.message?.toString()}</span>}
 
         <LabelInputContainer className="mb-4">
           <Label htmlFor="confirmPassword">confirmPassword</Label>
@@ -125,12 +140,24 @@ export default function SignupFormDemo() {
             {...register('confirmPassword')}
           />
         </LabelInputContainer>
-        {errors.confirmPassword && <span className="error">{errors?.confirmPassword?.message.toString()}</span>}
+        {errors.confirmPassword && <span className="error">{errors?.confirmPassword?.message?.toString()}</span>}
 
         {/* {errMessage && <div className="error">
           {errMessage}
         </div>} */}
         {failureReason?.message && <span className="error">{msg}</span>}
+        {user && user.role == 'admin' &&
+          <UserSelect
+            name="role"
+            isSearchable={false}
+            onChange={(e) => {
+              setValue('role', e?.label)
+            }}
+
+            options={usersoptions}
+          />
+        }
+
         <SubmitBtn
           className="bg-gradient-to-br relative group/btn
           disabled:bg-red-700

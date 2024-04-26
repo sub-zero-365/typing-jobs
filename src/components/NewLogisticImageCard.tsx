@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react'
 import { Input } from "./ui/input.js"
 import { Label } from "./ui/label.js"
 import { Button } from './ui/button.js'
-import { iMiniPost } from '../pages/ProtectedRoute/NewLogistics.js'
+import { iMiniPost } from '../pages/ProtectedRoute/NewTasks.js'
 interface InewLogisticInput {
     handleFilesChange: (value: iMiniPost) => void
 }

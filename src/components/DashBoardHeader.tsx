@@ -29,7 +29,7 @@ const MainDropDown = () => {
     // const { logOutUser } = useAppContext()
     return (<DropdownMenu>
         <DropdownMenuTrigger asChild>
-            <Button variant="outline">settings <Settings2 /></Button>
+            <Button variant="outline"> <Settings2 /></Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent sideOffset={10} className="w-56">
             <DropdownMenuLabel>My Account</DropdownMenuLabel>
@@ -40,17 +40,14 @@ const MainDropDown = () => {
                     <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
                 </DropdownMenuItem>
                 <DropdownMenuItem>
-                    Billing
+                    <Link to="/newtask">Create Task</Link>
                     <DropdownMenuShortcut>⌘B</DropdownMenuShortcut>
                 </DropdownMenuItem>
                 <DropdownMenuItem>
-                    Settings
+                    <Link to="/profile">Profile</Link>
                     <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
                 </DropdownMenuItem>
-                <DropdownMenuItem>
-                    Keyboard shortcuts
-                    <DropdownMenuShortcut>⌘K</DropdownMenuShortcut>
-                </DropdownMenuItem>
+
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
@@ -72,10 +69,8 @@ const MainDropDown = () => {
                 </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>
-                <Theme />
-            </DropdownMenuItem>
-            <DropdownMenuItem>Support</DropdownMenuItem>
+
+
             <DropdownMenuItem >
                 <Link to={"/home"}>View Site</Link>
             </DropdownMenuItem>
@@ -85,14 +80,14 @@ const MainDropDown = () => {
 
             >
                 Log out
-                <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
+
             </DropdownMenuItem>
         </DropdownMenuContent>
     </DropdownMenu>)
 }
 const DashBoardHeader = () => {
-const {pathname} =useLocation()
-const currentLocation=pathname.split('/').reverse()[0].toString()
+    const { pathname } = useLocation()
+    const currentLocation = pathname.split('/').reverse()[0].toString()
     const { setToggleSideBar, setShowFullContent, direction } = useDashBoardContext()
     return (
         <div className='flex-none h-14 sticky top-0 left-0 ring-0 z-[10]  w-full shadow-lg bg-white px-2  flex items-center'>
@@ -118,22 +113,30 @@ const currentLocation=pathname.split('/').reverse()[0].toString()
                             className='block  font-semibold mx-4 text-lg'
                         >
                             {
-                            currentLocation
+                                currentLocation
                             }
                         </Link>  </h1>
                 </div>
                 <div className='md:block hidden    flex-none
                 w-[min(30rem,calc(100%-0.5rem))]
                 '>
-                   
+
                 </div>
                 {/* mobile view only */}
                 <div className='flex items-center gap-x-4 lg:hidden'>
+                    <Button>Create Task</Button>
                     <MainDropDown />
 
                 </div>
                 {/* desktop view  */}
-                <div className='hidden md:flex flex-none items-center'>
+                <div className='hidden md:flex gap-x-4 flex-none items-center'>
+                    <Link to="/newtask">
+                        <Button>Create Task</Button>
+                    </Link>
+                        <Theme 
+                          className='size-4'
+                          containerClassName='w-14'
+                        />
                     <MainDropDown />
                 </div>
 

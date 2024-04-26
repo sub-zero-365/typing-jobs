@@ -398,7 +398,7 @@ export const allUsersColumns: ColumnDef<user>[] = [
       //the row value
 
 
-      return <Link to={`/dashboard/user/${userId}`}
+      return <Link to={`/user/${userId}`}
         state={{
           rd_from: window.location.href
         }}

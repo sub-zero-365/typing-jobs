@@ -39,8 +39,10 @@ sm:!translate-x-0
                     {DashboardNavLinks.map((arr, index) => {
                         const { icon: Icon, name, link } = arr
                         if (user?.role != "admin" && name.toLocaleLowerCase() == "users") return
+                        if (user?.role != "user" && name.toLocaleLowerCase() == "new task") return
                         return (
                             <CustomNavLink
+                            show
                                 selectedClassName=''
                                 animateClassName="inset-0 size-full bg-purple-600/20"
                                 className='bg-white  text-black hover:bg-purple-600/20'
