@@ -37,6 +37,12 @@ import NotFoundPage from './pages/ProtectedRoute/404Page.js'
 import Contact from './pages/Contact.js'
 import About from './pages/About.js'
 import EditedTaskHistory from './pages/ProtectedRoute/EditedTaskHistory.js'
+import { pdfjs } from 'react-pdf';
+
+pdfjs.GlobalWorkerOptions.workerSrc = new URL(
+  'pdfjs-dist/build/pdf.worker.min.js',
+  import.meta.url,
+).toString();
 axios.defaults.withCredentials = true;
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -179,6 +185,7 @@ function App() {
   return (
     <Provider store={store}>
       <QueryClientProvider client={queryClient}>
+      
         <RouterProvider
           router={router}
         ></RouterProvider>

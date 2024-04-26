@@ -9,7 +9,7 @@ const AuthLayout = () => {
             <div className='grid px-4 grid-cols-2 max-w-[28rem] mx-auto mb-5 w-full flex-row gap-4'>
 
                 <CustomNavLink to='./'
-                    
+                    end={false}
                     selectedClassName=''
                     className='bg-transparent text-black hover:bg-slate-50'
                     show
@@ -17,7 +17,7 @@ const AuthLayout = () => {
                     Login
                 </CustomNavLink>
                 <CustomNavLink to='./register'
-                    
+                    end={false}
                     selectedClassName=''
                     className='bg-transparent text-black hover:bg-slate-50'
                     show
