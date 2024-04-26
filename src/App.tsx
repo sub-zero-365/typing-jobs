@@ -16,25 +16,27 @@ import {
 import AuthLayout from './components/AuthLayout.js'
 import { RootElement } from './components/index.js'
 import { action as loginAction, loader as loginLoader } from './pages/Auth/Login.js'
-import { Login } from "./pages/Auth"
+import { Login, Register } from "./pages/Auth"
 // import Register, { action as registerAction } from './pages/Auth/Register.js'
 import { Home, TrackingPage, } from './pages/index.js'
 import Dashboard, { loader as dashboardLoader } from './pages/ProtectedRoute/Dashboard.js'
 import DashBoardHome from './pages/ProtectedRoute/DashBoardHome.js'
-import NewLogistics from './pages/ProtectedRoute/NewLogistics.js'
-import AllLogisticsPage from './pages/ProtectedRoute/AllLogisticsPage.js'
+import NewLogistics from './pages/ProtectedRoute/NewTasks.js'
+import AllLogisticsPage from './pages/ProtectedRoute/AllTasksPage.js'
 import UpdateUserProfile from './pages/ProtectedRoute/UpdateUserProfile.js'
 import Users, { loader as userLoader } from './pages/ProtectedRoute/Users.js'
 import UserProfilePage from './pages/ProtectedRoute/UserProfilePage.js'
 import { loader as TrackingLoader } from "./pages/TrackingPage.js"
-import { loader as allLogisticsLoader } from "./pages/ProtectedRoute/AllLogisticsPage.js"
+import { loader as allLogisticsLoader } from "./pages/ProtectedRoute/AllTasksPage.js"
 import { store } from './store/store.js'
 import * as SingleUser from './pages/ProtectedRoute/SingleUser.js'
-import { action as newLogisticAction } from "./pages/ProtectedRoute/NewLogistics.js"
+import * as SingleTaskPage from './pages/ProtectedRoute/SingleTaskPage.js'
+import { action as newLogisticAction } from "./pages/ProtectedRoute/NewTasks.js"
 import SingleLogisticPage, { loader as singleLogisticPageLoader } from './pages/SingleLogisticPage.js'
 import NotFoundPage from './pages/ProtectedRoute/404Page.js'
 import Contact from './pages/Contact.js'
 import About from './pages/About.js'
+import EditedTaskHistory from './pages/ProtectedRoute/EditedTaskHistory.js'
 axios.defaults.withCredentials = true;
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -55,15 +57,15 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <Home />
-      }, 
+      },
       {
         path: 'contact-us',
-        element:<Contact/>
+        element: <Contact />
       }
       ,
       {
         path: 'about-us',
-        element:<About/>
+        element: <About />
       }
       ,
       {
@@ -75,6 +77,13 @@ const router = createBrowserRouter([
             // path: "login",
             element: <Suspense fallback={<div>loading ... </div>}>
               <Login /></Suspense>,
+            action: loginAction(queryClient),
+            loader: loginLoader
+          },
+          {
+            path: "register",
+            element: <Suspense fallback={<div>loading ... </div>}>
+              <Register /></Suspense>,
             action: loginAction(queryClient),
             loader: loginLoader
           },
@@ -91,9 +100,10 @@ const router = createBrowserRouter([
 
   },
   {
-    path: "dashboard",
+    path: "/",
     element: <Dashboard />,
     loader: dashboardLoader(queryClient),
+    errorElement: <div>something went wrong</div>,
     children: [
       {
         index: true,
@@ -105,6 +115,17 @@ const router = createBrowserRouter([
         path: "users",
         element: <Users />,
         loader: userLoader(queryClient)
+      },
+      {
+
+        path: "task/:taskId",
+        element: <SingleTaskPage.default />,
+        loader: SingleTaskPage.loader,
+        children: [
+
+          { element: <EditedTaskHistory />, index: true },
+          { element: <div>later</div>, path:'later'},
+        ]
       },
       {
 

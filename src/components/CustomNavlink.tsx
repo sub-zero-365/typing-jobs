@@ -42,7 +42,7 @@ const CustomNavLink = ({
 
                     { <AnimatePresence>
 
-                        {isActive && <motion.span
+                        {isActive&&show && <motion.span
 
                             initial={{ opacity: 0 }}
 

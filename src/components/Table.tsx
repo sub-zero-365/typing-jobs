@@ -262,6 +262,11 @@ export default function DataTable<TData, TValue>({
     state: {
       sorting, columnFilters, columnVisibility, rowSelection,
     },
+    initialState: {
+      pagination: {
+          pageSize: 300
+      }
+  }
   })
   return (
     <div className="rounded-md border">

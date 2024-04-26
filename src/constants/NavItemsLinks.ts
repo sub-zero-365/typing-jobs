@@ -25,7 +25,7 @@ export const NavItemsLinks: INavItemsLinks[] = [
   },
   {
     name: "DashBoard",
-    link: "/dashboard",
+    link: "/",
     icon: LogInIcon,
   },
   {
@@ -42,7 +42,7 @@ export const NavItemsLinks: INavItemsLinks[] = [
 export const DashboardNavLinks: (typeof NavItemsLinks)[number][] = [
   {
     name: "DashBoard",
-    link: "/dashboard",
+    link: "/",
     icon: LayoutDashboard,
   },
   {
@@ -51,12 +51,17 @@ export const DashboardNavLinks: (typeof NavItemsLinks)[number][] = [
     icon: Users,
   },
   {
-    name: "logistics",
+    name: "tasks",
     link: "logistics",
     icon: AudioWaveform,
   },
   {
-    name: "Add logistic",
+    name: "new task",
+    link: "newlogistic",
+    icon: PlusCircle,
+  },
+  {
+    name: "messages",
     link: "newlogistic",
     icon: PlusCircle,
   },

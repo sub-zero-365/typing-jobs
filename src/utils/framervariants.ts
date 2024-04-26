@@ -1,8 +1,8 @@
 export const pageAnimationVariants = {
   initial: {
     //defines the initial animation
-    opacity: 0.5,
-    y: 100,
+    opacity: 0.9,
+    y: 0,
   },
   animate: {
     opacity: 1,

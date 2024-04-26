@@ -1,3 +1,5 @@
+import { userRole } from "../types/usertype";
+
 export interface iLogistic {
   price: number;
   name: string;
@@ -10,13 +12,15 @@ export interface iLogistic {
   }[];
 }
 export type logisticsResponse = {
-  logistics: iLogistic[];
+  tasks: iLogistic[];
 };
 export interface userRegister {
   name: string;
   email: string;
   password: string;
   confirmPassword: string;
+  role?: userRole;
+  phoneNumber: string;
 }
 export interface user
   extends Omit<userRegister, "password" | "confirmPassword"> {
@@ -24,6 +28,6 @@ export interface user
   _id: number;
   userId: number;
   isVerified: boolean;
-  total:number,
-  percent:number
+  total: number;
+  percent: number;
 }

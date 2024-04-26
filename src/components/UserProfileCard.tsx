@@ -10,7 +10,7 @@ import { Link } from 'react-router-dom'
 const UserProfileCard = () => {
     return (
         <div className='bg-white shadow-sm rounded-sm mt-0 m-1.5 py-5'>
-            <Link to={"/dashboard/profile"} className='flex  flex-col items-center space-x-2'>
+            <Link to={"/profile"} className='flex  flex-col items-center space-x-2'>
             <Avatar>
       <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
       <AvatarFallback>CN</AvatarFallback>

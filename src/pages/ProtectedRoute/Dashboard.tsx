@@ -1,19 +1,19 @@
-import { useQuery } from '@tanstack/react-query'
+import { QueryKey, useQuery } from '@tanstack/react-query'
 import React, { createContext, useContext, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { Outlet, redirect, useNavigation } from 'react-router-dom'
-import { setUser } from '../../actions/userSlice.js'
+import { type IUserState, setUser } from '../../actions/userSlice.js'
 import DashBoardHeader from '../../components/DashBoardHeader.js'
 import { GlobalLoader } from '../../components/GlobalLoader.js'
 import Sidebar from '../../components/Sidebar.js'
 import { cn } from '../../lib/utils.js'
 import customFetch from '../../utils/customFetch.js'
-import SideDrawer from '../../components/SideDrawer.js'
+import { Notification } from '../../components/Notification/Notification.js'
 interface IUser {
-    queryKey: string[] | string,
-    queryFn: () => Promise<any>,
+    queryKey: QueryKey,
+    queryFn: () => Promise<Exclude<IUserState, null>>,
 }
-const userQuery = {
+const userQuery: IUser = {
     queryKey: ["user"],
     queryFn: async () => {
         const { data } = await customFetch.get("/users/current-user");
@@ -27,7 +27,7 @@ export const loader = (queryClient) => async () => {
         return await queryClient.ensureQueryData(userQuery)
     } catch (error) {
 
-        return redirect("/home/auth?message=" + error?.response?.data?.msg)
+        return redirect("/home?message=" + error?.response?.data?.msg)
     }
 }
 export interface ISideBar {
@@ -36,63 +36,62 @@ export interface ISideBar {
     showFullContent: boolean,
     setShowFullContent: (props: any) => void
     direction: boolean,
-    setDirection: (props: any) => void
+    setDirection: (props: any) => void,
+    user?: IUserState['user']
 }
 
-const DashBoardContext = createContext<ISideBar>(null)
+const DashBoardContext = createContext<ISideBar | any>(null)
 
 const Dashboard = () => {
     const navigation = useNavigation()
     const isPageLoading = navigation.state === "loading"
-    const { user } = useQuery(userQuery).data
+    const user = useQuery(userQuery).data?.user
     const dispatch = useDispatch()
     const setUserData = (payload) => {
         return dispatch(setUser(payload))
     }
 
     setUserData(user)
-    const [toggleSideBar, setToggleSideBar] = useState< boolean>(false);
+    const [toggleSideBar, setToggleSideBar] = useState<boolean>(false);
     const [showFullContent, setShowFullContent] = useState<boolean>(true);
-    const [direction, setDirection] = useState< boolean>(false);
+    const [direction, setDirection] = useState<boolean>(false);
     // const [toggle, setToggle] = useState<boolean>(false)
     return (
-        <DashBoardContext.Provider value={{
-            toggleSideBar,
-            setToggleSideBar, setShowFullContent
-            , showFullContent, 
-            setDirection,
-            direction
-        }}>
-            {/* overlay here */}
-            {/* <SideDrawer
-                toggle={toggle}
-                setToggle={setToggle}
-            /> */}
+        <>
+            <Notification />
+            <DashBoardContext.Provider value={{
+                toggleSideBar,
+                setToggleSideBar, setShowFullContent
+                , showFullContent,
+                setDirection,
+                direction,
+                user
+            }}>
 
-            {/* overlay ends here  */}
 
-            <div className='h-screen max-w-7xl  overflow-y-auto  rounded-md mx-auto '>
-                
-                
-                <div className={cn("flex flex-row",
-                    direction && "flex-row-reverse"
-                )}>
-                    <div className='flex-none h-screen z-[10001] sticky left-0 top-0 bottom-0'>
-                        <Sidebar></Sidebar>
-                    </div>
-                    <div
-                        className='flex-1 w-[calc(100%-25rem)]  overflow-y-auto--  flex flex-col  '
-                    >
-                        <DashBoardHeader />
-                        <div className='flex-1 p-2 overflow-x-hidden
+                <div className='h-screen max-w-7xl  overflow-y-auto  rounded-md mx-auto '>
+
+
+                    <div className={cn("flex flex-row",
+                        direction && "flex-row-reverse"
+                    )}>
+                        <div className='flex-none h-screen z-[10001] sticky left-0 top-0 bottom-0'>
+                            <Sidebar></Sidebar>
+                        </div>
+                        <div
+                            className='flex-1 w-[calc(100%-25rem)]  overflow-y-auto--  flex flex-col  '
+                        >
+                            <DashBoardHeader />
+                            <div className='flex-1 p-2 overflow-x-hidden
                         h-[calc(100vh-3.5rem)] overflow-y-auto-'>
-                            <Outlet context={{ user }} />
+                                <Outlet context={{ user }} />
+                            </div>
                         </div>
                     </div>
+                    {isPageLoading && <GlobalLoader />}
                 </div>
-                {isPageLoading && <GlobalLoader />}
-            </div>
-        </DashBoardContext.Provider>
+            </DashBoardContext.Provider>
+        </>
     )
 }
 export const useDashBoardContext = () => useContext(DashBoardContext)

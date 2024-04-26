@@ -29,8 +29,7 @@ const UpdateLogistic = () => {
         name: z.string({
             required_error: "please name is required"
         }),
-        status: z.union([z.literal("pending"), z.literal("recieved")],
-            z.literal("sent")
+        status: z.union([z.literal("pending"), z.literal("recieved")]
         ).optional()
     })
     const tracking_number = useParams().tracking_number

@@ -104,7 +104,7 @@ const NewLogistics = () => {
                     className='px-5 leading-10 pb-3 font-semibold  border-b mb-6
                             '
                 >
-                    Add New Logistic <span><ArrowDownWideNarrow className="inline-block" size={15}></ArrowDownWideNarrow></span>
+                    Add New Task for writing <span><ArrowDownWideNarrow className="inline-block" size={15}></ArrowDownWideNarrow></span>
                 </Heading>
                 <div
                     className='  grid grid-cols-1 gap-y-4 lg:grid-cols-12
