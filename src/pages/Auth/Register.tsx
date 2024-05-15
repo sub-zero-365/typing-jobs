@@ -44,6 +44,7 @@ export default function SignupFormDemo() {
     });
 
   // console.log(UserSchema.parse({ name: "" }))
+  
   const { register, handleSubmit,
     formState: { errors, }, setValue,
     clearErrors, reset: _reset } = useForm<userRegister>({

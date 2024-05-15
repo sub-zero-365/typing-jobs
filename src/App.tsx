@@ -38,6 +38,11 @@ import Contact from './pages/Contact.js'
 import About from './pages/About.js'
 import EditedTaskHistory from './pages/ProtectedRoute/EditedTaskHistory.js'
 import { pdfjs } from 'react-pdf';
+import SubmitDocLayout from './components/layout/SubmitDocLayout.js'
+import Payment from './pages/Payment.js'
+import DocPage from './pages/DocPage.js'
+import UserInForPage from './pages/UserInForPage.jsx'
+import Preview from './pages/Preview.js'
 
 pdfjs.GlobalWorkerOptions.workerSrc = new URL(
   'pdfjs-dist/build/pdf.worker.min.js',
@@ -96,11 +101,44 @@ const router = createBrowserRouter([
 
 
         ]
-      }, {
+      },
+      {
+        path: "upload",
+        element: <SubmitDocLayout />,
+        errorElement: <div>oops something went wrong</div>,
+        children: [{
+          index: true,
+          element: <DocPage />,
+
+        }
+          ,
+        {
+          path: "payment",
+          element: <Payment />,
+
+        }
+          ,
+        {
+          path: "user",
+          element: <UserInForPage />,
+
+        }
+          ,
+        {
+          path: "preview",
+          element: <Preview />,
+
+        }
+
+        ]
+
+      },
+      {
         path: "tracking",
         element: <TrackingPage />,
         loader: TrackingLoader(queryClient),
-        errorElement: <div>oops something went wrong</div>
+        errorElement: <div>oops something went wrong</div>,
+
       }
     ]
 
@@ -130,7 +168,7 @@ const router = createBrowserRouter([
         children: [
 
           { element: <EditedTaskHistory />, index: true },
-          { element: <div>later</div>, path:'later'},
+          { element: <div>later</div>, path: 'later' },
         ]
       },
       {
@@ -185,7 +223,7 @@ function App() {
   return (
     <Provider store={store}>
       <QueryClientProvider client={queryClient}>
-      
+
         <RouterProvider
           router={router}
         ></RouterProvider>

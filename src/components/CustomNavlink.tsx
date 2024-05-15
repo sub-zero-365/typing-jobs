@@ -28,17 +28,13 @@ const CustomNavLink = ({
         <NavLink to={to}
             end={end}
             replace={replace}
-        className={`relative`}
+        className={({isActive})=>(cn("flex-none block relative w-full h-8", className, isActive && "",
+        isActive && selectedClassName
+    ))}
         >
             {({ isActive }) => (
                 <>
-                    <Button
-                        {...props}
-                        className={cn("flex-none block relative w-full", className, isActive && "",
-                            isActive && selectedClassName
-                        )}
-
-                    > {children}</Button>
+                     {children}
 
                     { <AnimatePresence>
 

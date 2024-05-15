@@ -4,7 +4,7 @@ import { useMotionValueEvent, useScroll } from "framer-motion";
 import { motion } from "framer-motion";
 // import { cn } from ";
 import { cn } from "../../lib/utils.js";
-import { AnimatedText } from "../Animated/animated.js";
+import { VariantHeading } from '../../components/Heading'
 
 export const StickyScroll = ({
   content,
@@ -56,28 +56,27 @@ export const StickyScroll = ({
     <motion.div
       className="py-10 sticky top-[4rem]
     "
+      style={{ clipPath: "polygon(89% 2%, 100% 1%, 100% 100%, 3% 100%, 0 98%, 0 5%)" }}
+
       animate={{
         backgroundColor: backgroundColors[activeCard % backgroundColors.length],
       }}
     >
-      <div
-        className="relative w-full mt-6
-        "
-      >
-        <h1 className="text-4xl text-center 
-              -z-1
-              w-full 
-              font-black text-green-900 lg:text-5xl
-               uppercase opacity-30">
-          Works
-        </h1>
 
-        <AnimatedText
-          className="text-2xl italic dark:text-white  text-white top-[calc(50%-0.6rem)]  lg:text-4xl !absolute  !m-0 -translate-y-1/2  z-1"
-          text={'How its Works'}
+
+
+      <VariantHeading className='text-center mt-10 gap-x-3 uppercase mb-6 flex items-center text-blue-950 [font-family:var(--second-font)] font-black text-3xl lg:text-4xl max-w-fit mx-auto'>
+
+        <span
+          className='w-10  h-[1px] bg-white '
+        />  <div className='flex items-center text-white '>How It Works</div>
+        <span
+          className='w-10  h-[1px] bg-white '
         />
 
-      </div>
+      </VariantHeading>
+
+
       <motion.div
 
         className="h-[min(40rem,calc(100vh-4rem))] overflow-y-auto flex justify-center relative space-x-10 rounded-md px-2 lg:p-10"

@@ -9,14 +9,12 @@ import React, { useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { NavItemsLinks } from "../constants/NavItemsLinks.js";
 import useAuthenticalUser from '../hooks/Authentication.js';
-import useMousePosition from '../hooks/mouse-hooks/useMouseHook.js';
 import useGetLoginUser from '../utils/getLogInUser.js';
 import AnimatedLinks from './Links/AnimatedLinks.js';
 import NavItem from './NavItem.js';
 import Theme from './Theme.js';
 import SpringModal from './modals/MainModal.js';
 import { Button } from './ui/button.js';
-import Cursor from './ui/cursor.js';
 
 const NavBar = () => {
   const { logOut } = useAuthenticalUser()
@@ -24,7 +22,7 @@ const NavBar = () => {
   const user = useGetLoginUser()
   const [isOpen, setIsOpen] = useState(false);
   const navbarRef = useRef<any>()
-  const { x, y } = useMousePosition({ ref: navbarRef });
+
   const { scrollYProgress } = useScroll();
 
   const [visible, setVisible] = useState(true);
@@ -102,7 +100,7 @@ const NavBar = () => {
         </div>
 
       </SpringModal>
-
+      {/* desktop navbar here  */}
       <AnimatePresence mode='wait'>
         <motion.div
           initial={{
@@ -117,13 +115,11 @@ const NavBar = () => {
             duration: 0.2,
           }}
 
-          className='flex overflow-hidden  items-center h-14  sticky top-0 cursor-none w-full z-50  bg-white  dark:bg-black dark:text-white'>
+          className='flex overflow-hidden bg-black text-white items-center h-16  sticky top-0 cursor-none w-full z-50    dark:bg-black dark:text-white'>
           <div ref={navbarRef} className='w-full
             
               '>
-            <Cursor
-              {...{ x, y }}
-            />
+
 
 
 
@@ -137,7 +133,7 @@ const NavBar = () => {
                   to='/home'
                   text={import.meta.env.VITE_APP_NAME || ''}
                 />
-                <div className=' space-x-4 hidden lg:flex'>
+                <div className=' space-x-4 hidden lg:flex items-center'>
                   {
                     NavItemsLinks.map(linkItem => {
                       const { icon, name, link }: typeof NavItemsLinks[number] = linkItem
@@ -147,7 +143,7 @@ const NavBar = () => {
                           <AnimatedLinks
                             className='text-[1rem] font-normal text-blue-600'
                             to={link}
-                            secondTextClassName='text-black'
+                            secondTextClassName='text-white'
                           >
                             {name}
                           </AnimatedLinks>
@@ -155,20 +151,7 @@ const NavBar = () => {
                       )
                     })
                   }
-                </div>
-
-                <div className='p-1 cursor-pointer lg:hidden flex items-center space-x-2  transition-all duration-500 rounded-sm hover:rounded-none'>
-
-                  <Theme
-                    className='size-4'
-                    containerClassName='w-14'
-                  />
-                  <Menu
-                    onClick={() => setIsOpen(true)}
-
-                    size={25} />
-                </div>
-                <div
+                       <div
                   className='lg:flex items-center  space-x-2 hidden '
                 >
 
@@ -210,12 +193,26 @@ const NavBar = () => {
                     </>
 
                   }
-                  <Theme
+                  {/* <Theme
                     className='size-6'
                     containerClassName='flex-none w-16'
-                  />
+                  /> */}
 
                 </div>
+                </div>
+
+                <div className='p-1 cursor-pointer lg:hidden flex items-center space-x-2  transition-all duration-500 rounded-sm hover:rounded-none'>
+
+                  <Theme
+                    className='size-4'
+                    containerClassName='w-14'
+                  />
+                  <Menu
+                    onClick={() => setIsOpen(true)}
+
+                    size={25} />
+                </div>
+           
               </div>
             </div>
           </div>

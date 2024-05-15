@@ -7,6 +7,7 @@ import useAuthenticalUser from '../hooks/Authentication.js'
 import Footer from './Footer.js'
 import { AnimatePresence, motion } from 'framer-motion'
 import { pageAnimationVariants, pageAnimationVariantsTransiton } from '../utils/framervariants.js'
+import TopHeader from './TopHeader.js'
 
 
 
@@ -21,9 +22,10 @@ const RootElement = () => {
   return (
 
     <>
+      <TopHeader />
       <NavBar>
       </NavBar>
-      <AnimatePresence mode='wait' initial>
+      {/* <AnimatePresence mode='wait' initial>
         <motion.div
           initial='initial'
           animate='animate'
@@ -31,11 +33,11 @@ const RootElement = () => {
           variants={pageAnimationVariants}
           transition={pageAnimationVariantsTransiton}
           key={pathname}
-        >
+        > */}
           <Outlet />
           <Footer />
-        </motion.div>
-      </AnimatePresence>
+        {/* </motion.div>
+      </AnimatePresence> */}
 
       <Toaster />
     </>

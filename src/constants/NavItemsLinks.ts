@@ -24,6 +24,16 @@ export const NavItemsLinks: INavItemsLinks[] = [
     icon: LogInIcon,
   },
   {
+    name: "Services",
+    link: "/#services",
+    icon: LogInIcon,
+  },
+  {
+    name: "Products",
+    link: "/#products",
+    icon: LogInIcon,
+  },
+  {
     name: "DashBoard",
     link: "/",
     icon: LogInIcon,
@@ -36,6 +46,11 @@ export const NavItemsLinks: INavItemsLinks[] = [
   {
     name: "Contact Us",
     link: "/home/contact-us",
+    icon: LogInIcon,
+  },
+  {
+    name: "About Us",
+    link: "/home/about-us",
     icon: LogInIcon,
   },
 ];
