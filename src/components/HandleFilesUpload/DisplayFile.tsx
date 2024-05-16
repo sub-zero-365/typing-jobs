@@ -22,7 +22,7 @@ const DisplayFile = () => {
                 <AnimatePresence initial={false}  >
 
                     {
-                        ((isSelected==0) || isSelected) && <SelectedComponent />
+                        (isSelected===0 || isSelected) && <SelectedComponent />
                     }
 
 
