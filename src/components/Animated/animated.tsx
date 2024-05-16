@@ -84,7 +84,7 @@ export function AnimateError({
     return (
 
         <div className={
-            cn(`mb-6 flex max-w-sm mx-auto
+            cn(`mb-1    flex max-w-sm mx-auto
         items-center
         justify-between
         text-xs font-medium

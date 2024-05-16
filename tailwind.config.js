@@ -5,7 +5,7 @@ const {
 } = require("tailwindcss/lib/util/flattenColorPalette");
 
 module.exports = {
-  // darkMode: ["class"],
+  darkMode: ["class"],
   content: [
     './pages/**/*.{ts,tsx}',
     './components/**/*.{ts,tsx}',
@@ -56,7 +56,7 @@ module.exports = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        colorPrimary: "var(--color-primary,red)"
+        colorPrimary: "hsl(var(--color-primary,red))"
       },
       borderRadius: {
         lg: "var(--radius)",

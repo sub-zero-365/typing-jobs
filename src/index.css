@@ -49,7 +49,7 @@
     --radius: 0.5rem;
 
     --main-bg-color: rgb(232, 237, 234);
-    --color-primary: #271e32;
+    --color-primary: 267 25% 16%;
   }
 
   .dark {
@@ -90,7 +90,7 @@
     @apply border-border;
   }
   body {
-    @apply bg-[var(--main-bg-color)] text-foreground font-poppins;
+    @apply bg-[var(--main-bg-color)] text-foreground font-poppins dark:bg-[var(--dark-color)];
   }
 
   .parent:focus-within {

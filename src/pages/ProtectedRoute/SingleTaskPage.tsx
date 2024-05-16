@@ -8,7 +8,7 @@ import { Document, Page } from 'react-pdf';
 export const loader = () => {
     return null
 }
-const SingleTaskPage = () => {
+const SingleTaskPage = ({ pdfFile }: { pdfFile?: any }) => {
     const [numPages, setNumPages] = useState<number>();
     const [pageNumber, _setPageNumber] = useState<number>(1);
     function onDocumentLoadSuccess({ numPages }: { numPages: number }): void {
@@ -21,8 +21,12 @@ const SingleTaskPage = () => {
                 <div>
                     <Heading>Document Detail</Heading>
                     <Document
-                    className='border-2 border-green-700 max-w-md'
-                    file="https://www.antennahouse.com/hubfs/xsl-fo-sample/pdf/basic-link-1.pdf"
+                        className='border-2 border-green-700 max-w-md'
+                        file=
+                        {pdfFile ||
+                            "https://www.antennahouse.com/hubfs/xsl-fo-sample/pdf/basic-link-1.pdf"
+                        
+                        }
                         onLoadSuccess={onDocumentLoadSuccess}>
                         <Page pageNumber={pageNumber} />
                     </Document>

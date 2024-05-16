@@ -17,7 +17,6 @@ import UserSelect from 'react-select'
 import { usersoptions } from "../../constants/options.js";
 export default function SignupFormDemo() {
   const user = useGetLoginUser()
-  // const message = useActionData()
   const UserSchema: ZodType<userRegister> = z
     .object({
       name: z.string({ required_error: "" })
@@ -93,10 +92,6 @@ export default function SignupFormDemo() {
   }, [error])
   return (
     <div className="max-w-md w-full mx-auto rounded-none  p-4 md:p-8 shadow-input bg-white dark:bg-black">
-      <h2 className="font-bold text-xl text-neutral-800 dark:text-neutral-200">
-        Welcome to Aceternity
-      </h2>
-
       <form className="my-8"
         method="post"
         onSubmit={handleSubmit(onSubmit)}
@@ -104,7 +99,7 @@ export default function SignupFormDemo() {
         <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-2 mb-4">
           <LabelInputContainer>
             <Label htmlFor="name">Full  Name</Label>
-            <Input id="name" placeholder="example user" type="text" name="name"
+            <Input id="name" placeholder="example user" type="text"
               {...register('name')}
             />
           </LabelInputContainer>
@@ -112,14 +107,14 @@ export default function SignupFormDemo() {
         {errors.name && <span className="error">{errors?.name?.message?.toString()}</span>}
         <LabelInputContainer className="mb-4">
           <Label htmlFor="phoneNumber">Phone Number</Label>
-          <Input id="phoneNumber" placeholder="6........" type="number" name="phoneNumber"
+          <Input id="phoneNumber" placeholder="6........" type="number" 
             {...register('phoneNumber')}
           />
         </LabelInputContainer>
         {errors.phoneNumber && <span className="error">{errors?.phoneNumber?.message?.toString()}</span>}
         <LabelInputContainer className="mb-4">
           <Label htmlFor="email">Email Address</Label>
-          <Input id="email" placeholder="example@fc.com" type="email" name="email"
+          <Input id="email" placeholder="example@fc.com" type="email" 
             {...register('email')}
           />
         </LabelInputContainer>
@@ -137,7 +132,7 @@ export default function SignupFormDemo() {
           <Label htmlFor="confirmPassword">confirmPassword</Label>
           <Input id="confirmPassword" placeholder="••••••••"
 
-            type="confirmPassword" name="confirmPassword"
+            type="confirmPassword" 
             {...register('confirmPassword')}
           />
         </LabelInputContainer>

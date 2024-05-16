@@ -11,7 +11,9 @@ interface iSubmitDocLaYoutContext {
     handleDeleteFile: any,
     nextPage: () => string,
     state: any,
-    setState: any
+    setState: any,
+    isSelected:any, 
+    setIsSelected:any
 }
 
 interface iUser {
@@ -40,7 +42,6 @@ const SubmitDocLayout = () => {
             name: "Payment"
         },
     ]
-    const location = useLocation();
 
     const handleFilesChange = (file: any) => {
         setPdfFiles(prevFiles => [...prevFiles, ...file])
@@ -50,6 +51,7 @@ const SubmitDocLayout = () => {
         tmp.splice(idx, 1);
         setPdfFiles([...tmp])
     }
+    const [isSelected, setIsSelected] = React.useState(false);
     const nextPage = () => {
         return "page"
     }
@@ -70,12 +72,13 @@ const SubmitDocLayout = () => {
             handleDeleteFile,
             nextPage,
             state,
-            setState
+            setState,
+            isSelected, setIsSelected
         }}>
             <Heading className='text-center text-3xl mb-6 uppercase font-bold my-6'>Upload Document(s) </Heading>
 
-            <Scrollable className='my-6 scrollto max-w-fit px-4 mx-auto'
-                direction='column'
+            <Scrollable className='my-6 gap-x-1 scrollto [--light-color:hsl(var(--color-primary))] [--scroll-to-height:7px] max-w-fit px-4 mx-auto'
+                direction='row'
             >
 
                 {
@@ -85,9 +88,9 @@ const SubmitDocLayout = () => {
                         }}
                         show
                         replace
-                        selectedClassName='text-green-800 !pointer-events-none'
+                        selectedClassName='text-green-800 !pointer-events-none text-white bg-colorPrimary'
                         animateClassName="inset-0 size-full shadow-md  right-0  bg-purple-600/60 !pointer-events-none rounded-full"
-                        className='bg-transparent capitalize w-fit px-6 shadow rounded-full text-sm shadow-colorPrimary mb-2 h-10 flex items-center !pointer-events-none text-black hover:bg-purple-600/20'
+                        className='bg-transparent text-xs lg:text-sm capitalize w-fit px-4 shadow text-black rounded-full  shadow-colorPrimary mb-2 h-9 flex items-center !pointer-events-none  hover:bg-purple-600/20'
 
                     >
                         ({idx + 1}) {page.name}</CustomNavLink>)

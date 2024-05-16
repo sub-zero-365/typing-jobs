@@ -154,12 +154,12 @@ const WhyChooseUs = () => {
     }
   }, [selectedId])
   return (
-    <section className='bg-white py-32 overflow-hidden'>
+    <section className='bg-white- py-32 overflow-hidden'>
       <div className="max-w-7xl mx-auto px-4">
-        <VariantHeading className='text-center gap-x-3 uppercase mb-6 flex items-center text-blue-950 [font-family:var(--second-font)] font-black text-3xl lg:text-4xl max-w-fit mx-auto'>
+        <VariantHeading className='text-center gap-x-3 uppercase mb-6 flex items-center text-colorPrimary [font-family:var(--second-font)] font-black text-3xl lg:text-4xl max-w-fit mx-auto'>
 
           <span
-            className='w-10  h-[1px] bg-colorPrimary '
+            className='w-10  h-[1px] bg-colorPrimary/70 '
           />  <span>OUR SERVICES</span>
           <span
             className='w-10  h-[1px] bg-colorPrimary '

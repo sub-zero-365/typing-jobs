@@ -88,7 +88,7 @@ const router = createBrowserRouter([
             // path: "login",
             element: <Suspense fallback={<div>loading ... </div>}>
               <Login /></Suspense>,
-            action: loginAction(queryClient),
+            action: loginAction,
             loader: loginLoader
           },
           {
