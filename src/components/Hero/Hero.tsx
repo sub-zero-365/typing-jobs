@@ -4,10 +4,7 @@ import AnimatedLinks from "../Links/AnimatedLinks.js";
 import { Swiper, SwiperSlide, } from 'swiper/react';
 import { motion } from "framer-motion";
 
-import 'swiper/css';
-import 'swiper/css/effect-fade';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
+
 import { Spotlight } from '../Animated/animated';
 import { TypewriterEffect } from '../TypeWriter';
 import { Button } from '../ui/button';
@@ -25,7 +22,7 @@ const words: {
             {
                 text: "Stuffs",
             },
-          
+
             {
                 text: "look",
                 className: "text-blue-500 dark:text-blue-500  ",
@@ -34,7 +31,7 @@ const words: {
             {
                 text: "Better",
             },
-           
+
             ], description: "From everyday documents and cherished photos to eye-catching posters and vibrant banners, we print it all with speed, ease, and stunning quality."
 
         },
@@ -48,14 +45,14 @@ const words: {
             {
                 text: "Your",
             },
-          
+
             {
                 text: "Prints",
                 className: "text-blue-500 dark:text-blue-500  ",
 
             },
-          
-           
+
+
             ], description: "Ditch the grainy, ink-streaked disasters. We use top-notch equipment and expert know-how to make your prints look sharp, polished, and ready to impress."
 
         },
@@ -94,13 +91,15 @@ const words: {
         },
     ];
 const Hero = () => {
+    const [swiper, setSwiper] = React.useState<any>(null)
+    console.log("swper",swiper)
     return (
         <div>
             <div className="h-[min(calc(100vh-4rem),40rem)]  flex-col w-full rounded-none flex md:items-center md:justify-center  bg-black/[0.50] antialiased bg-grid-white/[0.02] relative overflow-hidden">
                 <Swiper
                     spaceBetween={30}
                     effect={'fade'}
-
+                
                     autoplay={{ delay: 2000, }}
                     modules={[EffectFade, Navigation, Pagination, Autoplay]}
                     className="!size-full !absolute "
@@ -136,6 +135,10 @@ const Hero = () => {
 
                 <Swiper
                     // effect={'fade'}
+                    loop
+                    longSwipes
+                
+                    onSwiper={setSwiper}
                     direction='vertical'
                     autoplay={{ delay: 5000, }}
                     modules={[Navigation, Pagination, Autoplay]}
@@ -143,7 +146,9 @@ const Hero = () => {
 
                     {
                         words.map(word => (
-                            <SwiperSlide className='h-full '>
+                            <SwiperSlide 
+                            
+                            className='h-full '>
                                 <div className="bg-black/[0.8] w-full flex items-center justify-center relative h-full z-[20]">
                                     <Spotlight
                                         className="-top-40 left-0 md:left-60 md:-top-20"
@@ -152,6 +157,7 @@ const Hero = () => {
                                     <div className=" p-4 max-w-7xl  mx-auto relative z-10  w-full pt-20 md:pt-0">
                                         <div>
                                             <TypewriterEffect
+                                            _key={swiper?.activeIndex}
                                                 className="text-4xl- font-pacifico text-white"
                                                 wordClassName="text-4xl lg:text-7xl xxl:text-8xl"
                                                 words={word.text} />
@@ -183,7 +189,7 @@ const Hero = () => {
                                                 </AnimatedLinks>
 
                                             </Button>
-                                          
+
 
                                         </div>
                                         <div

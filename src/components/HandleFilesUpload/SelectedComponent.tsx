@@ -2,7 +2,7 @@ import React from 'react'
 import { motion } from "framer-motion"
 import { useSubmitDocLayoutContext } from '../layout/SubmitDocLayout'
 import SinglePdfWithReactPdf from './SinglePdfWithReactPdf';
-import { useDebounceCallback, useResizeObserver } from 'usehooks-ts'
+import {useResizeObserver } from 'usehooks-ts'
 const SelectedComponent = () => {
     const ref = React.useRef<HTMLDivElement>(null)
     const { setIsSelected, isSelected, pdfFiles } = useSubmitDocLayoutContext();
@@ -22,7 +22,7 @@ const SelectedComponent = () => {
     }, [isSelected])
     return (
         <div
-            onClick={() => setIsSelected(null)}
+            onClick={() => setIsSelected && setIsSelected(null)}
             className='fixed inset-0 z-[100] bg-slate-900/20 backdrop-blur flex justify-center items-center'>
 
             <motion.div
@@ -31,8 +31,8 @@ const SelectedComponent = () => {
                     e.stopPropagation()
                 }}
 
-                layoutId={isSelected}
-                className=' overflow-hidden max-w-[50rem] scrollto w-[calc(100%-1rem)] mx-auto rounded-lg text-white mt-16- bg-colorPrimary  h-[min(40rem,calc(100vh-4rem))] overflow-y-auto'>
+                layoutId={`${isSelected}`}
+                className=' overflow-x-hidden max-w-[50rem] scrollto w-[calc(100%-1rem)] mx-auto rounded-lg text-white mt-16- bg-colorPrimary  h-[min(40rem,calc(100vh-4rem))] !overflow-y-auto'>
                 <SinglePdfWithReactPdf
                     pdfFile={file}
                     width={width}

@@ -43,7 +43,11 @@ import Payment from './pages/Payment.js'
 import DocPage from './pages/DocPage.js'
 import UserInForPage from './pages/UserInForPage.jsx'
 import Preview from './pages/Preview.js'
-
+import { Toaster } from 'react-hot-toast';
+import 'swiper/css';
+import 'swiper/css/effect-fade';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
 pdfjs.GlobalWorkerOptions.workerSrc = new URL(
   'pdfjs-dist/build/pdf.worker.min.js',
   import.meta.url,
@@ -95,7 +99,7 @@ const router = createBrowserRouter([
             path: "register",
             element: <Suspense fallback={<div>loading ... </div>}>
               <Register /></Suspense>,
-            action: loginAction(queryClient),
+            action: loginAction,
             loader: loginLoader
           },
 
@@ -223,11 +227,11 @@ function App() {
   return (
     <Provider store={store}>
       <QueryClientProvider client={queryClient}>
-
         <RouterProvider
           router={router}
         ></RouterProvider>
       </QueryClientProvider>
+      <Toaster />
     </Provider>
 
   )

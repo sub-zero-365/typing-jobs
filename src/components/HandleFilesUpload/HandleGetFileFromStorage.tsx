@@ -1,10 +1,7 @@
 import React, { useState } from 'react'
-import { Input } from "../ui/input.js"
-import { Label } from "../ui/label.js"
 import { Button } from '../ui/button.js'
 // import { iMiniPost } from '../pages/ProtectedRoute/NewLogistics.js'
 import { useDropzone } from 'react-dropzone'
-import { Textarea } from '../ui/textarea.js'
 import { useSubmitDocLayoutContext } from '../layout/SubmitDocLayout.js'
 
 const HandleGetFileFromStorage = () => {
