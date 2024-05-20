@@ -15,6 +15,7 @@ import NavItem from './NavItem.js';
 import Theme from './Theme.js';
 import SpringModal from './modals/MainModal.js';
 import { Button } from './ui/button.js';
+import { MainLogo } from '../assets/logo/index.js';
 
 const NavBar = () => {
   const { logOut } = useAuthenticalUser()
@@ -62,7 +63,10 @@ const NavBar = () => {
             NavItemsLinks.map((item, idx) => {
               if (user == null && item.name.toLocaleLowerCase() == "dashboard") return
               return (<NavItem
+              
+                closeModal={() => setIsOpen(false)}
                 {...item}
+                to={item.link}
                 key={idx}
                 index={idx}
               />)
@@ -115,7 +119,7 @@ const NavBar = () => {
             duration: 0.2,
           }}
 
-          className='flex overflow-hidden bg-black text-white items-center h-16  sticky top-0 cursor-none w-full z-50    dark:bg-black dark:text-white'>
+          className='flex overflow-hidden bg-gray-400 text-white items-center h-16  sticky top-0 cursor-none w-full z-50    dark:bg-black dark:text-white'>
           <div ref={navbarRef} className='w-full
             
               '>
@@ -129,10 +133,11 @@ const NavBar = () => {
 
             >
               <div className='flex justify-between sm:container mx-auto items-center'>
-                <AnimatedLinks
+                {/* <AnimatedLinks
                   to='/home'
                   text={import.meta.env.VITE_APP_NAME || ''}
-                />
+                /> */}
+                <Link to={"/home"}>    <img src={MainLogo} alt="applogo" className='w-32 h-12' /></Link>
                 <div className=' space-x-4 hidden lg:flex items-center'>
                   {
                     NavItemsLinks.map(linkItem => {
@@ -151,54 +156,54 @@ const NavBar = () => {
                       )
                     })
                   }
-                       <div
-                  className='lg:flex items-center  space-x-2 hidden '
-                >
+                  <div
+                    className='lg:flex items-center  space-x-2 hidden '
+                  >
 
 
 
-                  {
-                    !user ? <>
-                      <Button asChild className='bg-gradient-to-r from-green-400 to-blue-500 hover:from-pink-500 hover:to-yellow-500'>
-                        <Link
-                          to='/home/auth/register'
-                          className='text-xs'
-                        >
-                          Create Acount
-                        </Link>
-                      </Button>
-                      <Button asChild className='relative'>
-                        <Link
-                          to='/home/auth'
-                          className='text-xs'
-                        >
-                          Login
-                        </Link>
-                      </Button>
-                    </> : <>
-                      <Link to={"/dashboard/profile"}
-                        className='p-1 hover:ring-2
+                    {
+                      !user ? <>
+                        <Button asChild className='bg-gradient-to-r from-green-400 to-blue-500 hover:from-pink-500 hover:to-yellow-500'>
+                          <Link
+                            to='/home/auth/register'
+                            className='text-xs'
+                          >
+                            Create Acount
+                          </Link>
+                        </Button>
+                        <Button asChild className='relative'>
+                          <Link
+                            to='/home/auth'
+                            className='text-xs'
+                          >
+                            Login
+                          </Link>
+                        </Button>
+                      </> : <>
+                        <Link to={"/dashboard/profile"}
+                          className='p-1 hover:ring-2
       size-[2.5rem] rounded-full grid place-items-center
       bg-slate-400/15 hover:bg-slate-400/25
       transition-all duration-500 '>
-                        <Avatar className='rounded-full'>
-                          <AvatarImage className='rounded-full' src="https://github.com/shadcn.png" alt="@shadcn" />
-                          <AvatarFallback>CN</AvatarFallback>
-                        </Avatar>
-                      </Link>
-                      <Button
-                        variant='destructive'
-                        onClick={() => logOut()}
-                      >logout</Button>
-                    </>
+                          <Avatar className='rounded-full'>
+                            <AvatarImage className='rounded-full' src="https://github.com/shadcn.png" alt="@shadcn" />
+                            <AvatarFallback>CN</AvatarFallback>
+                          </Avatar>
+                        </Link>
+                        <Button
+                          variant='destructive'
+                          onClick={() => logOut()}
+                        >logout</Button>
+                      </>
 
-                  }
-                  {/* <Theme
+                    }
+                    {/* <Theme
                     className='size-6'
                     containerClassName='flex-none w-16'
                   /> */}
 
-                </div>
+                  </div>
                 </div>
 
                 <div className='p-1 cursor-pointer lg:hidden flex items-center space-x-2  transition-all duration-500 rounded-sm hover:rounded-none'>
@@ -212,7 +217,7 @@ const NavBar = () => {
 
                     size={25} />
                 </div>
-           
+
               </div>
             </div>
           </div>

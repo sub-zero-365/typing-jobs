@@ -1,0 +1,1 @@
+export const MainLogo = new URL("./logo.png", import.meta.url).href;

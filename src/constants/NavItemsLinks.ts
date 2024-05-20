@@ -1,9 +1,14 @@
 // import from "lucide-react"
 import {
   AudioWaveform,
+  ContactIcon,
+  Home,
+  HomeIcon,
   LayoutDashboard,
   LogInIcon,
+  LucideAlignHorizontalDistributeStart,
   LucideIcon,
+  LucideLayoutDashboard,
   PersonStanding,
   PlusCircle,
   User,
@@ -21,7 +26,7 @@ export const NavItemsLinks: INavItemsLinks[] = [
   {
     name: "Home",
     link: "/home",
-    icon: LogInIcon,
+    icon: HomeIcon,
   },
   {
     name: "Services",
@@ -29,29 +34,19 @@ export const NavItemsLinks: INavItemsLinks[] = [
     icon: LogInIcon,
   },
   {
-    name: "Products",
-    link: "/#products",
-    icon: LogInIcon,
-  },
-  {
     name: "DashBoard",
     link: "/",
-    icon: LogInIcon,
-  },
-  {
-    name: "About Us",
-    link: "/home/about-us",
-    icon: LogInIcon,
+    icon: LucideLayoutDashboard,
   },
   {
     name: "Contact Us",
     link: "/home/contact-us",
-    icon: LogInIcon,
+    icon: ContactIcon,
   },
   {
     name: "About Us",
     link: "/home/about-us",
-    icon: LogInIcon,
+    icon:LucideAlignHorizontalDistributeStart,
   },
 ];
 export const DashboardNavLinks: (typeof NavItemsLinks)[number][] = [

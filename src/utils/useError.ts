@@ -12,31 +12,26 @@ const useError = (
   }
 ): any => {
   const ms = options.ms || 5000;
-  const timerRef = useRef(null);
+  const timerRef = useRef<number | undefined>(undefined);
   const navigation = useNavigation();
   const isPageIdle = navigation.state === "submitting";
-  const [errMsg, setErrMsg] = useState<string | null>(null);
+  const [errMsg, setErrMsg] = useState<string | null | unknown>(null);
   useEffect(() => {
-    if (errMsg) {
-      setErrMsg(null);
-      clearTimeout(timerRef.current);
-    } else {
-      setErrMsg(null);
-      if (isPageIdle) return;
-      errors.forEach((err: string | null) => {
-        if (err) {
-          setErrMsg(err);
-        }
-      });
+    if (isPageIdle) return;
+    errors.forEach((err) => {
+      if (err) {
+        setErrMsg(err);
+        return;
+      }
+    });
 
-      timerRef.current = setTimeout(() => {
-        clearTimeout(timerRef.current);
-        setErrMsg(null);
-      }, ms);
-    }
+    timerRef.current = setTimeout(() => {
+      clearTimeout(timerRef?.current || undefined);
+      setErrMsg(null);
+    }, ms);
 
     return () => {
-      clearTimeout(timerRef.current);
+      clearTimeout(timerRef?.current);
     };
   }, [...errors.map((err) => err), isPageIdle]);
   return errMsg;

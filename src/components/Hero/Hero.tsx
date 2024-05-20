@@ -182,7 +182,7 @@ const Hero = () => {
                                             {/* check if the user is logged in  */}
                                             <Button
                                                 className=" hover:border-none capitalize pointer-events-auto
-                             py-6 text-sm bg-colorPrimary shadow-md shadow-black/60 border-white rounded-full h-16 px-14 animate-bounce "
+                             py-6 text-sm bg-colorPrimary shadow-md shadow-black/60 border-white rounded-full h-16 px-14 animate-bounce hover:animate-none"
                                             >
                                                 <AnimatedLinks to={"/home/upload"}
 

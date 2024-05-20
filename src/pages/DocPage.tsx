@@ -48,10 +48,10 @@ const DocPage = () => {
                 </Link>
                 <Link to="/home/auth/register" className='block w-full'>
                     <Button className=' w-full' >
-                    Create account
+                        Create account
                     </Button>
                 </Link>
-                
+
             </form>
         )
     }
@@ -73,7 +73,7 @@ const DocPage = () => {
                             </DialogHeader>
                             <ProfileForm />
                             <DialogClose asChild>
-                                <Button variant="outline">Cancel</Button>
+                                <Button variant="outline">Continue Without an Ancount</Button>
                             </DialogClose>
                         </DialogContent>
                     </Dialog>
@@ -92,7 +92,7 @@ const DocPage = () => {
                             <ProfileForm className="px-4" />
                             <DrawerFooter className="pt-2">
                                 <DrawerClose asChild>
-                                    <Button variant="outline">Cancel</Button>
+                                    <Button variant="outline">Continue Without an Ancount</Button>
                                 </DrawerClose>
                             </DrawerFooter>
                         </DrawerContent>

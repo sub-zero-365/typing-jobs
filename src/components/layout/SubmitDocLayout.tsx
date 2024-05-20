@@ -64,7 +64,7 @@ const SubmitDocLayout = () => {
             name: "Payment"
         },
         {
-            page: "/home/upload/download",
+            page: "/home/upload/invoice-download",
             name: "Download Invoice"
         },
     ]

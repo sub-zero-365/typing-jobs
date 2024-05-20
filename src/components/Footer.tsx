@@ -3,6 +3,7 @@ import Heading from './Heading'
 import { Link } from 'react-router-dom'
 import { IconBrandFacebook, IconBrandMessenger, IconBrandWhatsapp } from '@tabler/icons-react'
 import { cn } from '../lib/utils'
+import { MainLogo } from '../assets/logo/index.js';
 
 const PopOver = ({ children, text, className }: {
     children: React.ReactNode, text: string,
@@ -76,9 +77,14 @@ const Footer = ({ className }: { className?: string }) => {
             ">
 
                 <div className='lg:grid grid-cols-12 lg:flex-row '>
-                    <Heading className='flex-none text-3xl font-black mb-6  col-span-4'>
+                <div className=' col-span-4'>
+                <Link to={"/home"}>    <img src={MainLogo} alt="applogo" className='w-32 h-12' /></Link>
+                
+                </div>
+                
+                    {/* <Heading className='flex-none text-3xl font-black mb-6  col-span-4'>
                         {import.meta.env.VITE_APP_NAME}
-                    </Heading>
+                    </Heading> */}
                     <div className='flex-1 grid col-span-8 gap-y-6
                     grid-cols-[repeat(auto-fit,minmax(min(10rem,calc(100%-60px)),_1fr))]'>
 

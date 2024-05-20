@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react'
+import React, { Suspense, lazy } from 'react'
 import './App.css'
 // import { QueryClient } from '@tanstack/react-query'
 
@@ -17,7 +17,7 @@ import AuthLayout from './components/AuthLayout.js'
 import { RootElement } from './components/index.js'
 import { action as loginAction, loader as loginLoader } from './pages/Auth/Login.js'
 import { Login, Register } from "./pages/Auth"
-// import Register, { action as registerAction } from './pages/Auth/Register.js'
+
 import { Home, TrackingPage, } from './pages/index.js'
 import Dashboard, { loader as dashboardLoader } from './pages/ProtectedRoute/Dashboard.js'
 import DashBoardHome from './pages/ProtectedRoute/DashBoardHome.js'
@@ -39,6 +39,8 @@ import About from './pages/About.js'
 import EditedTaskHistory from './pages/ProtectedRoute/EditedTaskHistory.js'
 import { pdfjs } from 'react-pdf';
 import SubmitDocLayout from './components/layout/SubmitDocLayout.js'
+const OTPPage = lazy(() => import("./pages/OPTPage"))
+const DownLoadInvoice = lazy(() => import("./pages/DownLoadInvoice"))
 import Payment from './pages/Payment.js'
 import DocPage from './pages/DocPage.js'
 import UserInForPage from './pages/UserInForPage.jsx'
@@ -49,6 +51,7 @@ import 'swiper/css';
 import 'swiper/css/effect-fade';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
+import * as OTP from './pages/OPTPage'
 pdfjs.GlobalWorkerOptions.workerSrc = new URL(
   'pdfjs-dist/build/pdf.worker.min.js',
   import.meta.url,
@@ -105,7 +108,14 @@ const router = createBrowserRouter([
           },
 
 
+
         ]
+      }, {
+        path: "otp",
+        element: <Suspense fallback={<div>loading ... </div>} >
+          <OTPPage />
+        </Suspense>,
+        action: OTP.action
       },
       {
         path: "upload",
@@ -132,6 +142,15 @@ const router = createBrowserRouter([
         {
           path: "preview",
           element: <Preview />,
+
+        }
+          ,
+        {
+          path: "invoice-download",
+          element:<Suspense fallback={<div>loading ... </div>} >
+            <DownLoadInvoice/>
+          </Suspense>
+          ,
 
         }
 

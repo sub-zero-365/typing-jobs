@@ -15,6 +15,8 @@ import { isAxiosError } from "axios";
 import useGetLoginUser from "../../utils/getLogInUser.js";
 import UserSelect from 'react-select'
 import { usersoptions } from "../../constants/options.js";
+import { useNavigate } from "react-router-dom";
+import { Badge } from "../../components/ui/badge.js";
 export default function SignupFormDemo() {
   const user = useGetLoginUser()
   const UserSchema: ZodType<userRegister> = z
@@ -34,8 +36,8 @@ export default function SignupFormDemo() {
       role: z.union([z.literal("user"),
       z.literal("employee")]
       ).optional(),
-      phoneNumber:z.string({invalid_type_error:'number is required here'})
-      .min(9,'please 9 numbers are required to register ').max(12)
+      phoneNumber: z.string({ invalid_type_error: 'number is required here' })
+        .min(9, 'please 9 numbers are required to register ').max(12)
     })
     .refine((data) => data.password === data.confirmPassword, {
       message: "Passwords do not match",
@@ -43,7 +45,7 @@ export default function SignupFormDemo() {
     });
 
   // console.log(UserSchema.parse({ name: "" }))
-  
+
   const { register, handleSubmit,
     formState: { errors, }, setValue,
     clearErrors, reset: _reset } = useForm<userRegister>({
@@ -58,8 +60,8 @@ export default function SignupFormDemo() {
     })
   }
   console.error(errors)
-
-  const { mutate, failureReason, error, reset } = useMutation({
+  const navigate = useNavigate()
+  const { mutate, failureReason, error, reset ,} = useMutation({
     mutationFn: createUser,
     onError(error, _variables, _context) {
       if (isAxiosError(error)) {
@@ -67,7 +69,9 @@ export default function SignupFormDemo() {
       }
       console.log(error)
     },
-    onSuccess(_data, _variables, _context) {
+    onSuccess({ data }, _variables, _context) {
+      console.log(data)
+      navigate(`/home/otp?email=${data?.user?.email}`)
       reset()
       _reset()
     },
@@ -77,10 +81,7 @@ export default function SignupFormDemo() {
     mutate(data)// Submit the form data if passwords match
 
   };
-  let msg = "88"
-  if (isAxiosError(error)) {
-    msg = error.response.data?.msg
-  }
+
   useEffect(() => {
     let timer = setTimeout(() => {
       reset()
@@ -107,14 +108,14 @@ export default function SignupFormDemo() {
         {errors.name && <span className="error">{errors?.name?.message?.toString()}</span>}
         <LabelInputContainer className="mb-4">
           <Label htmlFor="phoneNumber">Phone Number</Label>
-          <Input id="phoneNumber" placeholder="6........" type="number" 
+          <Input id="phoneNumber" placeholder="6........" type="number"
             {...register('phoneNumber')}
           />
         </LabelInputContainer>
         {errors.phoneNumber && <span className="error">{errors?.phoneNumber?.message?.toString()}</span>}
         <LabelInputContainer className="mb-4">
           <Label htmlFor="email">Email Address</Label>
-          <Input id="email" placeholder="example@fc.com" type="email" 
+          <Input id="email" placeholder="example@fc.com" type="email"
             {...register('email')}
           />
         </LabelInputContainer>
@@ -132,7 +133,7 @@ export default function SignupFormDemo() {
           <Label htmlFor="confirmPassword">confirmPassword</Label>
           <Input id="confirmPassword" placeholder="••••••••"
 
-            type="confirmPassword" 
+            type="confirmPassword"
             {...register('confirmPassword')}
           />
         </LabelInputContainer>
@@ -141,7 +142,9 @@ export default function SignupFormDemo() {
         {/* {errMessage && <div className="error">
           {errMessage}
         </div>} */}
-        {failureReason?.message && <span className="error">{msg}</span>}
+        {failureReason?.message && <Badge variant="destructive"
+          className='w-[min(25rem,calc(100%-1rem))] mx-auto h-10 text-center flex items-center justify-center mb-2'
+        >{error?.response?.data?.msg}</Badge>}
         {user && user.role == 'admin' &&
           <UserSelect
             name="role"

@@ -3,18 +3,16 @@ import { cn } from '../lib/utils.js'
 import { LucideIcon } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
 import AnimatedLinks from './Links/AnimatedLinks.js';
-
-type NavItemsProps = {
-  className?: string,
-  index?: number,
+import { LinkProps } from 'react-router-dom';
+// interface x extends LinkProps
+interface NavItemsProps extends LinkProps {
+  index: number,
   name: string;
-  link?: string;
-  icon: LucideIcon
+  icon: LucideIcon,
+  closeModal:()=>void
 
 }
-type Point = {
-  x: number | null
-}
+
 
 
 
@@ -23,17 +21,18 @@ const NavItem = ({
   index,
   icon: Icon,
   name,
-  link,
-
+  to,
+closeModal
 
 }: NavItemsProps) => {
   const [hoverIndex, setIsMouseOver] = useState<null | number>(null)
   return (
     <div
-      key={index}
-      onMouseEnter={() => setIsMouseOver(index)}
-      onMouseLeave={() => setIsMouseOver(null)}
-      className={cn("border  p-2 relative overflow-hidden  rounded-xl ", className)}
+    key={index}
+    onMouseEnter={() => setIsMouseOver(index)}
+    onMouseLeave={() => setIsMouseOver(null)}
+    className={cn("border  p-2 relative overflow-hidden  rounded-xl ", className)}
+    onClick={closeModal}
     >
 
       <AnimatePresence>
@@ -62,7 +61,8 @@ const NavItem = ({
         <Icon></Icon>
         <AnimatedLinks
           className='text-sm'
-          to={link}
+          to={to}
+          text={name}
         >{name}</AnimatedLinks>
       </div>
     </div>

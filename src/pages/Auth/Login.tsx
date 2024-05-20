@@ -13,7 +13,7 @@ import { Loader } from '../../components/Loaders/loader.js'
 import { z } from "zod"
 import wait from '../../constants/wait.js'
 import toast from 'react-hot-toast';
-
+import dayjs from "dayjs"
 const validation = z.object({
   email: z.string({
     description: "some desc",
@@ -30,7 +30,7 @@ type FormData = z.infer<typeof validation> & {
   from?: string
 }
 
-const LoginNotification = () => {
+const LoginNotification = ({ userName }) => {
   return (toast.custom((t) => (
     <div
       className={`${t.visible ? 'animate-enter' : 'animate-leave'
@@ -47,10 +47,10 @@ const LoginNotification = () => {
           </div>
           <div className="ml-3 flex-1">
             <p className="text-sm font-medium text-gray-900">
-              Emilia Gates
+              {userName}
             </p>
             <p className="mt-1 text-sm text-gray-500">
-              Sure! 8:30pm works great!
+              {dayjs().format("DD/MM/YYYY")}
             </p>
           </div>
         </div>
@@ -71,9 +71,10 @@ export const action = async ({ request }) => {
   const formData = await request.formData();
   const data = Object.fromEntries(formData) as FormData;
   var from = data.from
+  await wait()
   try {
-    await customFetch.post('/auth/login', data);
-    LoginNotification()
+    const { user } = (await customFetch.post('/auth/login', data))?.data;
+    LoginNotification({ userName: user.name })
     return redirect("/")
   } catch (err) {
     return err?.response?.data?.msg || null
