@@ -39,6 +39,7 @@ const SubmitDocLayoutContext = createContext<iSubmitDocLaYoutContext>({
 });
 
 const SubmitDocLayout = () => {
+    const { pathname } = useLocation()
     const [pdfFiles, setPdfFiles] = React.useState<any[]>([]);
     const [user, setUser] = React.useState<iUser>({
         name: "",
@@ -86,7 +87,7 @@ const SubmitDocLayout = () => {
         if (pdfFiles.length <= 0) {
             navigate("/home/upload")
         }
-    }, [pdfFiles])
+    }, [pdfFiles, pathname])
     return (
         <SubmitDocLayoutContext.Provider value={{
             pdfFiles,
@@ -101,7 +102,7 @@ const SubmitDocLayout = () => {
         }}>
             <Heading className='text-center text-3xl mb-6 uppercase font-bold my-6'>Upload Document(s) </Heading>
 
-            <Scrollable className='my-6 gap-x-1 scrollto sticky top-16 py-4  bg-inherit [--light-color:hsl(var(--color-primary))] [--scroll-to-height:7px] max-w-fit px-4 mx-auto'
+            <Scrollable className='my-6 gap-x-1  scrollto sticky top-4 py-4  z-[10] [--scroll-to-height:7px] max-w-fit px-4 mx-auto'
                 direction='row'
             >
                 {
@@ -113,9 +114,9 @@ const SubmitDocLayout = () => {
                         replace
                         selectedClassName='text-green-800  !pointer-events-none text-white bg-colorPrimary'
                         animateClassName="inset-0 animate-pulse size-full shadow-md  right-0  bg-purple-600/60 !pointer-events-none rounded-full "
-                        className='bg-transparent text-xs lg:text-sm capitalize w-fit px-4 shadow text-medium rounded-full  shadow-colorPrimary mb-2 h-9 flex items-center !pointer-events-none  hover:bg-purple-600/20'
+                        className='bg-transparent text-xs relative z-20 bg-white lg:text-sm capitalize w-fit px-4 shadow text-medium rounded-full  shadow-colorPrimary mb-0.5 h-9 flex items-center !pointer-events-none  hover:bg-purple-600/20'
                     >
-                
+
                         <span className='!text-[10px] mr-1 font-black'>({idx + 1})</span> {page.name}</CustomNavLink>)
                 }
             </Scrollable>

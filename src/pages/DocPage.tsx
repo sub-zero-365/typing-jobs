@@ -101,8 +101,7 @@ const DocPage = () => {
             }
 
 
-            <Heading className='text-center'>upload files</Heading>
-            <div className="lg:flex w-full max-w-5xl mx-auto border-2 py-10" >
+            <div className="lg:flex w-full max-w-5xl mx-auto border-[1px] bg-gray-50 px-5 py-10" >
                 <HandleGetFileFromStorage />
                 <DisplayFile />
             </div>

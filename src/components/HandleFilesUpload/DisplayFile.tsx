@@ -13,16 +13,16 @@ const DisplayFile = () => {
     const isFiles = pdfFiles && pdfFiles?.length > 0
 
     return (
-        <div className='flex-1 border-4'>
+        <div className='flex-1'>
             <Heading
 
                 className='text-center mb-6 font-bold'>Lists Of Selected files</Heading>
-         
-            <div className='gap-y-2 px-4 gap-x-2 mb-6  grid grid-cols-[repeat(auto-fit,minmax(min(20rem,calc(100%-60px)),_1fr))]'>
+
+            <div className='gap-y-2 px-4 gap-x-2 mb-6 items-start grid grid-cols-[repeat(auto-fit,minmax(min(20rem,calc(100%-60px)),_1fr))]'>
                 <AnimatePresence initial={false}  >
 
                     {
-                        (isSelected===0 || isSelected) && <SelectedComponent />
+                        (isSelected === 0 || isSelected) && <SelectedComponent />
                     }
 
 

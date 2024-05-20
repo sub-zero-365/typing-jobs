@@ -44,6 +44,7 @@ import DocPage from './pages/DocPage.js'
 import UserInForPage from './pages/UserInForPage.jsx'
 import Preview from './pages/Preview.js'
 import { Toaster } from 'react-hot-toast';
+import { Worker } from '@react-pdf-viewer/core';
 import 'swiper/css';
 import 'swiper/css/effect-fade';
 import 'swiper/css/navigation';
@@ -227,9 +228,11 @@ function App() {
   return (
     <Provider store={store}>
       <QueryClientProvider client={queryClient}>
-        <RouterProvider
-          router={router}
-        ></RouterProvider>
+        <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.4.120/build/pdf.worker.min.js">
+          <RouterProvider
+            router={router}
+          ></RouterProvider>
+        </Worker>
       </QueryClientProvider>
       <Toaster />
     </Provider>

@@ -10,13 +10,13 @@ export const TypewriterEffect = ({
     words,
     className,
     cursorClassName,
-    wordClassName, _key
+    wordClassName,
 }: {
     words: IWordArray;
     className?: string;
     cursorClassName?: string;
     wordClassName?: string;
-    _key?: number
+
 
 }) => {
     // split text inside of words into array of characters
@@ -35,7 +35,8 @@ export const TypewriterEffect = ({
                 "span",
                 {
                     display: "inline-block",
-                    opacity: 1,
+                    opacity: [0.1, 1],
+                    rotate: [15, 0]
                 },
                 {
                     duration: 0.3,
@@ -49,7 +50,7 @@ export const TypewriterEffect = ({
     const renderWords = (className: string = "") => {
         return (
             <motion.div
-               
+
                 ref={scope} className="inline">
                 {wordsArray.map((word, idx) => {
                     return (

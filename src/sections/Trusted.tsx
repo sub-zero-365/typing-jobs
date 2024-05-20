@@ -8,7 +8,7 @@ import { animateHeadingVariants, animateHeadingVariants2 } from '../utils/framer
 import { AnimatedSlideText } from '../components/Animated/animated'
 import { useMediaQuery } from 'react-responsive'
 import { BlackKeyBoard, CartoonKeyBoard, ManTyping, WomanTyping } from '../assets/images'
-
+import { X } from "lucide-react"
 export const contents = [
   {
     title: "We Provide 1",
@@ -124,7 +124,7 @@ const ServiceCard = ({
       {title}:
     </VariantHeading>
     <ol className='list-disc pl-6'>
-      {Array.from({ length: 2}, (arr, idx) => <li
+      {Array.from({ length: 2 }, (arr, idx) => <li
         className='text-sm'
         key={idx}>
         Lorem ipsum dolor sit amet consectetur.
@@ -177,18 +177,32 @@ const WhyChooseUs = () => {
             <div
               onClick={() => setSelectedId(null)}
               className='fixed inset-0 z-[100] bg-slate-900/20 backdrop-blur flex justify-center items-center'>
+              <div className='relative  mx-auto max-w-[40rem] w-[calc(100%-1rem)]'>
+                <span className='absolute top-0 right-0 size-10 rounded-sm shadow-sm flex items-center justify-center place-items-center text-white bg-red-50   z-50 '
+                  onClick={() => setSelectedId(null)}
 
-              <motion.div
-                onClick={(e) => {
-                  e.stopPropagation()
-                }}
-
-                layoutId={selectedId.title}
-                className=' overflow-hidden max-w-[30rem] scrollto w-[calc(100%-1rem)] rounded-lg text-white mt-16 bg-colorPrimary py-10 px-6 h-[min(30rem,calc(100vh-6rem))] overflow-y-auto'>
+                >
+                  <X color='red' className='font-black' />
+                </span>
 
                 <motion.div
-                  className=''
-                >
+                  transition={{
+                    duration: 0.2
+                  }}
+                  exit={{
+                    transition: {
+                      duration: 0.2
+                    }
+                  }}
+                  onClick={(e) => {
+                    e.stopPropagation()
+                  }}
+
+                  layoutId={selectedId.title}
+                  className=' overflow-hidden relative w-full scrollto  rounded-lg  text-black  bg-white py-10 px-6 h-[min(40rem,calc(100vh-2rem))] lg:h-[min(30rem,calc(100vh-2rem))] overflow-y-auto'>
+
+
+
 
                   <div className=' relative  overflow-hidden h-56 sm:h-60 lg:h-64   rounded-xl'>
 
@@ -215,8 +229,11 @@ const WhyChooseUs = () => {
 
 
 
+
                 </motion.div>
-              </motion.div>
+
+              </div>
+
             </div>
 
           )}

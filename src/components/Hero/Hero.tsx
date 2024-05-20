@@ -5,9 +5,10 @@ import { Swiper, SwiperSlide, } from 'swiper/react';
 import { motion } from "framer-motion";
 
 
-import { Spotlight } from '../Animated/animated';
+import { AnimatedSlideText, Spotlight } from '../Animated/animated';
 import { TypewriterEffect } from '../TypeWriter';
 import { Button } from '../ui/button';
+import { MoveRight } from "lucide-react"
 const words: {
     text: {
         text: string,
@@ -92,14 +93,14 @@ const words: {
     ];
 const Hero = () => {
     const [swiper, setSwiper] = React.useState<any>(null)
-    console.log("swper",swiper)
+    console.log("swper", swiper)
     return (
         <div>
             <div className="h-[min(calc(100vh-4rem),40rem)]  flex-col w-full rounded-none flex md:items-center md:justify-center  bg-black/[0.50] antialiased bg-grid-white/[0.02] relative overflow-hidden">
                 <Swiper
                     spaceBetween={30}
                     effect={'fade'}
-                
+
                     autoplay={{ delay: 2000, }}
                     modules={[EffectFade, Navigation, Pagination, Autoplay]}
                     className="!size-full !absolute "
@@ -137,7 +138,7 @@ const Hero = () => {
                     // effect={'fade'}
                     loop
                     longSwipes
-                
+
                     onSwiper={setSwiper}
                     direction='vertical'
                     autoplay={{ delay: 5000, }}
@@ -146,31 +147,33 @@ const Hero = () => {
 
                     {
                         words.map(word => (
-                            <SwiperSlide 
-                            
-                            className='h-full '>
+                            <SwiperSlide
+
+                                className='h-full '>
                                 <div className="bg-black/[0.8] w-full flex items-center justify-center relative h-full z-[20]">
                                     <Spotlight
                                         className="-top-40 left-0 md:left-60 md:-top-20"
                                         fill="white"
                                     />
                                     <div className=" p-4 max-w-7xl  mx-auto relative z-10  w-full pt-20 md:pt-0">
-                                        <div>
+                                        <div className='mb-4'>
                                             <TypewriterEffect
-                                            _key={swiper?.activeIndex}
                                                 className="text-4xl- font-pacifico text-white"
                                                 wordClassName="text-4xl lg:text-7xl xxl:text-8xl"
                                                 words={word.text} />
                                         </div>
+
                                         <motion.p
                                             initial={{
-                                                y: 100
+                                                y: 100,
+                                                scale: 0.5
                                             }}
                                             whileInView={{
                                                 y: 0,
+                                                scale: 1
                                             }}
                                             transition={{
-                                                duration: 2
+                                                duration: 1
                                             }}
                                             className="mt-4 font-poppins font-normal text-lg mb-6 text-neutral-300 max-w-lg text-center mx-auto ">
                                             {word.description}
@@ -179,13 +182,13 @@ const Hero = () => {
                                             {/* check if the user is logged in  */}
                                             <Button
                                                 className=" hover:border-none capitalize pointer-events-auto
-                             py-6 text-sm bg-colorPrimary border-white rounded-full h-16 px-14 "
+                             py-6 text-sm bg-colorPrimary shadow-md shadow-black/60 border-white rounded-full h-16 px-14 animate-bounce "
                                             >
                                                 <AnimatedLinks to={"/home/upload"}
 
                                                     className="w-full font-medium text-lg "
                                                 >
-                                                    get started
+                                                    get started <MoveRight className='inline-block ml-0.5' />
                                                 </AnimatedLinks>
 
                                             </Button>

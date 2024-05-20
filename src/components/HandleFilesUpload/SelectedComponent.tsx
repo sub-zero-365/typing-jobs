@@ -14,7 +14,7 @@ const SelectedComponent = () => {
     // const source = URL.createObjectURL(file!)
     React.useEffect(() => {
         if (isSelected) {
-            document.body.style.overflow = "hidden"
+            document.body.style.overflow = "hidden !important"
         } else {
             document.body.style.overflow = "auto"
 
