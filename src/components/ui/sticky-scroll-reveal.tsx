@@ -2,7 +2,6 @@
 import React, { useRef } from "react";
 import { useMotionValueEvent, useScroll } from "framer-motion";
 import { motion } from "framer-motion";
-// import { cn } from ";
 import { cn } from "../../lib/utils.js";
 import { VariantHeading } from '../../components/Heading'
 

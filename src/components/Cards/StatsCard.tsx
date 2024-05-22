@@ -30,7 +30,7 @@ function StatsCard({ className,
                 onMouseEnter={() => setHoverIndex(index)}
                 onMouseLeave={() => setHoverIndex(null)}
                 className={cn(
-                    ' flex-none relative p-2 border py-4 mb-4 block rounded-md shadow-lg  transition-all duration-300 bg-white', className
+                    ' flex-none relative p-2 border py-4 mb-4 block rounded-md shadow-xl  transition-all duration-300 bg-white', className
               
                     )}>
                 <AnimatePresence>
@@ -46,7 +46,7 @@ function StatsCard({ className,
                                 opacity: 0,
                                 transition: { duration: 0.15, delay: 0.2 },
                             }}
-                            className='absolute size-full ring-2 inset-0 rounded-sm'
+                            className='absolute size-full ring-2 inset-0 rounded-xl'
                         />
                     }
 

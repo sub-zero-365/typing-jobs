@@ -70,9 +70,5 @@ export const DashboardNavLinks: (typeof NavItemsLinks)[number][] = [
     link: "upload",
     icon: PlusCircle,
   },
-  {
-    name: "messages",
-    link: "newlogistic",
-    icon: PlusCircle,
-  },
+
 ];

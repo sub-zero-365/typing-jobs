@@ -29,7 +29,7 @@ const MainDropDown = () => {
     // const { logOutUser } = useAppContext()
     return (<DropdownMenu>
         <DropdownMenuTrigger asChild>
-            <Button variant="outline"> <Settings2 /></Button>
+            <Button variant="outline" className='rounded-full block size-12'> <span className='rounded-full block size-14' /></Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent sideOffset={10} className="w-56">
             <DropdownMenuLabel>My Account</DropdownMenuLabel>
@@ -90,7 +90,7 @@ const DashBoardHeader = () => {
     const currentLocation = pathname.split('/').reverse()[0].toString()
     const { setToggleSideBar, setShowFullContent, direction } = useDashBoardContext()
     return (
-        <div className='flex-none h-14 sticky top-0 left-0 ring-0 z-[10]  w-full shadow-lg bg-white px-2  flex items-center'>
+        <div className='flex-none h-14 !sticky !top-0 left-0 flex overflow-hidden  ring-0 z-[10]  w-full shadow-lg bg-white px-2   items-center'>
             <div className={cn('flex gap-x-4  justify-between items-center flex-1',
                 direction && "flex-row-reverse"
             )}>
@@ -109,22 +109,24 @@ const DashBoardHeader = () => {
                         <Menu />
                     </span>
                     <h1 className='uppercase'>
-                        <Link to={"/dashboard"}
-                            className='block  font-semibold mx-4 text-lg'
+                        <Link to={"/"}
+                            className='block  font-semibold mx-4  text-sm lg:text-lg'
                         >
                             {
                                 currentLocation
                             }
                         </Link>  </h1>
                 </div>
-                <div className='md:block hidden    flex-none
+                {/* <div className='md:block hidden    flex-none
                 w-[min(30rem,calc(100%-0.5rem))]
                 '>
 
-                </div>
+                </div> */}
                 {/* mobile view only */}
-                <div className='flex items-center gap-x-4 lg:hidden'>
-                    <Button>Create Task</Button>
+                <div className='flex items-center gap-x-4 md:hidden'>
+                <Link to="/upload">
+                        <Button>Create Task</Button>
+                    </Link>
                     <MainDropDown />
 
                 </div>

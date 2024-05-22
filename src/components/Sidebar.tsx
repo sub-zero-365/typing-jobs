@@ -4,37 +4,39 @@ import { useDashBoardContext } from '../pages/ProtectedRoute/Dashboard.js'
 import CustomNavLink from './CustomNavlink.js'
 import UserProfileCard from './UserProfileCard.js'
 import useGetLoginUser from '../utils/getLogInUser.js'
+import { Button } from './ui/button.js'
+import { cn } from '../lib/utils.js'
 const Sidebar = ({ className }: { className?: string }) => {
     const { toggleSideBar, setToggleSideBar, showFullContent, direction } = useDashBoardContext()
     const user = useGetLoginUser()
     return (
         <div
             onClick={() => setToggleSideBar(false)}
-            className={`
-            h-screen
+            className={cn(`  h-screen
             z-[1000]
             w-full sm:fit bg-green-400/15
     fixed
     transition-all duration-500
     sm:opacity-100 
-    sm:visible
-   ${toggleSideBar ? " opacity-100 visible" : " opacity-0 invisible "}
-            sm:static
-            `}
+    sm:visible  opacity-0 invisible   sm:static`,
+
+                toggleSideBar && "opacity-100 visible")}
+
         >
-            <div className={` delay-200--
-            transition-[width] duration-700
-sm:!translate-x-0
-   ${toggleSideBar ? direction ? "translate-x-full" : "translate-x-0" : " -translate-x-full "}
-   ${showFullContent ? "w-[min(200px,calc(100vw-0.5rem))]" : "w-fit p-1"}
-   border bg-slate-100 min-h-screen 
-    
-    `} onClick={(e: any) => e.stopPropagation()}>
-                {
-                    showFullContent && <UserProfileCard />
-                }
+            <div className={cn("transition-[width] pb-6 scrollto border bg-slate-100 min-h-screen w-fit p-1  duration-700 flex flex-col h-full  sm:!translate-x-0",
+                toggleSideBar ? direction ? "translate-x-full" : "translate-x-0" : "-translate-x-full",
+                showFullContent && "w-[min(200px,calc(100vw-0.5rem))]"
+            )}
+
+
+                onClick={(e: any) => e.stopPropagation()}>
+                <div className='flex-none'>
+                    {
+                        showFullContent && <UserProfileCard />
+                    }
+                </div>
                 {/* <Button onClick={() => setShowFullContent(c => !c)}>toggle</Button> */}
-                <div className='flex flex-col space-y-3 mt-4 px-2'>
+                <div className='flex flex-col space-y-3 mt-4 px-2 flex-1 overflow-y-auto'>
 
                     {DashboardNavLinks.map((arr, index) => {
                         const { icon: Icon, name, link } = arr
@@ -61,7 +63,11 @@ sm:!translate-x-0
                         )
                     })}
                 </div>
-
+                <div className='flex-none h-20 mb-6 md:hidden'>
+                    <Button variant="destructive"
+                        className='w-[calc(100%-1rem)] block mx-auto'
+                    >logout</Button>
+                </div>
             </div>
         </div>
 

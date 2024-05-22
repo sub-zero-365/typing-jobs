@@ -4,7 +4,7 @@ import {
     Dialog,
     DialogContent,
     DialogTrigger
-} from "@/components/ui/dialog"
+} from "../../components/ui/dialog"
 import { useQuery } from '@tanstack/react-query'
 import { useLoaderData } from 'react-router-dom'
 import FilterButton from '../../components/CustomFilterLink.js'
@@ -30,7 +30,6 @@ const allUserQuery = (params: Props) => {
     return (
         {
             queryFn: async () => {
-                await wait(5000)
                 const { data } = await customFetch.get<{ users: user[] }>('/users/allusers', {
                     params
                 })
@@ -91,14 +90,14 @@ const User = () => {
                     />
 
                 </div>
-                <div className='w-[25rem]  flex-none'>
+                {/* <div className='w-[25rem]  flex-none'>
                     <Suspense fallback={<div>loading ...</div>}
 
                     >
                         <Register />
                     </Suspense>
 
-                </div>
+                </div> */}
             </div>
             {/* dont know how to removethis error cause it not an error */}
 
@@ -119,9 +118,41 @@ const User = () => {
                     })
 
                 }
+                {
+                    dateSortedOptions.map(sorteddate => {
+                        const { label, value } = sorteddate
+                        return (
+                            <FilterButton
+                                filterType='sortedate'
+                                value={value}
+
+                            >
+                                {label}
+
+                            </FilterButton>
+                        )
+                    })
+
+                }
+                {
+                    dateSortedOptions.map(sorteddate => {
+                        const { label, value } = sorteddate
+                        return (
+                            <FilterButton
+                                filterType='sortedate'
+                                value={value}
+
+                            >
+                                {label}
+
+                            </FilterButton>
+                        )
+                    })
+
+                }
 
             </Scrollable>
-            <DataTable columns={allUsersColumns} data={users?.users} />
+            <DataTable columns={allUsersColumns} data={users?.users!!} />
         </Dialog>
     )
 }

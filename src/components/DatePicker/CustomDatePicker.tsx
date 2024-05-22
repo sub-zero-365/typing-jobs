@@ -12,7 +12,8 @@ import {
     PopoverContent,
     PopoverTrigger,
 } from "../../components/ui/popover"
-
+import { useFilter } from "../../hooks/CustomLinkFilterHook"
+import dayjs from "dayjs"
 export function DatePickerWithRange({
     className,
 }: React.HTMLAttributes<HTMLDivElement>) {
@@ -20,9 +21,16 @@ export function DatePickerWithRange({
         from: new Date(),
         to: addDays(new Date(), 0),
     })
-
+    const { handleFilterChange } = useFilter()
     React.useEffect(() => {
-        console.log("this is the date here ", date)
+        console.log({ from: date?.from, to: date?.to })
+        // if (date?.from) {
+        //     handleFilterChange({ key: "dateQuery", value: `from=${dayjs(date?.from).format("DD-MM-YY")},end=${date.to?dayjs(date?.to).format("DD-MM-YY"):''}` })
+     
+        // }
+        // else {
+        //     handleFilterChange({ key: "dateQuery" })
+        // }
     },
         [date]
     )

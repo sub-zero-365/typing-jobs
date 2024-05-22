@@ -8,11 +8,7 @@ interface iSearch
     extends React.InputHTMLAttributes<HTMLInputElement> {
 
 }
-// interface iSearch {
-//     className?: string,
 
-
-// }
 function SearchComponent({
     ...props
 }: iSearch) {
@@ -34,7 +30,7 @@ function SearchComponent({
         }
     }, [searchVal])
     return (
-        <div className='flex max-w-2xl w-full my-4 mx-auto items-stretch h-10 parent border-secondary rounded-lg cursor-pointer border-[3px]'>
+        <div className='flex max-w-2xl w-full my-4 mx-auto items-stretch h-10 parent  rounded-lg cursor-pointer border-[3px]'>
             <input
                 className={
                     cn(`flex-1 h-full

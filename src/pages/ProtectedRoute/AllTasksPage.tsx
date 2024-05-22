@@ -25,6 +25,8 @@ import { Scrollable } from '../../components/Scrollable.js';
 import FilterButton from '../../components/CustomFilterLink.js';
 import Heading from '../../components/Heading.js';
 import { Settings } from 'lucide-react';
+import { Input } from '../../components/ui/input.js';
+import { Button } from '../../components/ui/button.js';
 type Params = {
   search?: string,
   sort?: "asc" | "desc",
@@ -81,72 +83,66 @@ const RenderTable = () => {
   const { searchValues } = useLoaderData() as any
 
   const { defaultStats, nHits } = useQuery(statsQuery).data as any
-  console.log("this is the stats", defaultStats, nHits)
+  // console.log("this is the stats", defaultStats, nHits)
   const { tasks } = useQuery(AllLogisticsQuery(searchValues)).data as logisticsResponse
   const [searchParams] = useSearchParams()
+  const Query = () => {
+    return (<>
+      <DatePickerWithRange onChange={e => {
+        const { to, from } = e as any;
+        console.log({ to, from })
+
+      }} />
+      <Button
+        className='bg-colorPrimary  w-[calc(100%-1rem)] mx-auto block my-4 rounded-md'
+      >Query Date</Button>
+
+      <div className="flex items-center rounded-xl overflow-hidden placeholder:uppercase ">
+        <Input placeholder='ENTER ID  '
+        className='rounded-none '
+        />
+        <Button
+        className='rounded-none'
+        >Submit</Button>
+      </div>
+
+    </>)
+  }
+
   const showTable = searchParams.get('table-view') && searchParams.get('table-view') == 'card'
   return (
-    <>
-      <SheetTrigger className='fixed size-10 flex mr-4 items-center justify-center p-4 bg-slate-500  rounded-sm shadow-sm top-1/2 z-30 left-[min(calc(80rem-3rem),calc(100%-2.5rem))] translate-y-1/2'>
-      
-      <Settings size={20}  className='flex-none'/>
-      
-      </SheetTrigger>
-      <SheetContent
-        className='w-[min(25rem,calc(100%-4rem))] overflow-y-auto right-[calc(calc(100%-min(100%,80rem))/2)] items-start'
-        sheetOverlayClassName="w-full max-w-7xl z-[12]  -translate-x-1/2 left-1/2 " >
-        <SheetHeader>
-          {/* <SheetTitle>Are you absolutely sure?</SheetTitle> */}
-          <SheetDescription>
+    <div className='px-2'>
 
-          </SheetDescription>
-        </SheetHeader>
-        <DatePickerWithRange />
-        <Bar_Chart />
+      <div className='lg:flex  lg:flex-row items-start gap-x-6 '>
 
-      </SheetContent>
+        <div className='flex-1 flex-grow lg:w-[calc(100%-762626rem)]'>
+          <Stats defaultStats={defaultStats}
+            nHits={nHits} />
 
+          {
+            !showTable ? <Table columns={demousercolumns} data={demoUsers} /> :
+              <div className='grid gap-x-4 gap-6  grid-cols-[repeat(auto-fit,minmax(min(20rem,calc(100%-2rem)),1fr))]'>
+                {Array.from({ length: 100 }, (arr, idx) => {
+                  return <Tasks key={idx} />
+                })}
 
+              </div>
+          }
+        </div>
+        <div className='lg:w-[20rem]  flex-none sticky top-16'>
+          <Query />
+        </div>
+      </div>
 
-      <Stats defaultStats={defaultStats}
-        nHits={nHits} />
-      <Heading className='text-3xl mb-6  font-black'>
-        recent created task
-      </Heading>
-      <Scrollable
-
-      >
-        <FilterButton filterType='table-view'>
-          table
-        </FilterButton>
-        <FilterButton filterType='table-view'
-          value={"card"}
-        >
-          card
-        </FilterButton>
-      </Scrollable>
-      {
-        !showTable ? <Table columns={demousercolumns} data={demoUsers} /> :
-          <div className='grid gap-x-4 gap-6  grid-cols-[repeat(auto-fit,minmax(min(20rem,calc(100%-2rem)),1fr))]'>
-            {Array.from({ length: 100 }, (arr, idx) => {
-              return <Tasks key={idx}/>
-            })}
-
-          </div>
-      }
-
-    </>
+    </div>
   )
 }
 
 const AllLogisticsPage = () => {
   const { Logistics } = useLoaderData() as any
   return (
-    <Sheet >
-      <AnimatedText
-        text='Tasks'
-        className='text-center lg:text-start '
-      />
+    <>
+      <Heading className='text-2xl sticky top-14 font-semibold my-6 pl-6 lg:text-4xl'>TASKS</Heading>
       <React.Suspense
         fallback={<p>Loading your package please wait a little...</p>}
       >
@@ -159,7 +155,7 @@ const AllLogisticsPage = () => {
           <RenderTable />
         </Await>
       </React.Suspense>
-    </Sheet>
+    </>
   )
 }
 

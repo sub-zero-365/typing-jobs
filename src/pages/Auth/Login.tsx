@@ -71,7 +71,6 @@ export const action = async ({ request }) => {
   const formData = await request.formData();
   const data = Object.fromEntries(formData) as FormData;
   var from = data.from
-  await wait()
   try {
     const { user } = (await customFetch.post('/auth/login', data))?.data;
     LoginNotification({ userName: user.name })

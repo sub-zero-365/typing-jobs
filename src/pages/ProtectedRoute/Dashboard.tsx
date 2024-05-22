@@ -2,13 +2,11 @@ import { QueryKey, useQuery } from '@tanstack/react-query'
 import React, { createContext, useContext, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { Outlet, redirect, useNavigation } from 'react-router-dom'
-import { type IUserState, setUser } from '../../actions/userSlice.js'
+import { setUser, type IUserState } from '../../actions/userSlice.js'
 import DashBoardHeader from '../../components/DashBoardHeader.js'
 import { GlobalLoader } from '../../components/GlobalLoader.js'
 import Sidebar from '../../components/Sidebar.js'
-import { cn } from '../../lib/utils.js'
 import customFetch from '../../utils/customFetch.js'
-import { Notification } from '../../components/Notification/Notification.js'
 interface IUser {
     queryKey: QueryKey,
     queryFn: () => Promise<Exclude<IUserState, null>>,
@@ -55,10 +53,8 @@ const Dashboard = () => {
     const [toggleSideBar, setToggleSideBar] = useState<boolean>(false);
     const [showFullContent, setShowFullContent] = useState<boolean>(true);
     const [direction, setDirection] = useState<boolean>(false);
-    // const [toggle, setToggle] = useState<boolean>(false)
     return (
         <>
-            {/* <Notification /> */}
             <DashBoardContext.Provider value={{
                 toggleSideBar,
                 setToggleSideBar, setShowFullContent
@@ -69,25 +65,18 @@ const Dashboard = () => {
             }}>
 
 
-                <div className='h-screen max-w-7xl  overflow-y-auto  rounded-md mx-auto '>
+                <div className=' max-w-7xl flex  w-full   rounded-md mx-auto'>
 
-
-                    <div className={cn("flex flex-row",
-                        direction && "flex-row-reverse"
-                    )}>
                         <div className='flex-none h-screen z-[10001] sticky left-0 top-0 bottom-0'>
                             <Sidebar></Sidebar>
                         </div>
                         <div
-                            className='flex-1 w-[calc(100%-25rem)]  overflow-y-auto--  flex flex-col  '
+                            className='flex-1 w-[calc(100%-205rem)]     '
                         >
                             <DashBoardHeader />
-                            <div className='flex-1 p-2 overflow-x-hidden
-                        h-[calc(100vh-3.5rem)] overflow-y-auto-'>
                                 <Outlet context={{ user }} />
-                            </div>
                         </div>
-                    </div>
+                  
                     {isPageLoading && <GlobalLoader />}
                 </div>
             </DashBoardContext.Provider>

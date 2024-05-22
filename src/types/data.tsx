@@ -316,8 +316,15 @@ export const allUsersColumns: ColumnDef<user>[] = [
       return <div>{row.row.index + 1}</div>;
     },
 
-  },
-
+  }, {
+    accessorKey: "userId",
+    header: "User ID",
+    cell(props) {
+      const id = props.row.getValue("userId") as string
+      return <span className="font-semibold">{id}</span>
+    },
+  }
+  ,
 
   {
     accessorKey: "name",
@@ -326,12 +333,17 @@ export const allUsersColumns: ColumnDef<user>[] = [
       return (
         <Button
           variant="ghost"
+          className="w-full"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
           Name
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       )
+    },
+    cell({ row }) {
+      const name = row.original.name
+      return (<div className="min-w-40 break-keep flex flex-row items-center font-medium">{name}</div>)
     },
   },
   {
@@ -344,8 +356,8 @@ export const allUsersColumns: ColumnDef<user>[] = [
       return (
         <TooltipProvider>
           <Tooltip>
-            <TooltipTrigger> <span className={cn("rounded-sm text-sm  w-fit p-1 bg-red-600  ",
-              role == "admin" && "bg-orange-400"
+            <TooltipTrigger> <span className={cn("rounded-full py-1 font-medium shadow-sm px-4 text-xs text-red-800 sm:text-sm  w-fit  bg-red-200  ",
+              role == "admin" && "bg-orange-200 text-orange-800"
             )}>{role}</span></TooltipTrigger>
             <TooltipContent>
               {role}
@@ -380,35 +392,29 @@ export const allUsersColumns: ColumnDef<user>[] = [
     header: () => <div className="text-right">Emai Address</div>,
     cell: ({ row }) => {
       const email = row.original.email
-      // const amount = parseFloat(row.getValue("price"))
-      // const formatted = new Intl.NumberFormat("en-US", {
-      //   style: "currency",
-      //   currency: "USD",
-      // }).format(amount)
-
       return <div className="text-right font-medium">{email}</div>
     },
   },
 
-  {
-    header: "View",
-    id: "view",
-    cell: ({ row }) => {
-      const userId = row.original.userId
-      //the row value
+  // {
+  //   header: "View",
+  //   id: "view",
+  //   cell: ({ row }) => {
+  //     const userId = row.original.userId
+  //     //the row value
 
 
-      return <Link to={`/user/${userId}`}
-        state={{
-          rd_from: window.location.href
-        }}
-      >
-        <Button
-          variant="link"
-        >view  </Button>
-      </Link>
-    }
-  },
+  //     return <Link to={`/user/${userId}`}
+  //       state={{
+  //         rd_from: window.location.href
+  //       }}
+  //     >
+  //       <Button
+  //         variant="link"
+  //       >view  </Button>
+  //     </Link>
+  //   }
+  // },
   {
     header: "Action",
     id: "actions",
@@ -432,16 +438,11 @@ export const allUsersColumns: ColumnDef<user>[] = [
             </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem
-
             >
-              <Link to={`/dashboard/logistic/${log.userId}`}
-              // onClick={e => e.defaultPrevented(true)}
-              >View Logistic</Link>
+              <Link to={`/user/${log.userId}`}
+              >User Detail</Link>
             </DropdownMenuItem>
             <DropdownMenuItem>
-              {/* <Button variant="destructive">
-          delete
-        </Button> */}
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
