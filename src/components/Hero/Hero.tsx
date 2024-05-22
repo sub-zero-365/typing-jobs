@@ -9,6 +9,7 @@ import { AnimatedSlideText, Spotlight } from '../Animated/animated';
 import { TypewriterEffect } from '../TypeWriter';
 import { Button } from '../ui/button';
 import { MoveRight } from "lucide-react"
+import useGetLoginUser from '../../utils/getLogInUser.js';
 const words: {
     text: {
         text: string,
@@ -92,6 +93,7 @@ const words: {
         },
     ];
 const Hero = () => {
+    const user = useGetLoginUser()
     const [swiper, setSwiper] = React.useState<any>(null)
     console.log("swper", swiper)
     return (
@@ -184,7 +186,8 @@ const Hero = () => {
                                                 className=" hover:border-none capitalize pointer-events-auto
                              py-6 text-sm bg-colorPrimary shadow-md shadow-black/60 border-white rounded-full h-16 px-14 animate-bounce hover:animate-none"
                                             >
-                                                <AnimatedLinks to={"/home/upload"}
+                                            {/* redirect the user to dashboard if user is logged in */}
+                                                <AnimatedLinks to={user ? "/" : "/home/upload"}
 
                                                     className="w-full font-medium text-lg "
                                                 >

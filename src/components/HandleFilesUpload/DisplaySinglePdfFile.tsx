@@ -30,7 +30,7 @@ const DisplaySinglePdfFile = ({ file, idx }: any) => {
                 onClick={() => handleDeleteFile(idx)}
             >
                 <TrashIcon />
-                <small className='text-gray-400 font-bold'>size: {file?.size / 1000}mb</small>
+                <small className='text-gray-400 font-bold'>size: {(file?.size / 1_000_000).toFixed(1)}mb</small>
 
             </div>
 

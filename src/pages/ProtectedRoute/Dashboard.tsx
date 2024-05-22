@@ -58,7 +58,7 @@ const Dashboard = () => {
     // const [toggle, setToggle] = useState<boolean>(false)
     return (
         <>
-            <Notification />
+            {/* <Notification /> */}
             <DashBoardContext.Provider value={{
                 toggleSideBar,
                 setToggleSideBar, setShowFullContent

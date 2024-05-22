@@ -201,10 +201,50 @@ const router = createBrowserRouter([
         element: <SingleUser.default />,
         loader: SingleUser.loader(queryClient)
       },
+      // {
+      //   path: "newlogistic",
+      //   element: <NewLogistics />,
+      //   action: newLogisticAction(queryClient)
+      // },
       {
-        path: "newlogistic",
-        element: <NewLogistics />,
-        action: newLogisticAction(queryClient)
+        path: "upload",
+        element: <SubmitDocLayout />,
+        errorElement: <div>oops something went wrong</div>,
+        children: [{
+          index: true,
+          element: <DocPage />,
+
+        }
+          ,
+        {
+          path: "payment",
+          element: <Payment />,
+
+        }
+          ,
+        {
+          path: "user",
+          element: <UserInForPage />,
+
+        }
+          ,
+        {
+          path: "preview",
+          element: <Preview />,
+
+        }
+          ,
+        {
+          path: "invoice-download",
+          element:<Suspense fallback={<div>loading ... </div>} >
+            <DownLoadInvoice/>
+          </Suspense>
+          ,
+
+        }
+
+        ]
+
       },
       {
         path: "logistics",

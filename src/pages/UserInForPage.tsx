@@ -40,7 +40,7 @@ const UserInForPage = () => {
     const onSubmit = async (data: iUser) => {
         console.log("data", data)
         setUser(data)
-        navigate("/home/upload/preview")
+        navigate("../preview")
 
 
     }

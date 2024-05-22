@@ -22,6 +22,7 @@ const HandleGetFileFromStorage = () => {
         accept: {
             'application/pdf': ['.pdf'] // Only accept PDF files
         },
+        maxSize: 5 * 1_000_000// 5mb max_file_upload
 
     });
     const [pdfFiles, setPdfFiles] = useState<any[]>([]);
@@ -51,10 +52,10 @@ const HandleGetFileFromStorage = () => {
             <div>
                 <Tabs defaultValue="file" className="w-full pb-6 pt-4 ">
                     <TabsList className='!w-fit  flex  !mx-auto flex-none'>
-                        <TabsTrigger value="file" className='text-green-500'>Accepted Files</TabsTrigger>
-                        <TabsTrigger value="rejected" className='text-rose-500'>Rejected Files</TabsTrigger>
+                        <TabsTrigger value="file" className='text-green-500'>Accepted Files ({pdfFiles.length})</TabsTrigger>
+                        <TabsTrigger value="rejected" className='text-rose-500'>Rejected Files ({fileRejections.length})</TabsTrigger>
                     </TabsList>
-                    <TabsContent value="file">
+                    <TabsContent value="file" className='divide-y-[0.2px] space-y-1'>
                         {
                             isValid ? pdfFiles.map((file) => <div>file: {file?.name}:"No selected files"</div>) : <div>No selected files</div>
 
@@ -71,7 +72,7 @@ const HandleGetFileFromStorage = () => {
                             </Button>
                         }
                     </TabsContent>
-                    <TabsContent value="rejected">
+                    <TabsContent value="rejected" className='divide-y-[0.2px]'>
                         <Heading className='mb-4 text-center uppercase font-bold'>only pdf files are allow</Heading>
                         {
                             isRej ? fileRejections.map((file) => <div className='text-rose-500'>file: {file?.file?.name}</div>) : "no rejeccted files selected "

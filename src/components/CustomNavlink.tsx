@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, NavLinkProps } from "react-router-dom";
 import { Button, ButtonProps } from "./ui/button.js";
 // import { useFilter } from '../Hooks/FilterHooks'
 // import UiButton from '.Button'
@@ -7,38 +7,35 @@ import React from "react";
 import { cn } from "../lib/utils.js";
 
 
-interface IFilterProps extends ButtonProps {
-    className?: string;
-    children?: React.ReactNode;
+interface IFilterProps extends NavLinkProps {
     selectedClassName?: string;
     show?: boolean;
     animateClassName?: string;
-    to: string;
     replace?: boolean;
     end?: boolean;
+    layoutId?: string
 
 };
 
 const CustomNavLink = ({
     className, children, selectedClassName,
     show,
-    animateClassName, replace, to, end = true,
+    animateClassName,
+    layoutId,
     ...props }: IFilterProps) => {
     return (
-        <NavLink to={to}
-            end={end}
-            replace={replace}
-        className={({isActive})=>(cn("flex-none block relative w-full h-8", className, isActive && "",
-        isActive && selectedClassName
-    ))}
+        <NavLink {...props}
+            className={({ isActive }) => (cn("flex-none block relative w-full h-8", className, isActive && "",
+                isActive && selectedClassName
+            ))}
         >
             {({ isActive }) => (
                 <>
-                     {children}
+                    {children}
 
-                    { <AnimatePresence>
+                    {<AnimatePresence>
 
-                        {isActive&&show && <motion.span
+                        {isActive && show && <motion.span
 
                             initial={{ opacity: 0 }}
 
@@ -51,7 +48,7 @@ const CustomNavLink = ({
                                 transition: { duration: 0.15, delay: 0.2 },
                             }}
                             // layoutId
-                            layoutId="hoverBackground"
+                            layoutId={layoutId || "hoverBackground"}
 
                             className={cn("absolute left-0 right-0 bottom-0 h-[2px] w-full bg-blue-500 rounded-lg", animateClassName)}
                         ></motion.span>}

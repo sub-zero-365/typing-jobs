@@ -9,7 +9,8 @@ const AuthLayout = () => {
             <div className='grid px-4 text-center grid-cols-2 max-w-[28rem] mx-auto mb-5 w-full flex-row gap-4'>
 
                 <CustomNavLink to='.'
-                   
+                    end
+                    layoutId='somerandomlayoutid'
                     selectedClassName=''
                     animateClassName='inset-0 size-full bg-opacity-80 rounded-sm bg-purple-950'
                     className='bg-transparent text-black items-center flex justify-center hover:bg-slate-50'
@@ -18,11 +19,13 @@ const AuthLayout = () => {
                     Login
                 </CustomNavLink>
                 <CustomNavLink to='./register'
+                    layoutId='somerandomlayoutid'
                     animateClassName='inset-0 size-full bg-opacity-80 rounded-sm bg-purple-950'
                     selectedClassName=''
                     className='bg-transparent text-black items-center flex justify-center hover:bg-slate-50'
                     show
 
+                    end
                 >
                     Register
                 </CustomNavLink>

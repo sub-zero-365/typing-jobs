@@ -67,7 +67,7 @@ export const DashboardNavLinks: (typeof NavItemsLinks)[number][] = [
   },
   {
     name: "new task",
-    link: "newlogistic",
+    link: "upload",
     icon: PlusCircle,
   },
   {

@@ -26,7 +26,7 @@ const Sidebar = ({ className }: { className?: string }) => {
             transition-[width] duration-700
 sm:!translate-x-0
    ${toggleSideBar ? direction ? "translate-x-full" : "translate-x-0" : " -translate-x-full "}
-   ${showFullContent ? "w-[min(200px,calc(100vw-0.5rem))]" : "w-[80px]"}
+   ${showFullContent ? "w-[min(200px,calc(100vw-0.5rem))]" : "w-fit p-1"}
    border bg-slate-100 min-h-screen 
     
     `} onClick={(e: any) => e.stopPropagation()}>
@@ -42,12 +42,13 @@ sm:!translate-x-0
                         if (user?.role != "user" && name.toLocaleLowerCase() == "new task") return
                         return (
                             <CustomNavLink
-                            show
+                                show
+                                layoutId='sidebarlayoutidv1.0.0'
                                 selectedClassName=''
                                 animateClassName="inset-0 size-full bg-purple-600/20"
-                                className='bg-white  text-black hover:bg-purple-600/20'
+                                className='bg-white  text-black hover:bg-purple-600/20 rounded-lg h-10 flex justify-center items-center px-2 '
                                 to={link}
-                            >  <div className='flex p-1  flex-start items-center space-x-2'>
+                            >  <div className='flex p-0.5  flex-start  items-center space-x-2  w-full'>
                                     <span>
                                         <Icon size={20} color='black' className='' />
                                     </span>
@@ -57,16 +58,6 @@ sm:!translate-x-0
                                 </div>
 
                             </CustomNavLink>
-                            // <SideBarItem
-                            //     showFullContent={showFullContent}
-                            //     setHoverIndex={setHoverIndex}
-                            //     hoverIndex={hoverIndex}
-                            //     key={index}
-                            //     index={index}
-                            //     {...arr}
-                            // ></SideBarItem>
-
-
                         )
                     })}
                 </div>

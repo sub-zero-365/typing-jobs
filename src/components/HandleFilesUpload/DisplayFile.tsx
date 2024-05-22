@@ -7,11 +7,11 @@ import { useSubmitDocLayoutContext } from '../layout/SubmitDocLayout'
 import { Button } from '../ui/button'
 import DisplaySinglePdfFile from './DisplaySinglePdfFile'
 import SelectedComponent from './SelectedComponent'
-
+import { useLocation } from 'react-router-dom'
 const DisplayFile = () => {
     const { pdfFiles, isSelected } = useSubmitDocLayoutContext()
     const isFiles = pdfFiles && pdfFiles?.length > 0
-
+    const { pathname } = useLocation()
     return (
         <div className='flex-1'>
             <Heading
@@ -35,7 +35,7 @@ const DisplayFile = () => {
             </div>
             {
 
-                isFiles && <Link to={"/home/upload/user"}>
+                isFiles && <Link to={pathname.includes("home") ? "user" : "preview"}>
                     <Button
                         className="w-[min(25rem,calc(100%-2rem))] bg-colorPrimary shadow-sm  shadow-colorPrimary mx-auto rounded-full flex gap-x-2 sticky bottom-2 top-auto h-16"
                     >Next <Forward size={20} /></Button>

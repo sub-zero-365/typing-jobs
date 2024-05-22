@@ -24,11 +24,11 @@ import { useMediaQuery } from 'react-responsive'
 import { cn } from '../lib/utils'
 import { Button } from '../components/ui/button'
 import { DialogClose } from '@radix-ui/react-dialog'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 
 
 const DocPage = () => {
-
+    const { pathname } = useLocation()
     const isDesktop = useMediaQuery({ query: "(min-width: 768px)" })
     const buttonRef = React.useRef<any>(null)
     const [open, setOpen] = React.useState(false)
@@ -59,7 +59,7 @@ const DocPage = () => {
     return (
         <div>
             {
-                isDesktop ?
+                pathname.includes("home") && (isDesktop ?
                     <Dialog open={open} onOpenChange={setOpen}>
                         <DialogTrigger ref={buttonRef} asChild className='hidden'>
                             <Button variant="outline">Edit Profile</Button>
@@ -96,7 +96,7 @@ const DocPage = () => {
                                 </DrawerClose>
                             </DrawerFooter>
                         </DrawerContent>
-                    </Drawer>
+                    </Drawer>)
 
             }
 

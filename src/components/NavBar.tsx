@@ -198,10 +198,10 @@ const NavBar = () => {
                       </>
 
                     }
-                    {/* <Theme
+                    <Theme
                     className='size-6'
                     containerClassName='flex-none w-16'
-                  /> */}
+                  />
 
                   </div>
                 </div>

@@ -1,21 +1,18 @@
-import React from 'react'
-import Heading from '../components/Heading'
-import { ActionFunctionArgs, Form, redirect, useActionData, useSearchParams } from "react-router-dom"
-import { Input } from '../components/ui/input';
-import { Button } from '../components/ui/button';
-import customFetch from '../utils/customFetch';
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
-import { z } from "zod"
-import { Badge } from "../components/ui/badge"
+import React from 'react';
+import { ActionFunctionArgs, Form, redirect, useActionData, useSearchParams } from "react-router-dom";
+import { z } from "zod";
+import { HippoEmail } from '../assets/images';
+import Heading from '../components/Heading';
+import { Loader } from '../components/Loaders/loader';
+import SubmitBtn from '../components/buttons/SubmitBtn';
+import { Badge } from "../components/ui/badge";
 import {
     InputOTP,
     InputOTPGroup,
     InputOTPSlot,
-} from "../components/ui/input-otp"
-import SubmitBtn from '../components/buttons/SubmitBtn';
+} from "../components/ui/input-otp";
 import wait from '../constants/wait';
-import { Loader } from '../components/Loaders/loader';
+import customFetch from '../utils/customFetch';
 import useError from '../utils/useError';
 const FormSchema = z.object({
     otp: z.string().min(4, {
@@ -42,16 +39,26 @@ export const action = async ({ request }: ActionFunctionArgs) => {
 }
 const OPTPage = () => {
     const [searchParams] = useSearchParams();
-    const emailAdress = searchParams.get("email") ?? "invalid_email_address"
+    const emailAdress = searchParams.get("email")
     const [value, setValue] = React.useState("");
     const isValid = value.length >= 4
     const actionData = useActionData() as string
     const errorMsg = useError([actionData])
+    if (!emailAdress) {
+        return (<><Badge variant="destructive"
+            className='w-[min(25rem,calc(100%-1rem))] my-24 mx-auto h-10 text-center flex items-center justify-center mb-2'
+        >invalid email address !!!</Badge></>)
+    }
     return (
         <div className='max-w-2xl w-[calc(100%-1rem)] mx-auto border rounded-md border-black py-10 mt-6 shadow'>
-            <Heading className='text-center font-bold'>verify OPT</Heading>
-            <Heading className=' mr-2 text-colorPrimary text-center text-2xl'>{emailAdress}</Heading>
+            <Heading className='text-center font-bold text-2xl'>verify OPT</Heading>
+            <Heading className=' mr-2 text-colorPrimary text-center text-xl italic font-black'>{emailAdress}</Heading>
+            <img src={HippoEmail}
+                alt='digital hippo image'
+                className='h-[13rem] w-[calc(100%-2rem)] max-w-sm mx-auto block my-10'
+            />
             <h1 className='text-center mb-6'> please checkout your mail for your verification code and comeback here </h1>
+
             <Form method='post'
                 replace
             >
@@ -60,6 +67,7 @@ const OPTPage = () => {
                     className='w-[min(25rem,calc(100%-1rem))] mx-auto h-10 text-center flex items-center justify-center mb-2'
                 >{errorMsg}</Badge>}
                 <div className='text-center mb-4 w-fit mx-auto border-black'>
+
                     <InputOTP maxLength={4} name='otp'
                         onChange={(value) => setValue(value)}
                         required className='mx-auto mb-5'>

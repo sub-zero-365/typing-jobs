@@ -1,9 +1,9 @@
-import React, { Dispatch, SetStateAction, createContext, useState } from 'react'
-import { NavLink, Outlet, redirect, useLoaderData, useLocation, useNavigate } from 'react-router-dom'
-import Heading from '../Heading'
-import { cn } from '../../lib/utils';
+import { motion, useScroll, useTransform } from 'framer-motion';
+import React, { Dispatch, SetStateAction, createContext, useMemo, useRef } from 'react';
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
+import { Scrollable } from "../../components/Scrollable";
 import CustomNavLink from '../CustomNavlink';
-import { Scrollable } from "../../components/Scrollable"
+import Heading from '../Heading';
 export interface iSubmitDocLaYoutContext {
     pdfFiles: any[],
     setPdfFiles: any,
@@ -39,6 +39,20 @@ const SubmitDocLayoutContext = createContext<iSubmitDocLaYoutContext>({
 });
 
 const SubmitDocLayout = () => {
+    const ref = useRef<any>(null)
+    const { scrollXProgress } = useScroll({
+        container: ref,
+        axis: "x"
+
+    })
+
+ 
+    const width = useTransform(scrollXProgress, [0, 1], ["0%", "100%"])
+    const value = useTransform(scrollXProgress, [0, 0.5, 1], [
+        "linear-gradient(180deg, #ff008c 0%, rgb(211, 9, 225) 100%)",
+        "linear-gradient(180deg, #7700ff 0%, rgb(68, 0, 255) 100%)",
+        "linear-gradient(90deg, #7700ff 90%, rgb(8, 0, 155) 90%)"
+    ])
     const { pathname } = useLocation()
     const [pdfFiles, setPdfFiles] = React.useState<any[]>([]);
     const [user, setUser] = React.useState<iUser>({
@@ -46,29 +60,51 @@ const SubmitDocLayout = () => {
         email: "",
         phoneNumber: ""
     })
-    const pages = [
-        {
-            page: "/home/upload",
-            name: "Select Document(s)"
-        },
-        {
-            page: "/home/upload/user",
-            name: "fill User Information"
-        },
-        {
-            page: "/home/upload/preview",
-            name: "Preview"
-        },
-        {
-            page: "/home/upload/payment",
-            name: "Payment"
-        },
-        {
-            page: "/home/upload/invoice-download",
-            name: "Download Invoice"
-        },
-    ]
+    const pages = useMemo(() => {
+        if (pathname.includes("home")) {
+            return ([
+                {
+                    page: "/home/upload",
+                    name: "Select Document(s)"
+                },
+                {
+                    page: "user",
+                    name: "fill User Information"
+                },
+                {
+                    page: "preview",
+                    name: "Preview and Customize your print"
+                },
+                {
+                    page: "payment",
+                    name: "Payment"
+                },
+                {
+                    page: "invoice-download",
+                    name: "Download Invoice"
+                },
+            ])
+        }
+        return ([
+            {
+                page: "/upload",
+                name: "Select Document(s)"
+            },
+            {
+                page: "preview",
+                name: "Preview and Customize your print"
+            },
+            {
+                page: "payment",
+                name: "Payment"
+            },
+            {
+                page: "invoice-download",
+                name: "Download Invoice"
+            },
+        ])
 
+    }, [pathname])
     const handleFilesChange = (file: any) => {
         setPdfFiles(prevFiles => [...prevFiles, ...file])
     }
@@ -81,11 +117,12 @@ const SubmitDocLayout = () => {
 
 
     const navigate = useNavigate()
+
     React.useEffect(() => {
         //if the user trys to refresh to navigate to any other page without
         // selecting a pdffiles s/he will be redirected to start page 
         if (pdfFiles.length <= 0) {
-            navigate("/home/upload")
+            navigate("../upload")
         }
     }, [pdfFiles, pathname])
     return (
@@ -94,15 +131,17 @@ const SubmitDocLayout = () => {
             setPdfFiles,
             handleFilesChange,
             handleDeleteFile,
-
             isSelected,
             setIsSelected,
             user,
             setUser
         }}>
             <Heading className='text-center text-3xl mb-6 uppercase font-bold my-6'>Upload Document(s) </Heading>
+       
+            <Scrollable
+                refE={ref}
 
-            <Scrollable className='my-6 gap-x-1  scrollto sticky top-4 py-4  z-[10] [--scroll-to-height:7px] max-w-fit px-4 mx-auto'
+                className='-mb-2 gap-x-1  scrollto sticky top-4 py-4 flex flex-nowrap overflow-x-auto   md:gap-x-2  z-[10] [--scroll-to-height:0px] max-w-fit px-4 mx-auto'
                 direction='row'
             >
                 {
@@ -120,6 +159,10 @@ const SubmitDocLayout = () => {
                         <span className='!text-[10px] mr-1 font-black'>({idx + 1})</span> {page.name}</CustomNavLink>)
                 }
             </Scrollable>
+            <motion.span
+                style={{ background: value, width }}
+                transition={{ duration: 0.2 }}
+                className='block h-[1px] rounded-full md:hidden bg-colorPrimary '></motion.span>
             <div className='max-w-6xl mx-auto'>
                 <Outlet />
             </div>

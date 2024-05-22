@@ -132,6 +132,7 @@ const Login = () => {
       <Form className='w-full space-y-5 '
         method='post'
         id="sigin-form"
+        replace
         onSubmit={(e) => onSubmit(e)}
       >
         <div className="grid w-full  items-center gap-1.5">
