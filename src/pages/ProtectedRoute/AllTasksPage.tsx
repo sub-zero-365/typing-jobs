@@ -27,6 +27,16 @@ import Heading from '../../components/Heading.js';
 import { Settings } from 'lucide-react';
 import { Input } from '../../components/ui/input.js';
 import { Button } from '../../components/ui/button.js';
+import { z } from "zod"
+import FindMyId from '../../components/FindMyId.js';
+const taskSchema = z.object({
+  id: z.number({ invalid_type_error: "please enter a number " }).min(10, "min number show be 10 characters")
+})
+type validationSchema = z.infer<typeof taskSchema>;
+// type FormData = z.infer<typeof validation> & {
+//   from?: string
+// }
+
 type Params = {
   search?: string,
   sort?: "asc" | "desc",
@@ -97,14 +107,7 @@ const RenderTable = () => {
         className='bg-colorPrimary  w-[calc(100%-1rem)] mx-auto block my-4 rounded-md'
       >Query Date</Button>
 
-      <div className="flex items-center rounded-xl overflow-hidden placeholder:uppercase ">
-        <Input placeholder='ENTER ID  '
-        className='rounded-none '
-        />
-        <Button
-        className='rounded-none'
-        >Submit</Button>
-      </div>
+      <FindMyId searchPath={`/task/`}/>
 
     </>)
   }
