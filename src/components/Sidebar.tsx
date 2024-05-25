@@ -1,11 +1,11 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { DashboardNavLinks } from '../constants/NavItemsLinks.js'
+import { cn } from '../lib/utils.js'
 import { useDashBoardContext } from '../pages/ProtectedRoute/Dashboard.js'
+import useGetLoginUser from '../utils/getLogInUser.js'
 import CustomNavLink from './CustomNavlink.js'
 import UserProfileCard from './UserProfileCard.js'
-import useGetLoginUser from '../utils/getLogInUser.js'
 import { Button } from './ui/button.js'
-import { cn } from '../lib/utils.js'
 const Sidebar = ({ className }: { className?: string }) => {
     const { toggleSideBar, setToggleSideBar, showFullContent, direction } = useDashBoardContext()
     const user = useGetLoginUser()
@@ -37,13 +37,14 @@ const Sidebar = ({ className }: { className?: string }) => {
                 </div>
                 {/* <Button onClick={() => setShowFullContent(c => !c)}>toggle</Button> */}
                 <div className='flex flex-col space-y-3 mt-4 px-2 flex-1 overflow-y-auto'>
-
+                   
                     {DashboardNavLinks.map((arr, index) => {
                         const { icon: Icon, name, link } = arr
                         if (user?.role != "admin" && name.toLocaleLowerCase() == "users") return
                         if (user?.role != "user" && name.toLocaleLowerCase() == "new task") return
                         return (
                             <CustomNavLink
+                                key={index}
                                 show
                                 layoutId='sidebarlayoutidv1.0.0'
                                 selectedClassName=''

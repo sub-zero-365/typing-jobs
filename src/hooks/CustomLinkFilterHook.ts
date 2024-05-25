@@ -7,7 +7,7 @@ export const useFilter = () => {
       value = null,
     }: {
       key: string;
-      value?: null | string ;
+      value?: null | string;
     },
     replace = true
   ) => {
@@ -27,5 +27,5 @@ export const useFilter = () => {
   //     if (querySearch.get(text) == value) return
   //     handleFilterChange(text, value)
   // }
-  return { handleFilterChange };
+  return { handleFilterChange, searchQuery: querySearch };
 };

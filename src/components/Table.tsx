@@ -18,7 +18,7 @@ import {
   DropdownMenuCheckboxItem,
 
 } from "./ui/dropdown-menu.js"
-import { Checkbox } from "@/components/ui/checkbox"
+import { Checkbox } from "./ui/checkbox"
 
 export type Payment = {
   id: string
@@ -230,15 +230,22 @@ import {
 } from "./ui/table.js"
 import { cn } from '../lib/utils.js'
 import SearchComponent from './Search.js'
+import { useFilter } from '../hooks/CustomLinkFilterHook.js'
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
-  data: TData[]
+  data: TData[],
+  paginationData?: {
+    numberOfPage: number,
+    limit: number,
+    currentPage: number
+  }
 }
 
 export default function DataTable<TData, TValue>({
   columns,
   data,
+  paginationData
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = React.useState<SortingState>([])
   const [rowSelection, setRowSelection] = React.useState({})
@@ -264,15 +271,30 @@ export default function DataTable<TData, TValue>({
     },
     initialState: {
       pagination: {
-          pageSize: 300
+        pageSize: 300
       }
-  }
+    }
   })
+  const { handleFilterChange } = useFilter()
+  const handleNext = () => {
+    if (!paginationData) return
+    if (paginationData.currentPage < paginationData.numberOfPage) {
+      handleFilterChange({ value: `${paginationData.currentPage + 1}`, key: "page" }, true);
+    }
+  };
+
+  const handlePrev = () => {
+    if (!paginationData) return
+    if (paginationData.currentPage > 1) {
+      handleFilterChange({ value: `${paginationData.currentPage - 1}`, key: "page" }, true);
+    }
+
+  };
   return (
     <div className="rounded-md ">
-      <div className="flex items-center py-4">
+      {/* <div className="flex items-center py-4">
         <SearchComponent type='search' />
-      </div>
+      </div> */}
       <Table>
         <TableHeader className='bg-colorPrimary text-white'>
           {table.getHeaderGroups().map((headerGroup) => (
@@ -319,24 +341,32 @@ export default function DataTable<TData, TValue>({
         </TableBody>
       </Table>
       {/* do later  */}
-      <div className="flex- hidden items-center justify-end space-x-2 py-4">
+      {paginationData && <div className="flex items-center justify-end space-x-2 py-4">
+
+        page {paginationData.currentPage} of {paginationData.numberOfPage} pages &nbsp;
         <Button
           variant="outline"
+          className='bg-colorPrimary rounded-full text-white'
           size="sm"
-          onClick={() => table.previousPage()}
-          disabled={!table.getCanPreviousPage()}
+          onClick={handlePrev}
+          disabled={paginationData.currentPage <= 1}
+        // disabled={!table.getCanPreviousPage()}
         >
           Previous
         </Button>
         <Button
+          disabled={paginationData.currentPage >= paginationData.numberOfPage}
           variant="outline"
           size="sm"
-          onClick={() => table.nextPage()}
-          disabled={!table.getCanNextPage()}
+          onClick={handleNext}
+          className='bg-colorPrimary rounded-full text-white'
+
+        // disabled={!table.getCanNextPage()}
         >
           Next
         </Button>
-      </div>
+      </div>}
+
       <div className="flex-1 hidden text-sm text-muted-foreground">
         {table.getFilteredSelectedRowModel().rows.length} of{" "}
         {table.getFilteredRowModel().rows.length} row(s) selected.

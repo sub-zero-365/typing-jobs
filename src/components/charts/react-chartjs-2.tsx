@@ -1,5 +1,5 @@
 import React from 'react';
-import { Bar, Line } from 'react-chartjs-2';
+import { Bar, Line, Pie } from 'react-chartjs-2';
 import 'chart.js/auto';
 // import {faker} from "faker"
 import {
@@ -64,7 +64,7 @@ const animation = {
 };
 
 
-export const options: ChartOptions = {
+export const options = {
 
   animations: {
     radius: {
@@ -85,7 +85,7 @@ export const options: ChartOptions = {
       enabled: false
     }
   }
-  , animation:{
+  , animation: {
     x: {
       type: 'number',
       easing: 'linear',
@@ -122,16 +122,23 @@ export const data = {
   labels,
   datasets: [
     {
-      fill: true,
+      // fill: true,
       label: 'Dataset 2',
       data: labels.map(() => Math.random() * 1000),
-      borderColor: 'rgb(53, 162, 235)',
-      backgroundColor: 'rgba(53, 162, 235, 0.5)',
+      // borderColor: 'rgb(53, 162, 235)',
+      // backgroundColor: 'rgba(53, 162, 235, 0.5)',
+    },
+    {
+      // fill: true,
+      label: 'Dataset 1',
+      data: labels.map(() => Math.random() * 1000),
+      // borderColor: 'rgb(53, 162, 235)',
+      // backgroundColor: 'rgba(53, 162, 235, 0.5)',
     },
   ],
 };
-export function AreaChart({ chartData }: iChartData) {
-  const data: ChartData = {
+export function AreaChart({ chartData }) {
+  const data = {
     ...chartData,
     datasets: chartData.datasets.map(dataset => ({
       fill: true,
@@ -139,14 +146,14 @@ export function AreaChart({ chartData }: iChartData) {
     })),
 
   }
-  // chartData.datasets
-  // const data = useRef(chartData)
-
-  return <Line options={options} data={data} />;
+  return <Line  data={data} />;
 }
-export function LineChart({ chartData }: iChartData) {
+export function LineChart({ chartData }) {
   return <Line options={options} data={chartData} />;
 }
+export function PieChart({ chartData }) {
+  return <Pie data={chartData} />;
+}
 export function BarChart({ chartData }) {
-  return <Bar options={options} data={chartData} />;
+  return <Bar  data={chartData} />;
 }

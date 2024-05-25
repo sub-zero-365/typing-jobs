@@ -36,7 +36,7 @@ const Stats = ({ defaultStats, nHits }: any) => {
         <div
             className="grid
       gap-x-6
-      grid-cols-[repeat(auto-fit,minmax(min(15rem,calc(100%-0.3rem)),1fr))]"
+      grid-cols-[repeat(auto-fit,minmax(min(15rem,calc(100%-0.3rem)),1fr))] mb-6"
         >
             {
                 stats.map((item, index) => {

@@ -51,7 +51,7 @@ export default function SignupFormDemo() {
 
   const { register, handleSubmit,
     formState: { errors, isSubmitting }, setValue,
-    clearErrors, reset: _reset } = useForm<userRegister>({
+   reset: _reset } = useForm<userRegister>({
       resolver: zodResolver(UserSchema),
     });
 
@@ -98,7 +98,7 @@ export default function SignupFormDemo() {
   }, [error])
   return (
     <div className="max-w-md w-full mx-auto rounded-none  p-4 md:p-8 shadow-input bg-white dark:bg-black">
-      <form className="my-8"
+      <form className="my-1"
         method="post"
         onSubmit={handleSubmit(onSubmit)}
       >
@@ -150,18 +150,6 @@ export default function SignupFormDemo() {
         {failureReason?.message && <Badge variant="destructive"
           className='w-[min(25rem,calc(100%-1rem))] mx-auto h-10 text-center flex items-center justify-center mb-2'
         >{error?.response?.data?.msg}</Badge>}
-        {user && user.role == 'admin' &&
-          <UserSelect
-            name="role"
-            isSearchable={false}
-            onChange={(e) => {
-              setValue('role', e?.label)
-            }}
-
-            options={usersoptions}
-          />
-        }
-
         <SubmitBtn
           disabled={isSubmitting}
           className="bg-gradient-to-br relative group/btn
@@ -171,11 +159,10 @@ export default function SignupFormDemo() {
           submittingText="creating account ..."
         >
 
-          {isSubmitting ? <Loader childrenClassName="size-4" className="h-10" /> : "  Sign up &rarr;"}
+          {isSubmitting ? <Loader childrenClassName="size-4" className="h-10" /> : <>Sign up &rarr;</>  }
           <BottomGradient />
         </SubmitBtn>
 
-        <div className="bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent my-8 h-[1px] w-full" />
 
       </form>
     </div>

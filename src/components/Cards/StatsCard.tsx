@@ -46,7 +46,7 @@ function StatsCard({ className,
                                 opacity: 0,
                                 transition: { duration: 0.15, delay: 0.2 },
                             }}
-                            className='absolute size-full ring-2 inset-0 rounded-xl'
+                            className='absolute size-full ring-2- inset-0 rounded-xl bg-gradient-to-r from-colorPrimary/40  to-pink-500/40'
                         />
                     }
 

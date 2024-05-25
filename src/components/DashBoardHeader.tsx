@@ -29,7 +29,7 @@ const MainDropDown = () => {
     // const { logOutUser } = useAppContext()
     return (<DropdownMenu>
         <DropdownMenuTrigger asChild>
-            <Button variant="outline" className='rounded-full block size-12'> <span className='rounded-full block size-14' /></Button>
+            <Button variant="outline" className='rounded-full block size-12 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500'> <span className='rounded-full block size-14' /></Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent sideOffset={10} className="w-56">
             <DropdownMenuLabel>My Account</DropdownMenuLabel>

@@ -32,6 +32,7 @@ import { cn } from "../lib/utils.js"
 import { useFilter } from "../hooks/CustomLinkFilterHook.js"
 import { statusOptions } from "../constants/options.js"
 import { StatusButtom } from "../components/buttons/button.js"
+import CustomSelect from "../components/dropdowns/CustomSelect.js"
 
 type Payment = {
   id: string
@@ -345,10 +346,11 @@ export const allUsersColumns: ColumnDef<user>[] = [
       const name = row.original.name
       return (<div className="min-w-40 break-keep flex flex-row items-center font-medium">{name}</div>)
     },
+    accessorFn: row => <div className="min-w-40 break-keep flex flex-row items-center font-medium">{row.name} pom</div>
   },
   {
     accessorKey: "role",
-    header: () => <div className="">ROLE</div>,
+    header: () => <div className="flex items-center gap-x-2">ROLE <CustomSelect className="w-fit h-fit text-xs !border-none px-0 py-0 bg-transparent" searchKey="role" values={["admin", "user", "employee"]} /></div>,
     cell: ({ row }) => {
       const role = row.original.role;
       // role==""
