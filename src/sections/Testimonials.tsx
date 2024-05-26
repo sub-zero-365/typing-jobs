@@ -231,7 +231,8 @@ const Testimonial = () => {
             w-[min(420px,calc(100%-1rem))] px-0
             mx-auto font-bold text-sm z-50 h-14 lg:ml-auto lg:mr-4
             bottom-0 rounded-none   left-0 uppercase  text-center ">
-                    Please Leave a review <span className="size-6 ml-2 inline-flex justify-center items-center rounded-full ring  place-items-center"><Plus size={15} className='inline-block' /></span>
+
+                    Please Leave a review <span className="size-6 ml-2 inline-flex justify-center items-center rounded-full ring  place-items-center animate-bounce [animation-duration:0.5s]"><Plus size={15} className='inline-block' /></span>
                 </Button>
             </div>
         </div>

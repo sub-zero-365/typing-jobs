@@ -10,6 +10,7 @@ export interface IUserState {
     email: string;
     userId: number;
     role: userRole;
+    phoneNumber: number;
   };
 }
 const initialState: IUserState = {

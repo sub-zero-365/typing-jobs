@@ -29,6 +29,7 @@ import { Input } from '../../components/ui/input.js';
 import { Button } from '../../components/ui/button.js';
 import { z } from "zod"
 import FindMyId from '../../components/FindMyId.js';
+import CustomSelect from '../../components/dropdowns/CustomSelect.js';
 const taskSchema = z.object({
   id: z.number({ invalid_type_error: "please enter a number " }).min(10, "min number show be 10 characters")
 })
@@ -107,7 +108,7 @@ const RenderTable = () => {
         className='bg-colorPrimary  w-[calc(100%-1rem)] mx-auto block my-4 rounded-md'
       >Query Date</Button>
 
-      <FindMyId searchPath={`/task/`}/>
+      <FindMyId searchPath={`/task/`} />
 
     </>)
   }
@@ -121,7 +122,7 @@ const RenderTable = () => {
         <div className='flex-1 flex-grow lg:w-[calc(100%-762626rem)]'>
           <Stats defaultStats={defaultStats}
             nHits={nHits} />
-
+          <CustomSelect searchKey='table-view' values={["card","table"]} defaultValue='view' className='mb-6 ml-auto'/>
           {
             !showTable ? <Table columns={demousercolumns} data={demoUsers} /> :
               <div className='grid gap-x-4 gap-6  grid-cols-[repeat(auto-fit,minmax(min(20rem,calc(100%-2rem)),1fr))]'>
@@ -132,7 +133,7 @@ const RenderTable = () => {
               </div>
           }
         </div>
-        <div className='lg:w-[20rem]  flex-none sticky top-16'>
+        <div className='lg:w-[20rem] hidden md:block  flex-none sticky top-16'>
           <Query />
         </div>
       </div>

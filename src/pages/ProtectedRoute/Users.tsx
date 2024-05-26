@@ -39,6 +39,7 @@ import { Checkbox } from "../../components/ui/checkbox"
 import { useFilter } from '../../hooks/CustomLinkFilterHook.js'
 import debounce from '../../utils/debounce.js'
 import CustomSelect from '../../components/dropdowns/CustomSelect.js'
+import SearchComponent from '../../components/Search.js'
 interface Props {
     search?: string,
     page?: number,
@@ -140,9 +141,10 @@ const User = () => {
                     </Suspense>
                 </div>
             </div>
-            {JSON.stringify({ numberOfPage, limit, currentPage })}
+            <SearchComponent />
+            {/* {JSON.stringify({ numberOfPage, limit, currentPage })} */}
             {/* dont know how to removethis error cause it not an error */}
-            <CustomSelect className='w-fit rounded-sm '  defaultValue='Role' searchKey="role" values={["admin", "user", "employee"]} />
+            {/* <CustomSelect className='w-fit rounded-sm '  defaultValue='Role' searchKey="role" values={["admin", "user", "employee"]} /> */}
             <div className='ml-auto mb-4'>
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>

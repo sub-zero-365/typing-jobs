@@ -1,19 +1,18 @@
 import { Label } from '@radix-ui/react-label'
 import React from 'react'
 import { useForm } from "react-hook-form"
-import { Form, redirect, useActionData, useSubmit, ActionFunctionArgs } from 'react-router-dom'
+import { ActionFunctionArgs, Form, redirect, useActionData, useSubmit } from 'react-router-dom'
 import SubmitBtn from '../../components/buttons/SubmitBtn.js'
 import { Input } from '../../components/ui/input.js'
 // import { toast } from '../../components/ui/use-toast.js'
+import dayjs from "dayjs"
+import toast from 'react-hot-toast'
+import { z } from "zod"
+import { AnimateError } from "../../components/Animated/animated.js"
+import { Loader } from '../../components/Loaders/loader.js'
 import customFetch from '../../utils/customFetch.js'
 import useError from '../../utils/useError.js'
 import { useLoaderData } from '../../utils/utils.js'
-import { AnimateError } from "../../components/Animated/animated.js"
-import { Loader } from '../../components/Loaders/loader.js'
-import { z } from "zod"
-import wait from '../../constants/wait.js'
-import toast from 'react-hot-toast';
-import dayjs from "dayjs"
 const validation = z.object({
   email: z.string({
     description: "some desc",

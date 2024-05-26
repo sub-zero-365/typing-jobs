@@ -36,9 +36,9 @@ const UserProfilePage = () => {
                             </span>
                         </div>
                         <div className='mb-6'>
-                            <h2 className='text-center font-medium mt-4 text-sm text-gray-600  leading-tight -mb-0.5 italic'>{user.userId ?? "11122"}</h2>
-                            <h2 className='text-center font-medium text-lg text-gray-600  leading-tight -mb-0.5 italic'>{user.fullname ?? "RoseMary"}</h2>
-                            <h2 className='text-center font-medium text-lg text-gray-800  italic'>{user.email}</h2>
+                            <h2 className='text-center font-medium mt-4 text-sm text-gray-600  leading-tight -mb-0.5 italic'>{user?.userId ?? "11122"}</h2>
+                            <h2 className='text-center font-medium text-lg text-gray-600  leading-tight -mb-0.5 italic'>{user?.fullname ?? "RoseMary"}</h2>
+                            <h2 className='text-center font-medium text-lg text-gray-800  italic'>{user?.email}</h2>
 
                         </div>
                         <div
@@ -47,7 +47,7 @@ const UserProfilePage = () => {
 
                             {
                                 Array.from({ length: 4 }, (arr, idx) => {
-                                    return (<div className='flex p-2 px-4 justify-between items-center w-full max-w-md mx-auto'>
+                                    return (<div key={idx} className='flex p-2 px-4 justify-between items-center w-full max-w-md mx-auto'>
                                         <h2 className='text-lg font-[400]'>Models</h2>
                                         <span className='font-medium '>6</span>
                                     </div>)
@@ -64,8 +64,8 @@ const UserProfilePage = () => {
                             Account Setup <span><Settings className="inline-block" size={15}></Settings></span>
                         </Heading>
                         <Scrollable
-                            className='overflow-auto gap-x-0 w-full'
-                            direction='column'
+                            className='overflow-auto gap-x-2 w-full'
+                            direction='row'
                         >
                             <CustomNavLink
                                 replace
@@ -73,8 +73,10 @@ const UserProfilePage = () => {
                                 // CustomNavLink
                                 to={"."}
                                 show
-                                className='bg-transparent rounded-none hover:bg-black/15  text-black flex-none block'
-                                selectedClassName='bg-white/80 text-black'
+                                selectedClassName='text-green-800   text-white bg-colorPrimary'
+                                animateClassName="inset-0 animate-pulse size-full shadow-md  right-0  bg-purple-600/60  rounded-full "
+                                className='bg-transparent text-xs relative z-20 bg-white lg:text-sm capitalize w-fit px-4 shadow text-medium rounded-full  shadow-colorPrimary mb-0.5 h-9 flex items-center   hover:bg-purple-600/20'
+                         
 
                             >Edit Profile</CustomNavLink>
                             <CustomNavLink
@@ -82,8 +84,10 @@ const UserProfilePage = () => {
                                 end
                                 to={"users1"}
                                 show
-                                className='bg-transparent rounded-none hover:bg-black/15  text-black flex-none block'
-                                selectedClassName='bg-white/80 text-black'
+                                selectedClassName='text-green-800   text-white bg-colorPrimary'
+                                animateClassName="inset-0 animate-pulse size-full shadow-md  right-0  bg-purple-600/60  rounded-full "
+                                className='bg-transparent text-xs relative z-20 bg-white lg:text-sm capitalize w-fit px-4 shadow text-medium rounded-full  shadow-colorPrimary mb-0.5 h-9 flex items-center   hover:bg-purple-600/20'
+                         
 
                             >Edit Sales</CustomNavLink>
 

@@ -3,6 +3,7 @@ import {
   AnimatePresence, motion,
   useMotionValueEvent,
   useScroll,
+  useTransform,
 } from 'framer-motion';
 import { Menu } from 'lucide-react';
 import React, { useRef, useState } from 'react';
@@ -27,6 +28,7 @@ const NavBar = () => {
   const { scrollYProgress } = useScroll();
 
   const [visible, setVisible] = useState(true);
+
   useMotionValueEvent(scrollYProgress, "change", (current) => {
     // Check if current is not undefined and is a number
     if (typeof current === "number") {
@@ -43,7 +45,7 @@ const NavBar = () => {
       }
     }
   });
-
+  const width = useTransform(scrollYProgress, [0, 1], ["0%", "100%"])
   return (
     <>
       {/* smaller screens menu here  */}
@@ -63,7 +65,7 @@ const NavBar = () => {
             NavItemsLinks.map((item, idx) => {
               if (user == null && item.name.toLocaleLowerCase() == "dashboard") return
               return (<NavItem
-              
+
                 closeModal={() => setIsOpen(false)}
                 {...item}
                 to={item.link}
@@ -119,7 +121,9 @@ const NavBar = () => {
             duration: 0.2,
           }}
 
-          className='flex overflow-hidden bg-gray-400 text-white items-center h-16  sticky top-0 cursor-none w-full z-50    dark:bg-black dark:text-white'>
+          className='flex overflow-hidden bg-white  text-black items-center h-16  sticky top-0 cursor-none w-full z-50    dark:bg-black dark:text-white'>
+
+          <motion.span style={{ width }} className='h-2 rounded-e-lg absolute bottom-0 bg-colorPrimary'/>
           <div ref={navbarRef} className='w-full
             
               '>
@@ -146,9 +150,9 @@ const NavBar = () => {
                       return (
                         <div>
                           <AnimatedLinks
-                            className='text-[1rem] font-normal text-blue-600'
+                            className='text-[1rem] font-normal text-colorPrimary'
                             to={link}
-                            secondTextClassName='text-white'
+                            secondTextClassName='text-black'
                           >
                             {name}
                           </AnimatedLinks>
@@ -199,9 +203,9 @@ const NavBar = () => {
 
                     }
                     <Theme
-                    className='size-6'
-                    containerClassName='flex-none w-16'
-                  />
+                      className='size-6'
+                      containerClassName='flex-none w-16'
+                    />
 
                   </div>
                 </div>

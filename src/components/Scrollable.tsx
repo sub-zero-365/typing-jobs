@@ -16,7 +16,7 @@ export const Scrollable = ({ children, className, direction, refE, ...props }: I
         <div
             {...props}
             ref={refE}
-            className={cn("flex flex-nowrap overflow-x-auto  gap-x-4 md:gap-x-2",
+            className={cn("flex flex-nowrap overflow-x-auto scrollto  gap-x-4 md:gap-x-2",
                 className,
                 direction == "row" && "flex-nowrap",
                 direction == "column" && "flex-wrap "
