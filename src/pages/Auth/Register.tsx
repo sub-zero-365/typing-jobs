@@ -2,30 +2,30 @@
 import React, { useEffect } from "react";
 import { Input } from "./Input.js";
 import { Label } from "./Label.js";
-// import { cn } from "@/utils/cn";
-import SubmitBtn from "../../components/buttons/SubmitBtn.js";
-import { cn } from "../../lib/utils.js";
-import { userRegister } from "../../utils/types.js";
-import { z, ZodType } from "zod"
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
 import { useMutation } from "@tanstack/react-query";
-import customFetch from "../../utils/customFetch.js";
 import { isAxiosError } from "axios";
-import useGetLoginUser from "../../utils/getLogInUser.js";
-import UserSelect from 'react-select'
-import { usersoptions } from "../../constants/options.js";
+import { useForm } from 'react-hook-form';
 import { useNavigate } from "react-router-dom";
-import { Badge } from "../../components/ui/badge.js";
-import wait from '../../constants/wait.js'
+import { z, ZodType } from "zod";
+import SubmitBtn from "../../components/buttons/SubmitBtn.js";
 import { Loader } from "../../components/Loaders/loader.js";
+import { Badge } from "../../components/ui/badge.js";
+import wait from '../../constants/wait.js';
+import { cn } from "../../lib/utils.js";
+import customFetch from "../../utils/customFetch.js";
+import useGetLoginUser from "../../utils/getLogInUser.js";
+import { userRegister } from "../../utils/types.js";
 
 export default function SignupFormDemo() {
   const user = useGetLoginUser()
   const UserSchema: ZodType<userRegister> = z
     .object({
       name: z.string({ required_error: "" })
-        .min(5, "full name should contain more than 5 character long"),
+        .min(5, "full name should contain more than 5 character long").refine((name) => {
+          const isNameGreaterThanOne = name.trim().split(" ").length > 1
+          return isNameGreaterThanOne
+        },"Please Enter alteast two names"),
       email: z.string({
         description: "some desc",
         required_error: "email address is required"
@@ -51,7 +51,7 @@ export default function SignupFormDemo() {
 
   const { register, handleSubmit,
     formState: { errors, isSubmitting }, setValue,
-   reset: _reset } = useForm<userRegister>({
+    reset: _reset } = useForm<userRegister>({
       resolver: zodResolver(UserSchema),
     });
 
@@ -96,6 +96,7 @@ export default function SignupFormDemo() {
       clearTimeout(timer)
     }
   }, [error])
+  console.log("this is th",errors)
   return (
     <div className="max-w-md w-full mx-auto rounded-none  p-4 md:p-8 shadow-input bg-white dark:bg-black">
       <form className="my-1"
@@ -105,7 +106,7 @@ export default function SignupFormDemo() {
         <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-2 mb-4">
           <LabelInputContainer>
             <Label htmlFor="name">Full  Name</Label>
-            <Input id="name" placeholder="example user" type="text"
+            <Input id="name" className="" placeholder="example user" type="text"
               {...register('name')}
             />
           </LabelInputContainer>
@@ -129,16 +130,15 @@ export default function SignupFormDemo() {
         <LabelInputContainer className="mb-4">
           <Label htmlFor="password">Password</Label>
           <Input id="password" placeholder="••••••••"
-            {...register('password')}
+            {...register('password')} autoComplete="new-password"
             type="password" name="password" />
         </LabelInputContainer>
         {errors.password && <span className="error">{errors?.password?.message?.toString()}</span>}
 
         <LabelInputContainer className="mb-4">
           <Label htmlFor="confirmPassword">confirmPassword</Label>
-          <Input id="confirmPassword" placeholder="••••••••"
-
-            type="confirmPassword"
+          <Input id="confirmPassword" autoComplete="new-password"  placeholder="••••••••"
+            type="password"
             {...register('confirmPassword')}
           />
         </LabelInputContainer>
@@ -159,7 +159,7 @@ export default function SignupFormDemo() {
           submittingText="creating account ..."
         >
 
-          {isSubmitting ? <Loader childrenClassName="size-4" className="h-10" /> : <>Sign up &rarr;</>  }
+          {isSubmitting ? <Loader childrenClassName="size-4" className="h-10" /> : <>Sign up &rarr;</>}
           <BottomGradient />
         </SubmitBtn>
 

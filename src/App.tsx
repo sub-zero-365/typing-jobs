@@ -33,6 +33,7 @@ import * as SingleUser from './pages/ProtectedRoute/SingleUser.js'
 import * as SingleTaskPage from './pages/ProtectedRoute/SingleTaskPage.js'
 import { action as newLogisticAction } from "./pages/ProtectedRoute/NewTasks.js"
 import SingleLogisticPage, { loader as singleLogisticPageLoader } from './pages/SingleLogisticPage.js'
+import { action as CreateInVoiceAction } from "./pages/DownLoadInvoice"
 import NotFoundPage from './pages/ProtectedRoute/404Page.js'
 import Contact from './pages/Contact.js'
 import About from './pages/About.js'
@@ -52,6 +53,8 @@ import 'swiper/css/effect-fade';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import * as OTP from './pages/OPTPage'
+import { ErrorElement } from './components/error/errorComponents.js'
+import UpdatePdfFile, { action as updatePdfFileAction } from './pages/ProtectedRoute/UpdatePdfFile.js'
 pdfjs.GlobalWorkerOptions.workerSrc = new URL(
   'pdfjs-dist/build/pdf.worker.min.js',
   import.meta.url,
@@ -120,7 +123,7 @@ const router = createBrowserRouter([
       {
         path: "upload",
         element: <SubmitDocLayout />,
-        errorElement: <div>oops something went wrong</div>,
+        errorElement: <ErrorElement />,
         children: [{
           index: true,
           element: <DocPage />,
@@ -147,23 +150,18 @@ const router = createBrowserRouter([
           ,
         {
           path: "invoice-download",
-          element:<Suspense fallback={<div>loading ... </div>} >
-            <DownLoadInvoice/>
+          element: <Suspense fallback={<div>loading ... </div>} >
+            <DownLoadInvoice />
           </Suspense>
           ,
+          action: CreateInVoiceAction
 
         }
 
         ]
 
       },
-      {
-        path: "tracking",
-        element: <TrackingPage />,
-        loader: TrackingLoader(queryClient),
-        errorElement: <div>oops something went wrong</div>,
 
-      }
     ]
 
   },
@@ -189,10 +187,15 @@ const router = createBrowserRouter([
         path: "task/:taskId",
         element: <SingleTaskPage.default />,
         loader: SingleTaskPage.loader,
+        id: "maintaskRouter",
         children: [
 
           { element: <EditedTaskHistory />, index: true },
-          { element: <div>later</div>, path: 'later' },
+          {
+            element: <UpdatePdfFile />,
+            path: 'later',
+            action: updatePdfFileAction(queryClient)
+          },
         ]
       },
       {
@@ -209,7 +212,8 @@ const router = createBrowserRouter([
       {
         path: "upload",
         element: <SubmitDocLayout />,
-        errorElement: <div>oops something went wrong</div>,
+        errorElement: <ErrorElement />,
+
         children: [{
           index: true,
           element: <DocPage />,
@@ -236,11 +240,11 @@ const router = createBrowserRouter([
           ,
         {
           path: "invoice-download",
-          element:<Suspense fallback={<div>loading ... </div>} >
-            <DownLoadInvoice/>
+          element: <Suspense fallback={<div>loading ... </div>} >
+            <DownLoadInvoice />
           </Suspense>
           ,
-
+          action: CreateInVoiceAction
         }
 
         ]

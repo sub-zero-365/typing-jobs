@@ -13,18 +13,21 @@ import useGetLoginUser from '../../utils/getLogInUser.js'
 
 const UserSchema = z
     .object({
-        name: z.string({ required_error: "invalid type" })
+        name: z.string({ required_error: "invalid type" }).trim()
             .min(5, "full name should contain more than 5 character long"),
         phoneNumber: z.string({ invalid_type_error: 'number is required here' })
             .min(9, 'please 9 numbers are required to register ').max(12)
-
-
+    }).refine((data) => {
+        const isNameGreaterThanOne = data.name.trim().split(" ").length > 1
+        return isNameGreaterThanOne
+    }, {
+        message: "Please Enter alteast two names",
+        path: ["name"], // path of error
     })
 type iUpdateUser = z.infer<typeof UserSchema>
 
 const UpdateUserProfile = () => {
     const isDesktop = useMediaQuery({ query: "(min-width: 768px)" })
-
     const queryClient = useQueryClient()
     const user = useGetLoginUser();
     const { register, handleSubmit, formState: { errors, isDirty, isSubmitting }, reset, } = useForm<iUpdateUser>({

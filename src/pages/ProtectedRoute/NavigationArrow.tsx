@@ -1,6 +1,7 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowUpFromDot } from 'lucide-react';
 import React from 'react';
+
 const NavigationArrow = () => {
     const { scrollY } = useScroll();
     const opacity = useTransform(scrollY, [400, 500], [0, 1])

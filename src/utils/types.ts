@@ -31,3 +31,27 @@ export interface user
   total: number;
   percent: number;
 }
+export interface iPDFDocument {
+  _id: string;
+  createdBy: {
+    readonly userId: number;
+    user: any;
+  };
+  readonly originalFile: string;
+  currentFile: string;
+  edits: string[];
+  employeeIds: number[];
+  storedFileName: string;
+  status: "uploaded" | "in-progress" | "completed";
+}
+export interface iEdit {
+  readonly pdfId: string;
+  readonly employeeId: number;
+  readonly previousFile: string;
+  readonly newFile: string;
+  readonly editSummary?: string;
+}
+export interface iPDFDocumentResponse {
+  pdfDocuments: iPDFDocument;
+  edits: iEdit;
+}

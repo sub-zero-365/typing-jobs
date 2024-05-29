@@ -27,7 +27,7 @@ import {
 } from "../components/ui/tooltip.js"
 
 import { Link, useSearchParams } from "react-router-dom"
-import { user } from "../utils/types.js"
+import { iPDFDocument, iPDFDocumentResponse, user } from "../utils/types.js"
 import { cn } from "../lib/utils.js"
 import { useFilter } from "../hooks/CustomLinkFilterHook.js"
 import { statusOptions } from "../constants/options.js"
@@ -246,14 +246,10 @@ const Status = () => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        {/* <Button variant="ghost" className="h-8 w-8 p-0 ml-2"> */}
         <ChevronDown size={15} className="ml-2 cursor-pointer" />
-        {/* <span className="sr-only- text-xs text-rose-600">{displayName}</span> */}
-        {/* <MoreHorizontal className="h-4 w-4" /> */}
-        {/* </Button> */}
+     
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
-        {/* <DropdownMenuLabel>Actions</DropdownMenuLabel> */}
         <DropdownMenuItem
           className={cn("",
 
@@ -282,7 +278,6 @@ const Status = () => {
                   color
                 )}
                 key={status.value}
-                // onClick={() => navigator.clipboard.writeText(log.tracking_number)}
                 onClick={() => {
                   handleFilterChange({
                     key: "status",
@@ -299,9 +294,7 @@ const Status = () => {
         }
 
         <DropdownMenuItem>
-          {/* <Button variant="destructive">
-    delete
-  </Button> */}
+        
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu >
@@ -398,25 +391,7 @@ export const allUsersColumns: ColumnDef<user>[] = [
     },
   },
 
-  // {
-  //   header: "View",
-  //   id: "view",
-  //   cell: ({ row }) => {
-  //     const userId = row.original.userId
-  //     //the row value
 
-
-  //     return <Link to={`/user/${userId}`}
-  //       state={{
-  //         rd_from: window.location.href
-  //       }}
-  //     >
-  //       <Button
-  //         variant="link"
-  //       >view  </Button>
-  //     </Link>
-  //   }
-  // },
   {
     header: "Action",
     id: "actions",
@@ -442,6 +417,63 @@ export const allUsersColumns: ColumnDef<user>[] = [
             <DropdownMenuItem
             >
               <Link to={`/user/${log.userId}`}
+              >User Detail</Link>
+            </DropdownMenuItem>
+            <DropdownMenuItem>
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      )
+    },
+  },
+
+]
+export const allPdfDocuments: ColumnDef<iPDFDocument>[] = [
+
+  {
+    header: "#",
+    id: "n_0_",
+    cell: (row) => {
+      return <div>{row.row.index + 1}</div>;
+    },
+
+  }, {
+    accessorKey: "pdfDocuments.storedFileName",
+    header: "File Name",
+    cell(props) {
+      const id = props.row.original.storedFileName
+      return <span className="font-semibold">{id}</span>
+    },
+  }
+  ,
+
+
+
+  {
+    header: "Action",
+    id: "actions",
+    cell: ({ row }) => {
+      const log = row.original
+
+      return (
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="ghost" className="h-8 w-8 p-0">
+              <span className="sr-only">Open menu</span>
+              <MoreHorizontal className="h-4 w-4" />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end">
+            <DropdownMenuLabel>Actions</DropdownMenuLabel>
+            <DropdownMenuItem
+              onClick={() => navigator.clipboard.writeText(`${log._id}`)}
+            >
+              Copy  ID
+            </DropdownMenuItem>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem
+            >
+              <Link to={`/task/${log._id}`}
               >User Detail</Link>
             </DropdownMenuItem>
             <DropdownMenuItem>

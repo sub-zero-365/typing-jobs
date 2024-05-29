@@ -1,10 +1,9 @@
 import { Label } from '@radix-ui/react-label'
-import React from 'react'
+import React, { useState } from 'react'
 import { useForm } from "react-hook-form"
 import { ActionFunctionArgs, Form, redirect, useActionData, useSubmit } from 'react-router-dom'
 import SubmitBtn from '../../components/buttons/SubmitBtn.js'
 import { Input } from '../../components/ui/input.js'
-// import { toast } from '../../components/ui/use-toast.js'
 import dayjs from "dayjs"
 import toast from 'react-hot-toast'
 import { z } from "zod"
@@ -13,6 +12,7 @@ import { Loader } from '../../components/Loaders/loader.js'
 import customFetch from '../../utils/customFetch.js'
 import useError from '../../utils/useError.js'
 import { useLoaderData } from '../../utils/utils.js'
+import { Eye, EyeOff, Mail } from 'lucide-react'
 const validation = z.object({
   email: z.string({
     description: "some desc",
@@ -102,7 +102,7 @@ const Login = () => {
   const {
     register,
     trigger,
-    formState: { errors, isLoading, isValid },
+    formState: { errors, isValid },
   } = useForm<ILoginUser>();
   const submit = useSubmit()
   const onSubmit = async (e) => {
@@ -113,6 +113,8 @@ const Login = () => {
     }
     await trigger()
   }
+
+  const [showPassword, setShowPassword] = useState(false)
   const errorMessage = useActionData();
 
   const errorMessageLoader = useLoaderData();
@@ -123,7 +125,7 @@ const Login = () => {
 
 
     <div
-      className='sm:flex max-w-sm flex-none w-full  mx-auto  '
+      className='sm:flex max-w-sm flex-none w-full  mx-auto '
     >
 
 
@@ -135,31 +137,56 @@ const Login = () => {
       >
         <div className="grid w-full  items-center gap-1.5">
           <Label htmlFor="email"
-            className='m-0 text-start'
-          >Email</Label>
-          <Input type="email" id="email" placeholder="Email"
-            {...register("email", {
-              required: "This field is required",
-            })}
-          />
+            className='m-0 text-start font-medium text-xl mb-2'
+          >Email Address </Label>
+          <div className='flex items-center bg-white focus-within:ring-2 transition-all duration-300 ring-1 ring-colorPrimary rounded-sm overflow-hidden'>
+            <span className='flex-none border-e-[1px] border-colorPrimary flex items-center justify-center size-10'>
+              <Mail size={20} />
+            </span>
+            <Input type="email" autoComplete='email'
+              className='h-10 flex-1  !shadow-none rounded-none !border-none focus-within:!ring-0 focus-within:border-none focus-within:shadow-none focus:shadow-none focus:border-0 focus:right-0 hover:border-none hover:ring-0'
+              id="email" placeholder="example@gmail.com"
+              {...register("email", {
+                required: true,
+                minLength: 8
+              })}
+            />
+
+          </div>
           {errors.email && (
             <p role="alert" className="error">
               {errors.email?.message}
             </p>
           )}
+          {errors.email && errors.email.type === "required" && (
+            <span className='error'>This is required</span>
+          )}
+          {errors.email && errors.email.type === "minLength" && (
+            <span className='error'>Max length exceeded</span>
+          )}
         </div>
         <div className="grid w-full  items-center gap-1.5">
           <Label htmlFor="password"
-            className='m-0 text-start'
+            className='m-0 text-start font-medium text-xl'
           >Password</Label>
-          <Input type="password" id="password" placeholder="password"
-            {...register("password", {
-              required: true,
-              minLength: 8
+          <div className='flex items-center  bg-white focus-within:ring-2 transition-all duration-300 ring-1 ring-colorPrimary rounded-sm overflow-hidden'>
+            <span
+              onClick={() => setShowPassword(c => !c)}
+              className='flex-none border-e-[1px] border-colorPrimary flex items-center justify-center size-10'>
+              {!showPassword ? <Eye size={20} /> : <EyeOff size={20} />}
 
-            })}
-          />
+            </span>
+            <Input type={!showPassword?"password":"text"} autoComplete='current-password'
+              className='h-10 flex-1 placeholder:text-xl placeholder:font-black  !shadow-none rounded-none !border-none focus-within:!ring-0 focus-within:border-none focus-within:shadow-none focus:shadow-none focus:border-0 focus:right-0 hover:border-none hover:ring-0'
+              id="password" placeholder="••••••••"
+              {...register("password", {
+                required: true,
+                minLength: 8
 
+              })}
+            />
+
+          </div>
           {errors.password && (
             <p role="alert" className="error">
               {errors.password?.message}
@@ -187,7 +214,7 @@ const Login = () => {
               childrenClassName='size-4'
             />
           }
-          className='w-[min(25rem,calc(100%-0.5rem))] rounded-full h-14 mx-auto  uppercase
+          className='w-[min(25rem,calc(100%-0.5rem))] bg-colorPrimary rounded-sm h-12 mx-auto  uppercase
             disabled:bg-blue-800
             '
         >

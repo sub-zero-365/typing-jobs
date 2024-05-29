@@ -33,7 +33,7 @@ const PopOver = ({ children, text, className }: {
 const Footer = ({ className }: { className?: string }) => {
     return (
 
-        <div className='mt-6 py-10 bg-black/90 text-white 
+        <div className='mt-6 py-10 bg-colorPrimary text-white 
         px-3
         '
 
