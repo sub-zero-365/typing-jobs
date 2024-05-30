@@ -247,7 +247,7 @@ const Status = () => {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <ChevronDown size={15} className="ml-2 cursor-pointer" />
-     
+
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
         <DropdownMenuItem
@@ -294,7 +294,7 @@ const Status = () => {
         }
 
         <DropdownMenuItem>
-        
+
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu >
@@ -442,11 +442,16 @@ export const allPdfDocuments: ColumnDef<iPDFDocument>[] = [
     header: "File Name",
     cell(props) {
       const id = props.row.original.storedFileName
-      return <span className="font-semibold">{id}</span>
+      return <span className="font-semibold">{id?.slice(0, 10)}</span>
     },
   }
   ,
+  {
+    accessorKey: "status",
+    header: "File Status",
 
+  }
+  ,
 
 
   {
@@ -456,30 +461,7 @@ export const allPdfDocuments: ColumnDef<iPDFDocument>[] = [
       const log = row.original
 
       return (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="h-8 w-8 p-0">
-              <span className="sr-only">Open menu</span>
-              <MoreHorizontal className="h-4 w-4" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText(`${log._id}`)}
-            >
-              Copy  ID
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem
-            >
-              <Link to={`/task/${log._id}`}
-              >User Detail</Link>
-            </DropdownMenuItem>
-            <DropdownMenuItem>
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+        <Link className="text-muted" to={`/task/${log._id}`}><Button variant="ghost" className="text-gray-700">view</Button></Link>
       )
     },
   },

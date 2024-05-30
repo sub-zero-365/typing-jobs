@@ -55,6 +55,8 @@ import 'swiper/css/pagination';
 import * as OTP from './pages/OPTPage'
 import { ErrorElement } from './components/error/errorComponents.js'
 import UpdatePdfFile, { action as updatePdfFileAction } from './pages/ProtectedRoute/UpdatePdfFile.js'
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+
 pdfjs.GlobalWorkerOptions.workerSrc = new URL(
   'pdfjs-dist/build/pdf.worker.min.js',
   import.meta.url,
@@ -169,7 +171,7 @@ const router = createBrowserRouter([
     path: "/",
     element: <Dashboard />,
     loader: dashboardLoader(queryClient),
-    errorElement: <div>something went wrong</div>,
+    errorElement: <ErrorElement />,
     children: [
       {
         index: true,
@@ -186,7 +188,7 @@ const router = createBrowserRouter([
 
         path: "task/:taskId",
         element: <SingleTaskPage.default />,
-        loader: SingleTaskPage.loader,
+        loader: SingleTaskPage.loader(queryClient),
         id: "maintaskRouter",
         children: [
 
@@ -194,7 +196,8 @@ const router = createBrowserRouter([
           {
             element: <UpdatePdfFile />,
             path: 'later',
-            action: updatePdfFileAction(queryClient)
+            action: updatePdfFileAction(queryClient),
+            id:"adddetails"
           },
         ]
       },
@@ -290,8 +293,10 @@ function App() {
   // const queryClient=useq
   return (
     <Provider store={store}>
+    
       <QueryClientProvider client={queryClient}>
         <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.4.120/build/pdf.worker.min.js">
+        <ReactQueryDevtools initialIsOpen={false} position='right'/>
           <RouterProvider
             router={router}
           ></RouterProvider>

@@ -50,6 +50,11 @@ export interface iEdit {
   readonly previousFile: string;
   readonly newFile: string;
   readonly editSummary?: string;
+  createdAt: string;
+  employee: {
+    fullname: string,
+    userId: string,
+  },
 }
 export interface iPDFDocumentResponse {
   pdfDocuments: iPDFDocument;

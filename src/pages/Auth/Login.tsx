@@ -13,6 +13,8 @@ import customFetch from '../../utils/customFetch.js'
 import useError from '../../utils/useError.js'
 import { useLoaderData } from '../../utils/utils.js'
 import { Eye, EyeOff, Mail } from 'lucide-react'
+import { motion } from "framer-motion"
+import { useMediaQuery } from 'react-responsive'
 const validation = z.object({
   email: z.string({
     description: "some desc",
@@ -31,9 +33,13 @@ type FormData = z.infer<typeof validation> & {
 
 const LoginNotification = ({ userName }) => {
   return (toast.custom((t) => (
-    <div
+    <motion.div
+      initial={{ y: -100}}
+      animate={{ y: 0 }}
+      transition={{ duration:0.5 }}
+   
       className={`${t.visible ? 'animate-enter' : 'animate-leave'
-        } max-w-md w-full bg-white shadow-lg rounded-lg pointer-events-auto flex ring-1 ring-black ring-opacity-5`}
+        } fixed top-4 max-w-md w-full bg-white shadow-lg rounded-lg pointer-events-auto flex ring-1 ring-black ring-opacity-5`}
     >
       <div className="flex-1 w-0 p-4">
         <div className="flex items-start">
@@ -49,7 +55,7 @@ const LoginNotification = ({ userName }) => {
               {userName}
             </p>
             <p className="mt-1 text-sm text-gray-500">
-              {dayjs().format("DD/MM/YYYY")}
+              Welcome Back 🥰
             </p>
           </div>
         </div>
@@ -62,7 +68,7 @@ const LoginNotification = ({ userName }) => {
           Close
         </button>
       </div>
-    </div>
+    </motion.div>
   )))
 }
 
@@ -176,7 +182,7 @@ const Login = () => {
               {!showPassword ? <Eye size={20} /> : <EyeOff size={20} />}
 
             </span>
-            <Input type={!showPassword?"password":"text"} autoComplete='current-password'
+            <Input type={!showPassword ? "password" : "text"} autoComplete='current-password'
               className='h-10 flex-1 placeholder:text-xl placeholder:font-black  !shadow-none rounded-none !border-none focus-within:!ring-0 focus-within:border-none focus-within:shadow-none focus:shadow-none focus:border-0 focus:right-0 hover:border-none hover:ring-0'
               id="password" placeholder="••••••••"
               {...register("password", {

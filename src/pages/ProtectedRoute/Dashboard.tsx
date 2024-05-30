@@ -67,16 +67,16 @@ const Dashboard = () => {
 
                 <div className=' max-w-7xl flex  w-full   rounded-md mx-auto'>
 
-                        <div className='flex-none h-screen z-[10001] sticky left-0 top-0 bottom-0'>
-                            <Sidebar></Sidebar>
-                        </div>
-                        <div
-                            className='flex-1 w-[calc(100%-205rem)]     '
-                        >
-                            <DashBoardHeader />
-                                <Outlet context={{ user }} />
-                        </div>
-                  
+                    <div className='flex-none h-screen z-[10001] sticky left-0 top-0 bottom-0'>
+                        <Sidebar></Sidebar>
+                    </div>
+                    <div
+                        className='flex-1 w-[calc(100%-205rem)]     '
+                    >
+                        <DashBoardHeader />
+                        <Outlet context={user} />
+                    </div>
+
                     {isPageLoading && <GlobalLoader />}
                 </div>
             </DashBoardContext.Provider>

@@ -25,6 +25,7 @@ import { cn } from '../lib/utils'
 import { Button } from '../components/ui/button'
 import { DialogClose } from '@radix-ui/react-dialog'
 import { Link, useLocation } from 'react-router-dom'
+import { useSubmitDocLayoutContext } from '../components/layout/SubmitDocLayout'
 
 
 const DocPage = () => {
@@ -55,6 +56,7 @@ const DocPage = () => {
             </form>
         )
     }
+    const { handleFilesChange } = useSubmitDocLayoutContext()
 
     return (
         <div>
@@ -102,7 +104,7 @@ const DocPage = () => {
 
 
             <div className="lg:flex w-full max-w-5xl mx-auto border-[1px] bg-gray-50 px-5 py-10" >
-                <HandleGetFileFromStorage />
+                <HandleGetFileFromStorage maxLength={10} handleFile={handleFilesChange} />
                 <DisplayFile />
             </div>
 

@@ -5,9 +5,13 @@ import { useDropzone } from 'react-dropzone'
 import { useSubmitDocLayoutContext } from '../layout/SubmitDocLayout.js'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../../components/ui/tabs.js"
 import Heading from '../Heading.js'
-
-const HandleGetFileFromStorage = () => {
-    const { handleFilesChange } = useSubmitDocLayoutContext()
+type iHandleFile = {
+    maxLength?: 1 | 2 | 3 | 4 | 5 | 6 | 6 | 7 | 8 | 9 | 10,
+    handleFile: (file: any) => void,
+    name?:string
+}
+const HandleGetFileFromStorage = ({ handleFile, maxLength=1,name }: iHandleFile) => {
+    // const { handleFilesChange } = useSubmitDocLayoutContext()
 
     const onDrop = React.useCallback(acceptedFiles => {
         if (acceptedFiles.length > 0) {
@@ -17,7 +21,7 @@ const HandleGetFileFromStorage = () => {
         }
     }, [])
     const { getRootProps, getInputProps, fileRejections } = useDropzone({
-        maxFiles: 10,
+        maxFiles: maxLength,
         onDrop,
         accept: {
             'application/pdf': ['.pdf'] // Only accept PDF files
@@ -33,7 +37,9 @@ const HandleGetFileFromStorage = () => {
             <div {...getRootProps({
                 className: `dropzone min-h-44 flex justify-center items-center p-6
             border-4 bg-gray-100 border-dotted rounded-md` })}>
-                <input {...getInputProps()} />
+                <input {...getInputProps()} 
+                name={name || "pdfiles"}
+                />
                 <div
                     className='min-h-44 flex justify-center items-center p-6
             border-4 bg-gray-100 border-dotted rounded-md
@@ -64,7 +70,8 @@ const HandleGetFileFromStorage = () => {
                         {
                             pdfFiles.length > 0 && <Button
                                 onClick={() => {
-                                    handleFilesChange(pdfFiles);
+                                    handleFile(pdfFiles)
+                                    // handleFilesChange(pdfFiles);
                                     setPdfFiles([])
                                 }}
                                 className='block flex-none w-80 mx-auto mt-6 capitalize'>
