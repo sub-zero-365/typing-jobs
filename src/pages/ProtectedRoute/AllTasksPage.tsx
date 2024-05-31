@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import React from 'react';
-import { Await, defer, useLoaderData, useSearchParams } from 'react-router-dom';
+import { Await, Link, defer, useLoaderData, useSearchParams } from 'react-router-dom';
 import Table from '../../components/Table.js';
 import { allPdfDocuments, columns } from '../../types/data.js';
 import customFetch from '../../utils/customFetch.js';
@@ -31,6 +31,14 @@ import { z } from "zod"
 import FindMyId from '../../components/FindMyId.js';
 import CustomSelect from '../../components/dropdowns/CustomSelect.js';
 import NavigationArrow from './NavigationArrow.js';
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "../../components/ui/breadcrumb"
 const taskSchema = z.object({
   id: z.number({ invalid_type_error: "please enter a number " }).min(10, "min number show be 10 characters")
 })
@@ -101,13 +109,14 @@ const RenderTable = () => {
         className='bg-colorPrimary  w-[calc(100%-1rem)] mx-auto block my-4 rounded-md'
       >Query Date</Button>
       <FindMyId searchPath={`/task/`} />
+      <p className='italic text-sm capitalize pt-1'>enter document id to get document</p>
+      <div className='mb-6' />
     </>)
   }
 
   const showTable = searchParams.get('table-view') && searchParams.get('table-view') == 'card'
   return (
     <div className='px-2'>
-      <NavigationArrow />
 
       <div className='lg:flex  lg:flex-row items-start gap-x-6 '>
 
@@ -140,8 +149,20 @@ const AllLogisticsPage = () => {
   const { Logistics } = useLoaderData() as any
   return (
     <>
-      <Heading className='text-2xl sticky top-14 font-semibold my-6 pl-6 lg:text-4xl'>TASKS</Heading>
-      <React.Suspense
+      <NavigationArrow />
+      <Breadcrumb className='py-5 pl-4'>
+        <BreadcrumbList>
+          <BreadcrumbItem>
+            <BreadcrumbLink>
+              <Link to={"/"}>Dashboard</Link>
+            </BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbPage className="font-semibold text-colorPrimary text-xl lg:text-3xl">All Documents</BreadcrumbPage>
+          </BreadcrumbItem>
+        </BreadcrumbList>
+      </Breadcrumb>  <React.Suspense
         fallback={<p>Loading your package please wait a little...</p>}
       >
         <Await

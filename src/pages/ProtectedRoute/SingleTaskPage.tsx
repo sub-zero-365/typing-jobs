@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { LoaderFunctionArgs, Outlet, defer, useOutlet, useOutletContext } from 'react-router-dom'
+import { Link, LoaderFunctionArgs, Outlet, defer, useOutlet, useOutletContext } from 'react-router-dom'
 import { AnimatedText } from '../../components/Animated/animated'
 import CustomNavLink from '../../components/CustomNavlink'
 import SinglePdfWithReactPdf from '../../components/HandleFilesUpload/SinglePdfWithReactPdf'
@@ -16,6 +16,15 @@ import { queryOptions, useQuery, QueryClient } from '@tanstack/react-query'
 import { useLoaderData } from '../../utils/utils'
 import { IUserState } from '../../actions/userSlice'
 // import wait from '../../constants/wait'
+import {
+    Breadcrumb,
+    BreadcrumbItem,
+    BreadcrumbLink,
+    BreadcrumbList,
+    BreadcrumbPage,
+    BreadcrumbSeparator,
+} from "../../components/ui/breadcrumb"
+import { Badge } from '../../components/ui/badge'
 const singleTaskQuery = (id: string) => queryOptions({
     queryKey: ['singleTaskQuery', id],
     queryFn: async () => {
@@ -69,26 +78,45 @@ const SingleTaskPage = () => {
     return (
         <div>
 
-            <AnimatedText text='Task' />
+            <Breadcrumb className='py-5 pl-4'>
+                <BreadcrumbList>
+                    <BreadcrumbItem>
+                        <BreadcrumbLink>
+                            <Link to={"/"}>Dashboard</Link>
+                        </BreadcrumbLink>
+                    </BreadcrumbItem>
+                    <BreadcrumbSeparator />
+                    <BreadcrumbItem>
+                        <BreadcrumbLink>
+                            <Link to={"/logistics"}>All Documents</Link>
+                        </BreadcrumbLink>
+                    </BreadcrumbItem>
+                    <BreadcrumbSeparator />
+                    <BreadcrumbItem>
+                        <BreadcrumbPage className="font-semibold text-colorPrimary text-xl lg:text-2xl">Document</BreadcrumbPage>
+                    </BreadcrumbItem>
+                </BreadcrumbList>
+            </Breadcrumb>
             <ResizablePanelGroup
                 direction="horizontal"
                 className="h-auto max-w-[calc(100%-1rem)] mx-auto rounded-lg border"
             >
                 <ResizablePanel defaultSize={70}>
                     <div className='sticky top-14'>
-                        <Heading>Document Detail {role}</Heading>
+                        <Heading className='mb-6 font-semibold text-xl text-center uppercase text-colorPrimary'>Document <span className='text-xs'>{id}</span></Heading>
+
                         {pdfBlob && <SinglePdfWithReactPdf pdfFile={pdfBlob} />}
                     </div>
                 </ResizablePanel>
                 <ResizableHandle withHandle />
                 <ResizablePanel defaultSize={30}>
-                    <div className=' border border-black max-h-screen scrollto overflow-y-auto overflow-x-hidden'>
-                        <Heading className='mb-6 font-semibold text-3xl text-center uppercase text-colorPrimary'>Action Tab</Heading>
+                    <div className='  overflow-x-hidden'>
+                        <Heading className='mb-6 font-semibold text-xl text-center uppercase text-colorPrimary'>Action Tab</Heading>
                         <Scrollable className='mb-6 gap-x-1 lg:gap-x-2 px-4 py-1'>
                             <CustomNavLink to='.'
                                 selectedClassName='text-green-800   text-white bg-colorPrimary'
                                 animateClassName="inset-0 animate-pulse size-full shadow-md  right-0  bg-purple-600/60  rounded-full "
-                                className='bg-transparent text-xs flex-1 line-clamp-2 text-center flex items-center justify-center relative z-20 bg-white lg:text-sm capitalize  px-4 shadow text-medium rounded-full  shadow-colorPrimary mb-0.5 h-9    hover:bg-purple-600/20'
+                                className='bg-transparent text-xs flex-1 line-clamp-2 text-center flex items-center justify-center relative z-20 bg-white  capitalize  px-4 shadow text-medium rounded-full  shadow-colorPrimary mb-0.5 h-9    hover:bg-purple-600/20'
                                 show
                                 replace
                                 end
@@ -98,7 +126,7 @@ const SingleTaskPage = () => {
                             {role !== "user" && <CustomNavLink to='./later'
                                 selectedClassName='text-green-800   text-white bg-colorPrimary'
                                 animateClassName="inset-0 animate-pulse size-full shadow-md  right-0  bg-purple-600/60  rounded-full "
-                                className='bg-transparent text-xs flex-1 line-clamp-2 text-center flex items-center justify-center relative z-20 bg-white lg:text-sm capitalize  px-4 shadow text-medium rounded-full  shadow-colorPrimary mb-0.5 h-9    hover:bg-purple-600/20'
+                                className='bg-transparent text-xs flex-1 line-clamp-2 text-center flex items-center justify-center relative z-20 bg-white  capitalize  px-4 shadow text-medium rounded-full  shadow-colorPrimary mb-0.5 h-9    hover:bg-purple-600/20'
                                 show
                                 replace
                                 end
@@ -108,6 +136,12 @@ const SingleTaskPage = () => {
                             </CustomNavLink>}
                         </Scrollable>
                         <Outlet />
+                        <div className='pb-6'>
+                            <Heading className='mb-6 font-semibold text-xl text-center uppercase text-colorPrimary py-4'>All Contributors 😘</Heading>
+                            <Scrollable direction='column' className='gap-y-1 gap-x-2 justify-center-'>
+                                {Array.from({ length: 10 },(_,idx)=><Badge key={idx} className='py-2.5 px-3 bg-colorPrimary'>{"employllname"}</Badge>)}
+                            </Scrollable>
+                        </div>
                     </div>
                 </ResizablePanel>
 

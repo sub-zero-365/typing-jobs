@@ -1,9 +1,9 @@
 import { Menu, Plus, Settings2 } from 'lucide-react'
 import React from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useLocation, useOutletContext } from 'react-router-dom'
 import useAuthenticalUser from '../hooks/Authentication.js'
 import { cn } from '../lib/utils.js'
-import { useDashBoardContext } from '../pages/ProtectedRoute/Dashboard.js'
+import { useDashBoardContext, useUser } from '../pages/ProtectedRoute/Dashboard.js'
 import Theme from './Theme.js'
 import { Button } from './ui/button.js'
 import {
@@ -20,10 +20,17 @@ import {
     DropdownMenuSubTrigger,
     DropdownMenuTrigger,
 } from "./ui/dropdown-menu.js"
+import { IUserState } from '../actions/userSlice.js'
+import useGetLoginUser from '../utils/getLogInUser.js'
+import Heading from './Heading.js'
+import { useMediaQuery } from 'react-responsive'
 
 const MainDropDown = () => {
     const { setDirection } = useDashBoardContext()
     const { logOut } = useAuthenticalUser()
+    type iType = Exclude<IUserState["user"], null>
+
+    const user = useGetLoginUser();
 
     // const { logOutUser } = useAppContext()
     return (<DropdownMenu>
@@ -38,10 +45,15 @@ const MainDropDown = () => {
                     view
                     <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
                 </DropdownMenuItem>
-                <DropdownMenuItem>
-                    <Link to="/newtask">Create Task</Link>
-                    <DropdownMenuShortcut>⌘B</DropdownMenuShortcut>
-                </DropdownMenuItem>
+                {
+                    user?.role !== "admin" && <>
+                        <DropdownMenuItem>
+                            <Link to="/newtask">Create Task</Link>
+                            <DropdownMenuShortcut>⌘B</DropdownMenuShortcut>
+                        </DropdownMenuItem>
+                    </>
+                }
+
                 <DropdownMenuItem>
                     <Link to="/profile">Profile</Link>
                     <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
@@ -85,9 +97,12 @@ const MainDropDown = () => {
     </DropdownMenu>)
 }
 const DashBoardHeader = () => {
+    const user = useGetLoginUser();
     const { pathname } = useLocation()
     const currentLocation = pathname.split('/').reverse()[0].toString()
     const { setToggleSideBar, setShowFullContent, direction } = useDashBoardContext()
+  const isDesktop = useMediaQuery({ query: "(min-width: 768px)" })
+    
     return (
         <div className='flex-none h-14 !sticky !top-0 left-0 flex overflow-hidden  ring-0 z-[10]  w-full shadow-lg bg-white px-2   items-center'>
             <div className={cn('flex gap-x-4  justify-between items-center flex-1',
@@ -112,32 +127,39 @@ const DashBoardHeader = () => {
                             className='block  font-semibold mx-4  text-sm lg:text-lg'
                         >
                             {
-                                currentLocation
+                                currentLocation?.length>6&&!isDesktop?currentLocation?.slice(0,6)+" ..":currentLocation
                             }
                         </Link>  </h1>
                 </div>
-                {/* <div className='md:block hidden    flex-none
-                w-[min(30rem,calc(100%-0.5rem))]
+                <div className='   
+                w-[min(30rem,calc(100%-0.5rem))]--
                 '>
-
-                </div> */}
+                    <Heading className='font-black font-colorPrimary lg:text-2xl font-pacifico'
+                    >Dashboard</Heading>
+                </div>
                 {/* mobile view only */}
                 <div className='flex items-center gap-x-4 md:hidden'>
-                <Link to="/upload" >
-                        <Button className='bg-colorPrimary font-pacifico'><span>Create Task</span> <Plus className="ml-2" size={20}/></Button>
-                    </Link>
+                    {user?.role !== "admin" && <Link to="/upload" >
+
+                        <Button className='bg-colorPrimary font-pacifico'><span>Create Task</span> <Plus className="ml-2" size={20} /></Button>
+                    </Link>}
+
                     <MainDropDown />
 
                 </div>
                 {/* desktop view  */}
                 <div className='hidden md:flex gap-x-4 flex-none items-center'>
-                    <Link to="/upload">
-                        <Button className='bg-colorPrimary font-pacifico'><span>Create Task</span> <Plus className="ml-2" size={20}/></Button>
-                    </Link>
-                        <Theme 
-                          className='size-4'
-                          containerClassName='w-14'
-                        />
+                    {user?.role !== "admin" && <Link to="/upload" >
+                        <Button className='bg-colorPrimary font-pacifico'><span>Create Task</span> <Plus className="ml-2" size={20} /></Button>
+                    </Link>}
+                    {user?.role == "admin" && <Link to="/upload" >
+                        <Button className='bg-colorPrimary font-pacifico'><span>Create Employee</span> <Plus className="ml-2" size={20} /></Button>
+                    </Link>}
+
+                    <Theme
+                        className='size-4'
+                        containerClassName='w-14'
+                    />
                     <MainDropDown />
                 </div>
 

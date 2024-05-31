@@ -29,7 +29,7 @@ function StatsCard({ className,
                 onMouseEnter={() => setHoverIndex(index)}
                 onMouseLeave={() => setHoverIndex(null)}
                 className={cn(
-                    ' flex-none relative p-2 border py-4 mb-4 block rounded-md shadow-xl  transition-all duration-300 bg-white', className
+                    ' flex-none relative p-2  py-4 mb-4 block rounded-md shadow-xl shadow-colorPrimary  transition-all duration-300 bg-white', className
 
                 )}>
                 <AnimatePresence>
@@ -44,7 +44,7 @@ function StatsCard({ className,
                                 opacity: 0,
                                 transition: { duration: 0.15, delay: 0.2 },
                             }}
-                            className='absolute size-full ring-2- inset-0 rounded-xl bg-colorPrimary/20'
+                            className='absolute size-full  inset-0 rounded-xl bg-colorPrimary/20'
                         />
                     }
 
@@ -60,7 +60,7 @@ function StatsCard({ className,
                             className='size-10 font-medium text-white flex items-center justify-center shadow-sm bg-colorPrimary rounded-[0.1rem]'
                         ><Icon size={20} /></span>
                         <h4
-                            className='text-start text-sm lg:text-lg flex-1 text-colorPrimary font-semibold capitalize '
+                            className='text-start text-sm  flex-1 text-colorPrimary font-semibold capitalize '
                         >{title}</h4>
 
                     </figure>

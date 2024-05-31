@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import React from 'react'
-import { defer, useAsyncValue, useLoaderData } from 'react-router-dom'
+import { Link, defer, useAsyncValue, useLoaderData } from 'react-router-dom'
 import { IUserState } from '../../actions/userSlice.js'
 import DisplayUserInformationCard from '../../components/DisplayUserInformationCard.js'
 import { Scrollable } from '../../components/Scrollable.js'
@@ -29,6 +29,14 @@ import {
     SheetTitle,
     SheetTrigger,
 } from "../../components/ui/sheet"
+import {
+    Breadcrumb,
+    BreadcrumbItem,
+    BreadcrumbLink,
+    BreadcrumbList,
+    BreadcrumbPage,
+    BreadcrumbSeparator,
+} from "../../components/ui/breadcrumb"
 import { cn } from '../../lib/utils.js'
 import { DatePickerWithRange } from '../../components/DatePicker/CustomDatePicker.js'
 import { data } from '../../components/charts/react-chartjs-2.js'
@@ -121,7 +129,7 @@ const SingleUser = () => {
 
                         <div className='mb-4'>
                             <Heading className='text-center font-semibold'>USERS STATISTICS </Heading>
-                            <ChartsOptions donot_refresh  btn_position="top" chartData={data} />
+                            <ChartsOptions donot_refresh btn_position="top" chartData={data} />
                             {/* <FilterButtonPosition /> */}
                         </div>
                     </TabsContent>
@@ -132,6 +140,25 @@ const SingleUser = () => {
     }
     return (
         <div>
+            <Breadcrumb className='py-5 pl-4'>
+                <BreadcrumbList>
+                    <BreadcrumbItem>
+                        <BreadcrumbLink>
+                            <Link to={"/"}>Dashboard</Link>
+                        </BreadcrumbLink>
+                    </BreadcrumbItem>
+                    <BreadcrumbSeparator />
+                    <BreadcrumbItem>
+                        <BreadcrumbLink>
+                            <Link to={"/users"}>Users</Link>
+                        </BreadcrumbLink>
+                    </BreadcrumbItem>
+                    <BreadcrumbSeparator />
+                    <BreadcrumbItem>
+                        <BreadcrumbPage className="font-semibold text-colorPrimary text-xl lg:text-2xl">Single User Details</BreadcrumbPage>
+                    </BreadcrumbItem>
+                </BreadcrumbList>
+            </Breadcrumb>
             <div
                 onClick={() => {
                     setIsOpen(c => !c)
@@ -148,7 +175,7 @@ const SingleUser = () => {
                                 {/* <SheetTitle>Are you absolutely sure?</SheetTitle> */}
                                 <SheetDescription>
                                     <ProfileForm />
-                                   
+
                                 </SheetDescription>
                             </SheetHeader>
                         </SheetContent>
@@ -161,7 +188,7 @@ const SingleUser = () => {
                         <DrawerContent className='f'>
 
                             <ProfileForm className="px-4" />
-                           
+
                             <DrawerFooter className="pt-2">
                                 <DrawerClose asChild>
                                     <Button variant="outline">Close</Button>

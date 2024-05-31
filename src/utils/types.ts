@@ -25,7 +25,7 @@ export interface userRegister {
 }
 export interface user
   extends Omit<userRegister, "password" | "confirmPassword"> {
-  role: "user" | "admin";
+  role: "user" | "admin"|"employee"
   _id: number;
   userId: number;
   isVerified: boolean;

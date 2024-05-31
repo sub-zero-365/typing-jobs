@@ -2,7 +2,7 @@ import React, { Suspense, useState } from 'react'
 // import wait from '../../constants/wait.js'
 import { useQuery } from '@tanstack/react-query'
 import { Plus } from 'lucide-react'
-import { useLoaderData } from 'react-router-dom'
+import { Link, useLoaderData } from 'react-router-dom'
 import Heading from '../../components/Heading.js'
 import SearchComponent from '../../components/Search.js'
 import Stats, { stats } from '../../components/Stats.js'
@@ -28,6 +28,14 @@ import debounce from '../../utils/debounce.js'
 import { user } from '../../utils/types.js'
 import { Register } from '../Auth/index.js'
 import CustomSelect from '../../components/dropdowns/CustomSelect.js'
+import {
+    Breadcrumb,
+    BreadcrumbItem,
+    BreadcrumbLink,
+    BreadcrumbList,
+    BreadcrumbPage,
+    BreadcrumbSeparator,
+} from "../../components/ui/breadcrumb"
 interface Props {
     search?: string,
     page?: number,
@@ -92,9 +100,22 @@ const User = () => {
 
     return (
         <>
-            {/* <Checkbox onCheckedChange={}/> */}
+            <Breadcrumb className='py-5 pl-4'>
+                <BreadcrumbList>
+                    <BreadcrumbItem>
+                        <BreadcrumbLink>
+                            <Link to={"/"}>Dashboard</Link>
+                        </BreadcrumbLink>
+                    </BreadcrumbItem>
+                    <BreadcrumbSeparator />
+                    <BreadcrumbItem>
+                        <BreadcrumbPage className="font-semibold text-colorPrimary text-xl lg:text-3xl">Users Details</BreadcrumbPage>
+                    </BreadcrumbItem>
+                </BreadcrumbList>
+            </Breadcrumb>
+            {/* {JSON.stringify(users)} */}
             <Dialog>
-                <Heading className='text-center font-semibold lg:text-3xl my-6'>USERS DETAILS </Heading>
+                {/* <Heading className='text-center font-semibold lg:text-3xl my-6'>USERS DETAILS </Heading> */}
 
                 <DialogTrigger asChild className='ml-auto block mb-2 '>
                     <Button variant="outline" className='bg-colorPrimary text-white rounded-full h-12 mr-2 lg:hidden'>Create Employee Account</Button>
@@ -110,11 +131,12 @@ const User = () => {
                     </div>
                 </DialogContent>
             </Dialog>
+
             <div className='px-4'>
                 <Stats stats={stats}
                     nHits={444} />
             </div>
-            <div className=" lg:flex gap-x-4 px-4 items-end ">
+            <div className=" lg:flex- gap-x-4 px-4 items-end hidden ">
                 <div className='lg:w-[calc(100%-25rem)]'>
                     <Heading className='text-center font-semibold'>USERS STATISTICS </Heading>
                     <ChartsOptions btn_position="bottom" chartData={data} />
@@ -130,10 +152,9 @@ const User = () => {
                 </div>
             </div>
             <SearchComponent />
-            {/* {JSON.stringify({ numberOfPage, limit, currentPage })} */}
             {/* dont know how to removethis error cause it not an error */}
             {/* <CustomSelect className='w-fit rounded-sm border-2 border-colorPrimary text-sm !ring-0'  defaultValue='role of users' searchKey="role" values={["admin", "user", "employee"]} /> */}
-            {/* <div className='ml-auto mb-4'>
+            <div className='ml-auto mb-4'>
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
                         <Button variant="outline" className='h-fit text-xs ml-auto flex items-center justify-center gap-x-3'><Plus size={15} /> Limits</Button>
@@ -145,7 +166,7 @@ const User = () => {
                         <Button className='w-full text-xs' onClick={() => handleFilterChange({ key: "limit" })}>Clear Filter</Button>
                     </DropdownMenuContent>
                 </DropdownMenu>
-            </div> */}
+            </div>
             <DataTable columns={allUsersColumns} data={users} paginationData={{ numberOfPage, limit, currentPage }} />
 
         </>

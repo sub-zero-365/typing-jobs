@@ -1,11 +1,17 @@
 import React from "react";
-import { useAsyncError, useRouteError } from "react-router-dom";
+import { Link, useAsyncError, useNavigate, useRouteError } from "react-router-dom";
 import { AnimatedText } from "../Animated/animated";
 // import { Button } from "react-day-picker";
 import { isAxiosError } from "axios";
-// import UiButton from "./UiButton"
-// import AnimatedText from "./AnimateText"
-// import UserRole from "../utils/userRole"
+import { AlertCircle } from "lucide-react"
+
+import {
+    Alert,
+    AlertDescription,
+    AlertTitle,
+} from "../ui/alert"
+import { Button } from "../ui/button";
+import { Scrollable } from "../Scrollable";
 
 export const ErrorElement = () => {
     // const navigatePath = UserRole()
@@ -23,34 +29,43 @@ export const ErrorElement = () => {
     else {
         // errMsg = error
     }
-    console.log(error,"error element log here")
+    console.log(error, "error element log here")
+    const navigate = useNavigate()
     return (
         <div className="py-8 flex flex-col items-center">
             <img
                 src="https://cdni.iconscout.com/illustration/premium/thumb/sorry-item-not-found-3328225-2809510.png"
                 className="mx-auto w-full max-w-sm "
             />
-            <AnimatedText
-                className="text-lg sm:text-xl max-w-lg leading-[1.3rem] italic bg-rose-100 py-4 rounded-lg shadow-sm font-medium !my-10 !text-rose-600"
-                text={errMsg || "something went wrong ,try again later"}
-            />
+            <Alert variant="destructive" className="w-[calc(100%-1rem)] max-w-md mx-auto">
+                <AlertCircle className="h-4 w-4" />
+                <AlertTitle>Error</AlertTitle>
+                <AlertDescription className="text-sm font-medium">
+                    {errMsg}
+                </AlertDescription>
+            </Alert>
 
-            {/* <Button
-                onClick={() => navigate(-1, { replace: true })}
-                className="!w-[min(30rem,calc(100%-2.5rem))] !mb-5 !mx-auto !py-3.5 !text-lg !rounded-xl !bg-green-800"
-            >
-                Go Back
-            </Button>
-            <Button
-                className="!w-[min(30rem,calc(100%-2.5rem))] !mx-auto !py-3.5 !text-lg !rounded-xl"
+            <Scrollable className=" max-w-md w-[calc(100%-1rem)] justify-center mx-auto py-5" direction="column">
+                <Button variant="destructive"
+                    onClick={() => navigate(-1, { replace: true })}
+                    className=""
+                >
+                    Go Back
+                </Button>
 
-            >
                 <Link to="/"
-                    className="w-full"
+
+                    className=" block w-fit"
                     replace>
-                    Go To Dashboard
+                    <Button
+                        className="bg-colorPrimary"
+
+                    >
+                        Dashboard
+                    </Button>
                 </Link>
-            </Button> */}
+
+            </Scrollable>
         </div>
     )
 }

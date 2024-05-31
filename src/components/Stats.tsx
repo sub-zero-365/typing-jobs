@@ -13,7 +13,7 @@ export const stats = [
         title: 'Total Users',
         count: 4 || 0,
         icon: User,
-        className: 'bg-green-200 shadow-lg shadow-colorPrimary rounded-xl',
+        className: 'bg-green-900 shadow-lg shadow-colorPrimary rounded-xl text-white',
     },
     {
         title: 'Admins',
@@ -43,7 +43,7 @@ const Stats = ({ nHits, stats }: iStats) => {
             className="grid
             gap-x-2
       lg:gap-x-6
-      grid-cols-[repeat(auto-fit,minmax(min(8rem,calc(100%-0.3rem)),1fr))] mb-6"
+      grid-cols-[repeat(auto-fit,minmax(min(8rem,calc(100%-0.3rem)),1fr))] sm:grid-cols-[repeat(auto-fit,minmax(min(10rem,calc(100%-0.3rem)),1fr))] md:grid-cols-[repeat(auto-fit,minmax(min(12rem,calc(100%-0.3rem)),1fr))] mb-6"
         >
             {
                 stats.map((item, index) => {

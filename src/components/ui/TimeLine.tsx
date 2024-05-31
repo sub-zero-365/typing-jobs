@@ -5,6 +5,7 @@ import dayjs from 'dayjs'
 import { Scrollable } from '../Scrollable'
 import { Badge } from "../../components/ui/badge"
 import Heading from '../Heading'
+import { Separator } from './separator'
 export const TimeLine = ({ employee, newFile, editSummary, previousFile, createdAt, pdfId }: iEdit) => {
     return (
         <li className="mb-10 ms-6">
@@ -15,10 +16,13 @@ export const TimeLine = ({ employee, newFile, editSummary, previousFile, created
             </span>
             <Heading className="flex items-center mb-1 text-lg font-semibold text-colorPrimary -translate-y-2.5 dark:text-white">{newFile}</Heading>
             <time className="block mb-2 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">Edited on the {dayjs(createdAt).format("	dddd, MMMM D, YYYY h:mm A")}</time>
-            <Heading className='font-black mb-2 '>Description </Heading>
-            <p className="mb-4  font-medium text-xl text-gray-500 dark:text-gray-400">{editSummary}</p>
-
-                <div className='flex flex-col max-w-fit gap-y-2'><Heading className='font-black text-3xl'>Edited By</Heading><Badge>{employee.fullname}</Badge></div>
+            
+            <Badge className="mb-4  font-medium text-sm text-gray-500 mt-6 dark:text-gray-400 rounded-sm py-5 w-full relative" variant={"secondary"}>
+            <Heading className='font-black mb-2 absolute -top-4 bg-blue-300 rounded-md left-2 text-white text-xs py-1.5 px-2'>Description </Heading>
+            
+            {editSummary}</Badge>
+            <Scrollable className='flex flex-row items-center mb-1 w-full gap-y-2 break-keep'><p className='font-black  text-xs inline-flex break-keep'>Edited-By</p><Badge>{employee.fullname}</Badge></Scrollable>
+            
             <Scrollable>
                 <Button className="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:outline-none focus:ring-gray-100 focus:text-blue-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-gray-700"><svg className="w-3.5 h-3.5 me-2.5" aria-hidden="true" xmlnsNaclassName="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
                     <path d="M14.707 7.793a1 1 0 0 0-1.414 0L11 10.086V1.5a1 1 0 0 0-2 0v8.586L6.707 7.793a1 1 0 1 0-1.414 1.414l4 4a1 1 0 0 0 1.416 0l4-4a1 1 0 0 0-.002-1.414Z" />
@@ -29,6 +33,7 @@ export const TimeLine = ({ employee, newFile, editSummary, previousFile, created
                     <path d="M18 12h-2.55l-2.975 2.975a3.5 3.5 0 0 1-4.95 0L4.55 12H2a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-4a2 2 0 0 0-2-2Zm-3 5a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z" />
                 </svg> preview pdf</Button>
             </Scrollable>
+            <Separator className='h-[1px] bg-colorPrimary/15 rounded-sm mt-1.5'/>
         </li>
     )
 }

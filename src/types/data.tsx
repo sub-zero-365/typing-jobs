@@ -33,6 +33,7 @@ import { useFilter } from "../hooks/CustomLinkFilterHook.js"
 import { statusOptions } from "../constants/options.js"
 import { StatusButtom } from "../components/buttons/button.js"
 import CustomSelect from "../components/dropdowns/CustomSelect.js"
+import { Badge } from "../components/ui/badge.js"
 
 type Payment = {
   id: string
@@ -351,11 +352,15 @@ export const allUsersColumns: ColumnDef<user>[] = [
       return (
         <TooltipProvider>
           <Tooltip>
-            <TooltipTrigger> <span className={cn("rounded-full py-1 font-medium shadow-sm px-4 text-xs text-red-800 sm:text-sm  w-fit  bg-red-200  ",
-              role == "admin" && "bg-orange-200 text-orange-800"
-            )}>{role}</span></TooltipTrigger>
-            <TooltipContent>
-              {role}
+            <TooltipTrigger>
+              <Badge variant={
+                role == "employee" ? "destructive" : "default"
+              }
+                className={cn("py-2 px-3",
+                  role == "admin" && "bg-colorPrimary"
+                )}>{role}</Badge></TooltipTrigger>
+            <TooltipContent className="ring bg-colorPrimary/60 text-white">
+              user is  {role}
             </TooltipContent>
           </Tooltip>
         </TooltipProvider>
@@ -364,24 +369,12 @@ export const allUsersColumns: ColumnDef<user>[] = [
   },
   {
 
-    header: "Total",
-    accessorKey: "total"
+    header: "Phone Number",
+    accessorKey: "phoneNumber"
 
   }
   ,
-  {
 
-    header: "Percent",
-    accessorKey: "percent",
-    cell({ row }) {
-      const percent = row.original.percent
-      return <span className="text-xs rounded-lg bg-">
-        {percent.toFixed(1)} %
-      </span>
-    },
-
-  }
-  ,
   {
     accessorKey: "email",
     header: () => <div className="text-right">Emai Address</div>,

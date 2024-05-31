@@ -20,7 +20,7 @@ const FindMyId = ({ searchPath }: { searchPath: string }) => {
         });
     const onSubmit = ({ id }: validationSchema) => {
         navigate(searchPath + id)
-        console.log("this the data here ", id)
+        // console.log("this the data here ", id)
     }
     return (
         <>
@@ -28,15 +28,15 @@ const FindMyId = ({ searchPath }: { searchPath: string }) => {
             <form
                 onSubmit={handleSubmit(onSubmit)}
 
-                className="flex items-center rounded-xl overflow-hidden placeholder:uppercase ">
-                <Input placeholder='ENTER ID  '
+                className="flex items-center rounded-sm overflow-hidden placeholder:uppercase ">
+                <Input placeholder='Enter document id  '
                     className='rounded-none '
                     {...register("id")}
                 />
 
                 <Button disabled={isSubmitting}
                     type='submit'
-                    className='rounded-none'
+                    className='rounded-none bg-colorPrimary'
                 >Submit</Button>
             </form>
             {errors.id && <span className="error">{errors?.id?.message?.toString()}</span>}
