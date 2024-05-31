@@ -8,7 +8,7 @@ import { iEdit, iLogistic, iPDFDocument, iPDFDocumentResponse, logisticsResponse
 
 import { AnimatedText } from '../../components/Animated/animated.js';
 import { DatePickerWithRange } from '../../components/DatePicker/CustomDatePicker.js';
-import Stats from '../../components/Stats.js';
+import Stats, { stats } from '../../components/Stats.js';
 import { Bar_Chart } from '../../components/charts/recharts.js';
 import { ErrorElement } from '../../components/error/errorComponents.js';
 import {
@@ -62,7 +62,7 @@ const AllLogisticsQuery = (params: Params) => {
     ],
     queryFn: async () => {
       // await wait(10000)
-      const { data } = await customFetch.get<{pdfDocuments:iPDFDocument[],edits:iEdit[]}>('/pdfdocument', {
+      const { data } = await customFetch.get<{ pdfDocuments: iPDFDocument[], edits: iEdit[] }>('/pdfdocument', {
         params,
       });
       console.group(data, "data")
@@ -74,7 +74,7 @@ const AllLogisticsQuery = (params: Params) => {
 const statsQuery = {
   queryKey: ['stats'],
   queryFn: async () => {
-    const { data } = await customFetch.get<{pdfDocuments:iPDFDocument[],edits:iEdit[]}>('/tasks/stats');
+    const { data } = await customFetch.get<{ pdfDocuments: iPDFDocument[], edits: iEdit[] }>('/tasks/stats');
     return data;
   }
 }
@@ -92,11 +92,11 @@ export const loader = (queryClient) => async ({ request }) => {
 const RenderTable = () => {
   const { searchValues } = useLoaderData() as any
   const { defaultStats, nHits } = useQuery(statsQuery).data as any
-  const { pdfDocuments, edits } = useQuery(AllLogisticsQuery(searchValues)).data as {pdfDocuments:iPDFDocument[],edits:iEdit[]}
+  const { pdfDocuments, edits } = useQuery(AllLogisticsQuery(searchValues)).data as { pdfDocuments: iPDFDocument[], edits: iEdit[] }
   const [searchParams] = useSearchParams()
   const Query = () => {
     return (<>
-      <DatePickerWithRange  />
+      <DatePickerWithRange />
       <Button
         className='bg-colorPrimary  w-[calc(100%-1rem)] mx-auto block my-4 rounded-md'
       >Query Date</Button>
@@ -107,14 +107,14 @@ const RenderTable = () => {
   const showTable = searchParams.get('table-view') && searchParams.get('table-view') == 'card'
   return (
     <div className='px-2'>
-            <NavigationArrow/>
+      <NavigationArrow />
 
       <div className='lg:flex  lg:flex-row items-start gap-x-6 '>
 
         <div className='flex-1 flex-grow lg:w-[calc(100%-762626rem)]'>
           {/* {JSON.stringify(pdfDocuments, null, 2)} */}
 
-          <Stats defaultStats={defaultStats}
+          <Stats stats={stats}
             nHits={nHits} />
           <CustomSelect searchKey='table-view' values={["card", "table"]} defaultValue='view' className='mb-6 ml-auto' />
           {

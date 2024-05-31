@@ -1,45 +1,33 @@
-import React, { Suspense, useCallback, useState } from 'react'
+import React, { Suspense, useState } from 'react'
 // import wait from '../../constants/wait.js'
+import { useQuery } from '@tanstack/react-query'
+import { Plus } from 'lucide-react'
+import { useLoaderData } from 'react-router-dom'
+import Heading from '../../components/Heading.js'
+import SearchComponent from '../../components/Search.js'
+import Stats, { stats } from '../../components/Stats.js'
+import DataTable from '../../components/Table.js'
+import ChartsOptions, { FilterButtonPosition } from '../../components/charts/chartOptions.js'
+import { data } from '../../components/charts/react-chartjs-2.js'
+import { Button } from '../../components/ui/button.js'
 import {
     Dialog,
     DialogContent,
     DialogTrigger
 } from "../../components/ui/dialog"
-import { useQuery } from '@tanstack/react-query'
-import { useLoaderData } from 'react-router-dom'
-import FilterButton from '../../components/CustomFilterLink.js'
-import { Scrollable } from '../../components/Scrollable.js'
-import DataTable from '../../components/Table.js'
-import { AreaChart, BarChart, data } from '../../components/charts/react-chartjs-2.js'
-import { Button } from '../../components/ui/button.js'
-import { dateSortedOptions } from '../../constants/options.js'
-import wait from '../../constants/wait.js'
-import { allUsersColumns } from '../../types/data.js'
-import customFetch from '../../utils/customFetch.js'
-import { user } from '../../utils/types.js'
-import { Register } from '../Auth/index.js'
-import ChartsOptions, { FilterButtonPosition } from '../../components/charts/chartOptions.js'
-import { chatsOptions } from '../../components/utils/sortedOptions.js'
-import Heading from '../../components/Heading.js'
-import Stats from '../../components/Stats.js'
 import {
     DropdownMenu,
-    DropdownMenuCheckboxItem,
     DropdownMenuContent,
-    DropdownMenuLabel,
-    DropdownMenuSeparator,
-    DropdownMenuTrigger,
-
-
+    DropdownMenuTrigger
 } from "../../components/ui/dropdown-menu"
 import { RadioGroup, RadioGroupItem } from "../../components/ui/radio-group"
-import { Plus, Search } from 'lucide-react'
-import { Input } from '../../components/ui/input.js'
-import { Checkbox } from "../../components/ui/checkbox"
 import { useFilter } from '../../hooks/CustomLinkFilterHook.js'
+import { allUsersColumns } from '../../types/data.js'
+import customFetch from '../../utils/customFetch.js'
 import debounce from '../../utils/debounce.js'
+import { user } from '../../utils/types.js'
+import { Register } from '../Auth/index.js'
 import CustomSelect from '../../components/dropdowns/CustomSelect.js'
-import SearchComponent from '../../components/Search.js'
 interface Props {
     search?: string,
     page?: number,
@@ -123,7 +111,7 @@ const User = () => {
                 </DialogContent>
             </Dialog>
             <div className='px-4'>
-                <Stats defaultStats={{}}
+                <Stats stats={stats}
                     nHits={444} />
             </div>
             <div className=" lg:flex gap-x-4 px-4 items-end ">
@@ -144,8 +132,8 @@ const User = () => {
             <SearchComponent />
             {/* {JSON.stringify({ numberOfPage, limit, currentPage })} */}
             {/* dont know how to removethis error cause it not an error */}
-            {/* <CustomSelect className='w-fit rounded-sm '  defaultValue='Role' searchKey="role" values={["admin", "user", "employee"]} /> */}
-            <div className='ml-auto mb-4'>
+            {/* <CustomSelect className='w-fit rounded-sm border-2 border-colorPrimary text-sm !ring-0'  defaultValue='role of users' searchKey="role" values={["admin", "user", "employee"]} /> */}
+            {/* <div className='ml-auto mb-4'>
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
                         <Button variant="outline" className='h-fit text-xs ml-auto flex items-center justify-center gap-x-3'><Plus size={15} /> Limits</Button>
@@ -157,7 +145,7 @@ const User = () => {
                         <Button className='w-full text-xs' onClick={() => handleFilterChange({ key: "limit" })}>Clear Filter</Button>
                     </DropdownMenuContent>
                 </DropdownMenu>
-            </div>
+            </div> */}
             <DataTable columns={allUsersColumns} data={users} paginationData={{ numberOfPage, limit, currentPage }} />
 
         </>

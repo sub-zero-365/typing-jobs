@@ -1,3 +1,4 @@
+import { LucideIcon } from "lucide-react";
 import { userRole } from "../types/usertype";
 
 export interface iLogistic {
@@ -60,3 +61,9 @@ export interface iPDFDocumentResponse {
   pdfDocuments: iPDFDocument;
   edits: iEdit;
 }
+export interface iStat{
+  title: string,
+  count: number,
+  icon: LucideIcon,
+  className?: string
+}[]

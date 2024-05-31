@@ -1,4 +1,4 @@
-import { Menu, Settings2 } from 'lucide-react'
+import { Menu, Plus, Settings2 } from 'lucide-react'
 import React from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import useAuthenticalUser from '../hooks/Authentication.js'
@@ -20,7 +20,6 @@ import {
     DropdownMenuSubTrigger,
     DropdownMenuTrigger,
 } from "./ui/dropdown-menu.js"
-// import { useAppContext } from './RootElement.js'
 
 const MainDropDown = () => {
     const { setDirection } = useDashBoardContext()
@@ -29,7 +28,7 @@ const MainDropDown = () => {
     // const { logOutUser } = useAppContext()
     return (<DropdownMenu>
         <DropdownMenuTrigger asChild>
-            <Button variant="outline" className='rounded-full block size-12 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500'> <span className='rounded-full block size-14' /></Button>
+            <Button variant="outline" className='rounded-full block size-12 bg-colorPrimary/50'> <span className='rounded-full block size-14' /></Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent sideOffset={10} className="w-56">
             <DropdownMenuLabel>My Account</DropdownMenuLabel>
@@ -124,16 +123,16 @@ const DashBoardHeader = () => {
                 </div> */}
                 {/* mobile view only */}
                 <div className='flex items-center gap-x-4 md:hidden'>
-                <Link to="/upload">
-                        <Button>Create Task</Button>
+                <Link to="/upload" >
+                        <Button className='bg-colorPrimary font-pacifico'><span>Create Task</span> <Plus className="ml-2" size={20}/></Button>
                     </Link>
                     <MainDropDown />
 
                 </div>
                 {/* desktop view  */}
                 <div className='hidden md:flex gap-x-4 flex-none items-center'>
-                    <Link to="/newtask">
-                        <Button>Create Task</Button>
+                    <Link to="/upload">
+                        <Button className='bg-colorPrimary font-pacifico'><span>Create Task</span> <Plus className="ml-2" size={20}/></Button>
                     </Link>
                         <Theme 
                           className='size-4'

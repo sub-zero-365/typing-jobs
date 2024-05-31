@@ -10,11 +10,10 @@ interface IStatsCard extends dashBoardItemsProps {
     setHoverIndex?: any;
     index?: number,
     asLink?: boolean,
-    count?: number,
-  
+
 }
 function StatsCard({ className,
-    Icon,
+    icon: Icon,
     title,
     to,
     hoverIndex,
@@ -31,13 +30,12 @@ function StatsCard({ className,
                 onMouseLeave={() => setHoverIndex(null)}
                 className={cn(
                     ' flex-none relative p-2 border py-4 mb-4 block rounded-md shadow-xl  transition-all duration-300 bg-white', className
-              
-                    )}>
+
+                )}>
                 <AnimatePresence>
                     {
                         isActive && <motion.div
                             layoutId="hoverBackgroundee"
-                            // layout
                             animate={{
                                 opacity: 1,
                                 transition: { duration: 0.15 },
@@ -46,7 +44,7 @@ function StatsCard({ className,
                                 opacity: 0,
                                 transition: { duration: 0.15, delay: 0.2 },
                             }}
-                            className='absolute size-full ring-2- inset-0 rounded-xl bg-gradient-to-r from-colorPrimary/40  to-pink-500/40'
+                            className='absolute size-full ring-2- inset-0 rounded-xl bg-colorPrimary/20'
                         />
                     }
 
@@ -57,13 +55,13 @@ function StatsCard({ className,
                 <div>
                     <figure className='flex mx-auto mb-2 w-full px-2
                     
-                    justify-between -max-w-32 gap-x-2  items-center'>
+                    justify-between -max-w-32 gap-x-2  items-end'>
                         <span
-                            className='size-10 font-medium text-white flex items-center justify-center shadow-sm bg-blue-300 rounded-sm'
-                        ><Icon size={30} /></span>
+                            className='size-10 font-medium text-white flex items-center justify-center shadow-sm bg-colorPrimary rounded-[0.1rem]'
+                        ><Icon size={20} /></span>
                         <h4
-                            className='text-start flex-1 text-sm font-semibold capitalize '
-                        >total {title}</h4>
+                            className='text-start text-sm lg:text-lg flex-1 text-colorPrimary font-semibold capitalize '
+                        >{title}</h4>
 
                     </figure>
                     <div className='px-4 mb-2'>
@@ -112,7 +110,7 @@ function StatsCard({ className,
                     ><Icon size={30} /></span>
                     <h4
                         className='text-start flex-1 text-sm font-semibold capitalize '
-                    >total {title}</h4>
+                    >{title}</h4>
 
                 </figure>
                 <div className='px-4 mb-2'>

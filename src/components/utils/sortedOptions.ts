@@ -1,6 +1,6 @@
 export const chatsOptions = [
   {
-    value: "line",
+    value: "bar",
     label: "Line Charts",
   },
   {
@@ -8,8 +8,8 @@ export const chatsOptions = [
     label: "Pie Charts",
   },
   {
-    value: "bar",
-    label: "Bar Charts",
+    value: "line",
+    label: "Line Charts",
   },
   {
     value: "area",

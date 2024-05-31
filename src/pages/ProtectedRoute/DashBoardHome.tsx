@@ -5,33 +5,34 @@ import { LucideIcon, PercentSquare } from 'lucide-react'
 // import { Table } from '../../components/ui/table.js'
 import Table, { columns, payments } from '../../components/Table.js'
 import { Bar_Chart } from '../../components/charts/recharts.js'
+import { iStat } from '../../utils/types.js'
 
-export type dashBoardItemsProps = {
-  title: string,
-  to: string,
-  Icon: LucideIcon,
-  className?: string
+export interface dashBoardItemsProps extends iStat {
+  to: string
 }
 const DashBoardHome = () => {
   const dashBoardItems: readonly dashBoardItemsProps[] = [
     {
       title: "Logistics",
       to: "logistics",
-      Icon: PercentSquare,
+      icon: PercentSquare,
+      count: 3,
       className: 'bg-green-500',
 
     },
     {
       title: "Users",
       to: "users",
-      Icon: PercentSquare,
+      icon: PercentSquare,
+      count: 3,
       className: 'bg-blue-200',
 
     },
     {
       title: "Logistics",
       to: "logisitics",
-      Icon: PercentSquare,
+      icon: PercentSquare,
+      count: 3,
       className: 'bg-orange-200',
 
     },
