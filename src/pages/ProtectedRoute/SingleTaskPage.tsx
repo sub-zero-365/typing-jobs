@@ -65,8 +65,8 @@ const fetchPdf = async () => {
 const SingleTaskPage = () => {
     const [pdfBlob, setPdfBlob] = useState<any>(null);
     type iType = Exclude<IUserState["user"], null>
-    const { _id, fullname, role } = useOutletContext() as iType
-    console.log("user :", { _id, fullname, role })
+    const { userId, role } = useOutletContext() as iType
+
 
     useEffect(() => {
         fetchPdf().then((blob) => setPdfBlob(blob));
@@ -77,7 +77,6 @@ const SingleTaskPage = () => {
 
     return (
         <div>
-
             <Breadcrumb className='py-5 pl-4'>
                 <BreadcrumbList>
                     <BreadcrumbItem>
@@ -139,7 +138,10 @@ const SingleTaskPage = () => {
                         <div className='pb-6'>
                             <Heading className='mb-6 font-semibold text-xl text-center uppercase text-colorPrimary py-4'>All Contributors 😘</Heading>
                             <Scrollable direction='column' className='gap-y-1 gap-x-2 justify-center-'>
-                                {Array.from({ length: 10 },(_,idx)=><Badge key={idx} className='py-2.5 px-3 bg-colorPrimary'>{"employllname"}</Badge>)}
+                                {pdfDocument?.employeeNames?.map((name, idx) => {
+                                    if (name.userId == userId) return <Badge key={idx} className='py-2.5 px-3 bg-colorPrimary/60'>Edited BY you</Badge>
+                                    return (<Link to={`/user/${userId}`} ><Badge key={idx} className='py-2.5 px-3 bg-colorPrimary'>{name?.fullname}</Badge></Link>)
+                                })}
                             </Scrollable>
                         </div>
                     </div>

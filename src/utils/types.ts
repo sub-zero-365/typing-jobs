@@ -25,7 +25,7 @@ export interface userRegister {
 }
 export interface user
   extends Omit<userRegister, "password" | "confirmPassword"> {
-  role: "user" | "admin"|"employee"
+  role: "user" | "admin" | "employee";
   _id: number;
   userId: number;
   isVerified: boolean;
@@ -44,6 +44,10 @@ export interface iPDFDocument {
   employeeIds: number[];
   storedFileName: string;
   status: "uploaded" | "in-progress" | "completed";
+  employeeNames: {
+    fullname: string;
+    userId: number;
+  }[];
 }
 export interface iEdit {
   readonly pdfId: string;
@@ -53,17 +57,18 @@ export interface iEdit {
   readonly editSummary?: string;
   createdAt: string;
   employee: {
-    fullname: string,
-    userId: string,
-  },
+    fullname: string;
+    userId: string;
+  };
 }
 export interface iPDFDocumentResponse {
   pdfDocuments: iPDFDocument;
   edits: iEdit;
 }
-export interface iStat{
-  title: string,
-  count: number,
-  icon: LucideIcon,
-  className?: string
-}[]
+export interface iStat {
+  title: string;
+  count: number;
+  icon: LucideIcon;
+  className?: string;
+}
+[];
