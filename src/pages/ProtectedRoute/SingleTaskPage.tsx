@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Link, LoaderFunctionArgs, Outlet, defer, useOutlet, useOutletContext } from 'react-router-dom'
+import { Link, LoaderFunctionArgs, Outlet, defer, useNavigate, useOutlet, useOutletContext } from 'react-router-dom'
 import { AnimatedText } from '../../components/Animated/animated'
 import CustomNavLink from '../../components/CustomNavlink'
 import SinglePdfWithReactPdf from '../../components/HandleFilesUpload/SinglePdfWithReactPdf'
@@ -15,6 +15,7 @@ import { iEdit, iPDFDocument } from '../../utils/types'
 import { queryOptions, useQuery, QueryClient } from '@tanstack/react-query'
 import { useLoaderData } from '../../utils/utils'
 import { IUserState } from '../../actions/userSlice'
+import { useInfiniteQuery } from '@tanstack/react-query';
 // import wait from '../../constants/wait'
 import {
     Breadcrumb,
@@ -25,6 +26,7 @@ import {
     BreadcrumbSeparator,
 } from "../../components/ui/breadcrumb"
 import { Badge } from '../../components/ui/badge'
+import { useMediaQuery } from 'react-responsive'
 const singleTaskQuery = (id: string) => queryOptions({
     queryKey: ['singleTaskQuery', id],
     queryFn: async () => {
@@ -32,19 +34,31 @@ const singleTaskQuery = (id: string) => queryOptions({
         return data;
     }
 })
-const allRelatedEditQuery = (id: string) => ({
-    queryKey: ['SingleEditQuery', id],
+
+export const allRelatedEditQuery = (id: string, query = {} as any) => ({
+    queryKey: ['SingleEditQuery', id, {
+        limit: query.limit ?? 10,
+        page: query.page ?? 1,
+    }],
     queryFn: async () => {
-        const { data } = await customFetch.get<{ edits: iEdit[] }>('/edits/related/' + id);
+        const { data } = await customFetch.get<{ edits: iEdit[] }>('/edits/related/' + id, {
+
+            params: {
+                ...query
+            }
+        });
         return data;
     }
 })
-export const loader = (queryClient: QueryClient) => async ({ params }: LoaderFunctionArgs) => {
+export const loader = (queryClient: QueryClient) => async ({ params, request }: LoaderFunctionArgs) => {
+    const querys = Object.fromEntries([
+        ...new URL(request.url).searchParams.entries(),
+    ]);
     try {
         const id = params.taskId
         await queryClient.ensureQueryData(singleTaskQuery(id!))
 
-        const editsData = queryClient.fetchQuery(allRelatedEditQuery(id!));
+        const editsData = queryClient.fetchQuery(allRelatedEditQuery(id!, querys));
         const deferredData = {
             id: id!,
             Edits: editsData
@@ -73,7 +87,8 @@ const SingleTaskPage = () => {
     }, []);
     const { id, Edits } = useLoaderData() as any;
     const { pdfDocument } = useQuery(singleTaskQuery(id!))?.data as { pdfDocument: iPDFDocument }
-
+    const navigate = useNavigate()
+    const isDesktop = useMediaQuery({ query: "(min-width: 768px)" })
 
     return (
         <div>
@@ -81,7 +96,7 @@ const SingleTaskPage = () => {
                 <BreadcrumbList>
                     <BreadcrumbItem>
                         <BreadcrumbLink>
-                            <Link to={"/"}>Dashboard</Link>
+                            <span onClick={() => navigate(-1)}>Back</span>
                         </BreadcrumbLink>
                     </BreadcrumbItem>
                     <BreadcrumbSeparator />
@@ -100,18 +115,28 @@ const SingleTaskPage = () => {
                 direction="horizontal"
                 className="h-auto max-w-[calc(100%-1rem)] mx-auto rounded-lg border"
             >
-                <ResizablePanel defaultSize={70}>
+                <ResizablePanel defaultSize={isDesktop ? 70 : 0}>
                     <div className='sticky top-14'>
                         <Heading className='mb-6 font-semibold text-xl text-center uppercase text-colorPrimary'>Document <span className='text-xs'>{id}</span></Heading>
 
                         {pdfBlob && <SinglePdfWithReactPdf pdfFile={pdfBlob} />}
                     </div>
                 </ResizablePanel>
-                <ResizableHandle withHandle />
-                <ResizablePanel defaultSize={30}>
+                {isDesktop && <ResizableHandle withHandle />}
+                <ResizablePanel defaultSize={isDesktop ? 30 : 100}>
                     <div className='  overflow-x-hidden'>
                         <Heading className='mb-6 font-semibold text-xl text-center uppercase text-colorPrimary'>Action Tab</Heading>
-                        <Scrollable className='mb-6 gap-x-1 lg:gap-x-2 px-4 py-1'>
+                        <Scrollable className='mb-6 gap-x-1 lg:gap-x-2 px-1 lg:px-4 '>
+                            <CustomNavLink to='./view-pdf'
+                                selectedClassName='text-green-800   text-white bg-colorPrimary'
+                                animateClassName="inset-0 animate-pulse size-full shadow-md  right-0  bg-purple-600/60  rounded-full "
+                                className='bg-transparent text-xs lg:hidden flex-1 line-clamp-2 text-center flex items-center justify-center relative z-20 bg-white  capitalize  px-4 shadow text-medium rounded-full  shadow-colorPrimary mb-0.5 h-9    hover:bg-purple-600/20'
+                                show
+                                replace
+                                end
+                            >
+                              Pdf Document
+                            </CustomNavLink>
                             <CustomNavLink to='.'
                                 selectedClassName='text-green-800   text-white bg-colorPrimary'
                                 animateClassName="inset-0 animate-pulse size-full shadow-md  right-0  bg-purple-600/60  rounded-full "

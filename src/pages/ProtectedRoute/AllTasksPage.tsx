@@ -2,35 +2,17 @@ import { useQuery } from '@tanstack/react-query';
 import React from 'react';
 import { Await, Link, defer, useLoaderData, useSearchParams } from 'react-router-dom';
 import Table from '../../components/Table.js';
-import { allPdfDocuments, columns } from '../../types/data.js';
+import { allPdfDocuments } from '../../types/data.js';
 import customFetch from '../../utils/customFetch.js';
-import { iEdit, iLogistic, iPDFDocument, iPDFDocumentResponse, logisticsResponse } from '../../utils/types.js';
+import { iEdit, iPDFDocument } from '../../utils/types.js';
 
-import { AnimatedText } from '../../components/Animated/animated.js';
-import { DatePickerWithRange } from '../../components/DatePicker/CustomDatePicker.js';
-import Stats, { stats } from '../../components/Stats.js';
-import { Bar_Chart } from '../../components/charts/recharts.js';
-import { ErrorElement } from '../../components/error/errorComponents.js';
-import {
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTrigger
-} from "../../components/ui/sheet.js";
-import { demoUsers } from '../../constants/demoData.js';
-import { demousercolumns } from '../../Columns/demoUserColumn.js';
+import { z } from "zod";
 import Tasks from '../../components/Cards/Tasks.js';
-import { Scrollable } from '../../components/Scrollable.js';
-import FilterButton from '../../components/CustomFilterLink.js';
-import Heading from '../../components/Heading.js';
-import { Settings } from 'lucide-react';
-import { Input } from '../../components/ui/input.js';
-import { Button } from '../../components/ui/button.js';
-import { z } from "zod"
+import { DatePickerWithRange } from '../../components/DatePicker/CustomDatePicker.js';
 import FindMyId from '../../components/FindMyId.js';
+import Stats from '../../components/Stats.js';
 import CustomSelect from '../../components/dropdowns/CustomSelect.js';
-import NavigationArrow from './NavigationArrow.js';
+import { ErrorElement } from '../../components/error/errorComponents.js';
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -38,7 +20,10 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
-} from "../../components/ui/breadcrumb"
+} from "../../components/ui/breadcrumb";
+import { Button } from '../../components/ui/button.js';
+import NavigationArrow from './NavigationArrow.js';
+import { Car, PersonStanding, User } from 'lucide-react';
 const taskSchema = z.object({
   id: z.number({ invalid_type_error: "please enter a number " }).min(10, "min number show be 10 characters")
 })
@@ -82,7 +67,7 @@ const AllLogisticsQuery = (params: Params) => {
 const statsQuery = {
   queryKey: ['stats'],
   queryFn: async () => {
-    const { data } = await customFetch.get<{ pdfDocuments: iPDFDocument[], edits: iEdit[] }>('/tasks/stats');
+    const { data } = await customFetch.get<{ pdfDocuments: iPDFDocument[], edits: iEdit[] }>('/pdfdocument/stats');
     return data;
   }
 }
@@ -90,7 +75,8 @@ export const loader = (queryClient) => async ({ request }) => {
   const params = Object.fromEntries([
     ...new URL(request.url).searchParams.entries(),
   ]);
-  await queryClient.ensureQueryData(statsQuery)
+  const x = await queryClient.ensureQueryData(statsQuery)
+  console.log(x, "x")
   return defer({
     id: params.tracking_number,
     Logistics: queryClient.ensureQueryData(AllLogisticsQuery(params)),
@@ -99,7 +85,7 @@ export const loader = (queryClient) => async ({ request }) => {
 }
 const RenderTable = () => {
   const { searchValues } = useLoaderData() as any
-  const { defaultStats, nHits } = useQuery(statsQuery).data as any
+  const { defaultStats, totalPdfDocs } = useQuery(statsQuery).data as any
   const { pdfDocuments, edits } = useQuery(AllLogisticsQuery(searchValues)).data as { pdfDocuments: iPDFDocument[], edits: iEdit[] }
   const [searchParams] = useSearchParams()
   const Query = () => {
@@ -115,16 +101,41 @@ const RenderTable = () => {
   }
 
   const showTable = searchParams.get('table-view') && searchParams.get('table-view') == 'card'
+  const stats = [
+    {
+        title: 'Total Documents',
+        count: totalPdfDocs || 0,
+        icon: User,
+        className: 'bg-green-900 shadow-lg shadow-colorPrimary rounded-xl text-white',
+    },
+    {
+        title: 'uploaded',
+        count: defaultStats["uploaded"] || 0,
+        icon: User,
+        className: 'bg-blue-200 shadow-lg shadow-colorPrimary rounded-xl',
+    },
+    {
+        title: 'in-progress',
+        count: defaultStats["in-progress"] || 0,
+        icon: PersonStanding,
+        className: 'bg-orange-200 shadow-lg shadow-colorPrimary rounded-xl',
+    },
+    {
+        title: 'completed',
+        count: defaultStats["completed"] || 0,
+        icon: Car,
+        className: 'bg-green-200 shadow-lg shadow-colorPrimary rounded-xl',
+    },
+];
   return (
     <div className='px-2'>
 
       <div className='lg:flex  lg:flex-row items-start gap-x-6 '>
 
         <div className='flex-1 flex-grow lg:w-[calc(100%-762626rem)]'>
-          {/* {JSON.stringify(pdfDocuments, null, 2)} */}
-
+         
           <Stats stats={stats}
-            nHits={nHits} />
+            nHits={0} />
           <CustomSelect searchKey='table-view' values={["card", "table"]} defaultValue='view' className='mb-6 ml-auto' />
           {
             !showTable ? <Table columns={allPdfDocuments} data={pdfDocuments} /> :

@@ -2,6 +2,7 @@
 import {
   AudioWaveform,
   ContactIcon,
+  FileText,
   Home,
   HomeIcon,
   LayoutDashboard,
@@ -46,7 +47,7 @@ export const NavItemsLinks: INavItemsLinks[] = [
   {
     name: "About Us",
     link: "/home/about-us",
-    icon:LucideAlignHorizontalDistributeStart,
+    icon: LucideAlignHorizontalDistributeStart,
   },
 ];
 export const DashboardNavLinks: (typeof NavItemsLinks)[number][] = [
@@ -61,14 +62,13 @@ export const DashboardNavLinks: (typeof NavItemsLinks)[number][] = [
     icon: Users,
   },
   {
-    name: "tasks",
+    name: "Documents",
     link: "logistics",
-    icon: AudioWaveform,
+    icon: FileText,
   },
   {
     name: "new task",
     link: "upload",
     icon: PlusCircle,
   },
-
 ];

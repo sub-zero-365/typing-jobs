@@ -178,25 +178,6 @@ export const columns: ColumnDef<iLogistic>[] = [
     },
   },
 
-  // {
-  //   header: "View",
-  //   id: "view",
-  //   cell: ({ row }) => {
-  //     const log = row.original
-  //     //the row value
-  //     const tracking_number = log.tracking_number || 10;
-
-  //     return <Link to={`/dashboard/logistic/${tracking_number}`}
-  //       state={{
-  //         rd_from: window.location.href
-  //       }}
-  //     >
-  //       <Button
-  //         variant="link"
-  //       >view  </Button>
-  //     </Link>
-  //   }
-  // },
   {
     header: "Action",
     id: "actions",
@@ -430,8 +411,13 @@ export const allPdfDocuments: ColumnDef<iPDFDocument>[] = [
       return <div>{row.row.index + 1}</div>;
     },
 
-  }, {
-    accessorKey: "pdfDocuments.storedFileName",
+  }
+  ,
+  {
+    accessorKey: "_id",
+    header: "Document id",
+  }
+  , {
     header: "File Name",
     cell(props) {
       const id = props.row.original.storedFileName
@@ -442,11 +428,37 @@ export const allPdfDocuments: ColumnDef<iPDFDocument>[] = [
   {
     accessorKey: "status",
     header: "File Status",
+    cell(props) {
+      const status = props.row.original.status
+      return (<TooltipProvider>
+        <Tooltip>
+          <TooltipTrigger>
+            <Badge variant={
+              status == "uploaded" ? "destructive" : "default"
+            }
+              className={cn("py-2 px-3 ",
+                status == "in-progress" && "bg-colorPrimary",
+                status == "completed" && "bg-green-950 ",
+              )}>{status}</Badge></TooltipTrigger>
+          <TooltipContent className="ring bg-colorPrimary/60 text-white">
+              {status}
+          </TooltipContent>
+        </Tooltip>
+      </TooltipProvider>)
+    },
 
   }
   ,
 
-
+  {
+    // accessorKey: "_id",
+    header: "N of edits",
+    cell({ row }) {
+      const editCount = row.original.edits.length
+      return <>{editCount}</>
+    },
+  }
+  ,
   {
     header: "Action",
     id: "actions",

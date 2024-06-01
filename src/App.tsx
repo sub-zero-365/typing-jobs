@@ -197,7 +197,13 @@ const router = createBrowserRouter([
             element: <UpdatePdfFile />,
             path: 'later',
             action: updatePdfFileAction(queryClient),
-            id:"adddetails"
+            id: "adddetails"
+          },
+          {
+            element: <div>pdf file here</div>,
+            path: 'view-pdf',
+
+
           },
         ]
       },
@@ -293,10 +299,10 @@ function App() {
   // const queryClient=useq
   return (
     <Provider store={store}>
-    
+
       <QueryClientProvider client={queryClient}>
         <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.4.120/build/pdf.worker.min.js">
-        <ReactQueryDevtools initialIsOpen={false} position='right'/>
+          <ReactQueryDevtools initialIsOpen={false} position='right' />
           <RouterProvider
             router={router}
           ></RouterProvider>

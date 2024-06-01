@@ -6,7 +6,12 @@ import { Scrollable } from '../Scrollable'
 import { Badge } from "../../components/ui/badge"
 import Heading from '../Heading'
 import { Separator } from './separator'
+import { useOutletContext } from 'react-router-dom'
+import { IUserState } from '../../actions/userSlice'
+import useGetLoginUser from '../../utils/getLogInUser'
 export const TimeLine = ({ employee, newFile, editSummary, previousFile, createdAt, pdfId }: iEdit) => {
+    const user = useGetLoginUser();
+
     return (
         <li className="mb-10 ms-6 group/sidebar">
             <span className="absolute flex items-center justify-center w-6 h-6 bg-blue-100 rounded-full -start-3 ring-8 ring-white dark:ring-gray-900 dark:bg-blue-900">
@@ -21,7 +26,7 @@ export const TimeLine = ({ employee, newFile, editSummary, previousFile, created
                 <Heading className='font-black mb-2 absolute -top-4 group-hover/sidebar:-top-5 transition-all duration-300 bg-colorPrimary rounded-md left-2 text-white text-xs py-1.5 px-2'>Description </Heading>
 
                 {editSummary}</Badge>
-            <Scrollable className='flex flex-row items-center mb-1 w-full gap-y-2 break-keep  ![--border-color:red]'><p className='font-black  text-xs inline-flex break-keep'>Edited-By</p><Badge>{employee.fullname}</Badge></Scrollable>
+            <Scrollable className='flex flex-row items-center mb-1 w-full gap-y-2 break-keep  ![--border-color:red]'><p className='font-black  text-xs inline-flex break-keep'>Edited-By</p><Badge>{employee.userId == String(user?.userId) ? "You" : employee.fullname}</Badge></Scrollable>
 
             <Scrollable>
                 <Button className="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:outline-none focus:ring-gray-100 focus:text-blue-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-gray-700"><svg className="w-3.5 h-3.5 me-2.5" aria-hidden="true" xmlnsNaclassName="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
