@@ -123,7 +123,7 @@ const NavBar = () => {
 
           className='flex overflow-hidden bg-white  text-black items-center h-16  sticky top-0 cursor-none w-full z-50    dark:bg-black dark:text-white'>
 
-          <motion.span style={{ width }} className='h-2 rounded-e-lg absolute bottom-0 bg-colorPrimary'/>
+          <motion.span style={{ width }} className='h-[1px] rounded-e-lg absolute bottom-0 bg-colorPrimary'/>
           <div ref={navbarRef} className='w-full
             
               '>

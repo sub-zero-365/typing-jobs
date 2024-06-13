@@ -50,56 +50,6 @@ const contents = [
     }, {}
 ];
 
-
-//     {
-//         title: "First Step",
-//         JSX:
-//             <div className='space-y-4 pl-4  -translate-y-6'>
-//                 <Heading className='font-black text-xl  uppercase text-blue-900'>Truck  Selection</Heading>
-//                 <p className="mb-0 text-base font-normal text-gray-500 dark:text-gray-400">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Repudiandae, voluptatem harum accusamus quos dignissimos earum, assumenda modi veritatis provident ea, quod cumque porro nemo? Rerum, excepturi quisquam. Labore sapiente similique corrupti explicabo odio, obcaecati animi laborum sequi natus ipsa? Blanditiis dicta autem natus odit, totam neque ea eum impedit incidunt corporis. Ex ipsam nisi fugiat labore quibusdam magni explicabo fugit culpa unde sint excepturi eligendi quidem, sunt maiores. Voluptatem, veniam dolorem accusantium recusandae facilis voluptas ut ullam maxime cupiditate explicabo quae! Eligendi cum veniam sint fuga, molestias dicta at sit magnam dolores suscipit rerum iure expedita cumque quae ab itaque nostrum beatae facilis quasi? At, est et expedita nemo illum magni? Dolorem nesciunt laboriosam non totam fuga quam ab adipisci a magni odio veritatis reiciendis temporibus, iste quo aliquam soluta ut et sapiente dolores molestias saepe deserunt alias nam. Debitis pariatur magni aut perferendis modi doloribus nobis consequatur tempore enim!.</p>
-//             </div>,
-//         Icon: "https://img.freepik.com/free-vector/barcode-scanning-concept-illustration_335657-5637.jpg?t=st=1715686067~exp=1715689667~hmac=2646fc6d596e3d3e42af6255934578300f8c62c36cfd08812862a67d0453a1be&w=740",
-//         value: 6564,
-//         imageDescription: "https://img.freepik.com/free-vector/barcode-scanning-concept-illustration_335657-5637.jpg?t=st=1715686067~exp=1715689667~hmac=2646fc6d596e3d3e42af6255934578300f8c62c36cfd08812862a67d0453a1be&w=740"
-
-//     },
-//     {
-//         title: "Second Step",
-//         JSX:
-//             <div className='space-y-4 pl-4  -translate-y-6'>
-//                 <Heading className='font-black text-xl  uppercase text-blue-900'>Truck  Selection</Heading>
-//                 <p className="mb-0 text-base font-normal text-gray-500 dark:text-gray-400">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Repudiandae, voluptatem harum accusamus quos dignissimos earum, assumenda modi veritatis provident ea, quod cumque porro nemo? Rerum, excepturi quisquam. Labore sapiente similique corrupti explicabo odio, obcaecati animi laborum sequi natus ipsa? Blanditiis dicta autem natus odit, totam neque ea eum impedit incidunt corporis. Ex ipsam nisi fugiat labore quibusdam magni explicabo fugit culpa unde sint excepturi eligendi quidem, sunt maiores. Voluptatem, veniam dolorem accusantium recusandae facilis voluptas ut ullam maxime cupiditate explicabo quae! Eligendi cum veniam sint fuga, molestias dicta at sit magnam dolores suscipit rerum iure expedita cumque quae ab itaque nostrum beatae facilis quasi? At, est et expedita nemo illum magni? Dolorem nesciunt laboriosam non totam fuga quam ab adipisci a magni odio veritatis reiciendis temporibus, iste quo aliquam soluta ut et sapiente dolores molestias saepe deserunt alias nam. Debitis pariatur magni aut perferendis modi doloribus nobis consequatur tempore enim!.</p>
-//             </div>,
-//         Icon: "https://fwdexpresslogistics.com/wp-content/uploads/2020/06/icon-01.png",
-//         value: 3552,
-//         imageDescription: "https://img.freepik.com/free-vector/hand-drawn-hands-with-box-phone_23-2147673143.jpg?t=st=1715686326~exp=1715689926~hmac=a4537414460fb1083a8625fa96bb4ce597b077f0663a7b363fbde1623ef8ade5&w=740"
-//     },
-
-//     {
-//         title: "Third Step",
-//         JSX:
-//             <div className='space-y-4 pl-4  -translate-y-6'>
-//                 <Heading className='font-black text-xl  uppercase text-blue-900'>Truck  Selection</Heading>
-//                 <p className="mb-0 text-base font-normal text-gray-500 dark:text-gray-400">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Repudiandae, voluptatem harum accusamus quos dignissimos earum, assumenda modi veritatis provident ea, quod cumque porro nemo? Rerum, excepturi quisquam. Labore sapiente similique corrupti explicabo odio, obcaecati animi laborum sequi natus ipsa? Blanditiis dicta autem natus odit, totam neque ea eum impedit incidunt corporis. Ex ipsam nisi fugiat labore quibusdam magni explicabo fugit culpa unde sint excepturi eligendi quidem, sunt maiores. Voluptatem, veniam dolorem accusantium recusandae facilis voluptas ut ullam maxime cupiditate explicabo quae! Eligendi cum veniam sint fuga, molestias dicta at sit magnam dolores suscipit rerum iure expedita cumque quae ab itaque nostrum beatae facilis quasi? At, est et expedita nemo illum magni? Dolorem nesciunt laboriosam non totam fuga quam ab adipisci a magni odio veritatis reiciendis temporibus, iste quo aliquam soluta ut et sapiente dolores molestias saepe deserunt alias nam. Debitis pariatur magni aut perferendis modi doloribus nobis consequatur tempore enim!.</p>
-//             </div>,
-//         Icon: "https://fwdexpresslogistics.com/wp-content/uploads/2020/06/icon-01.png",
-//         value: 352,
-//         imageDescription: "https://img.freepik.com/free-vector/truck-platooning-abstract-concept-vector-illustration-autonomous-driving-modern-logistics-technology-connectivity-electric-truck-driverless-vehicle-automated-highway-abstract-metaphor_335657-1772.jpg?t=st=1715686411~exp=1715690011~hmac=fa8de1e2de9e636a4bf3c0e20a3faa1985d44ca938c6357eb8c41b0c1658a50b&w=740"
-//     },
-//     {
-//         title: "Fourth Step",
-//         JSX:
-//             <div className='space-y-4 pl-4  -translate-y-6'>
-//                 <Heading className='font-black text-xl  uppercase text-blue-900'>Truck  Selection</Heading>
-//                 <p className="mb-0 text-base font-normal text-gray-500 dark:text-gray-400">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Repudiandae, voluptatem harum accusamus quos dignissimos earum, assumenda modi veritatis provident ea, quod cumque porro nemo? Rerum, excepturi quisquam. Labore sapiente similique corrupti explicabo odio, obcaecati animi laborum sequi natus ipsa? Blanditiis dicta autem natus odit, totam neque ea eum impedit incidunt corporis. Ex ipsam nisi fugiat labore quibusdam magni explicabo fugit culpa unde sint excepturi eligendi quidem, sunt maiores. Voluptatem, veniam dolorem accusantium recusandae facilis voluptas ut ullam maxime cupiditate explicabo quae! Eligendi cum veniam sint fuga, molestias dicta at sit magnam dolores suscipit rerum iure expedita cumque quae ab itaque nostrum beatae facilis quasi? At, est et expedita nemo illum magni? Dolorem nesciunt laboriosam non totam fuga quam ab adipisci a magni odio veritatis reiciendis temporibus, iste quo aliquam soluta ut et sapiente dolores molestias saepe deserunt alias nam. Debitis pariatur magni aut perferendis modi doloribus nobis consequatur tempore enim!.</p>
-//             </div>,
-//         Icon: "https://fwdexpresslogistics.com/wp-content/uploads/2020/06/icon-01.png",
-//         value: 882,
-//         imageDescription: "https://img.freepik.com/free-vector/real-estate-abstract-concept-vector-illustration-real-estate-agency-residential-industrial-commercial-property-market-investment-portfolio-home-ownership-property-value-abstract-metaphor_335657-1967.jpg?t=st=1715686644~exp=1715690244~hmac=d631d43fd7421956cfbbffca9cec836921804b0103f2386779ab930a4fce1303&w=740"
-
-//     }, {}
-
-// ];
 const HowItWorks = () => {
     const [activeCard, setActiveCard] = React.useState(0);
     const ref = useRef<any>(null);
