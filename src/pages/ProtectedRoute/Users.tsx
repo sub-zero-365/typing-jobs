@@ -1,15 +1,23 @@
 import React, { Suspense, useState } from 'react'
 // import wait from '../../constants/wait.js'
+import ChartsOptions, { FilterButtonPosition } from '@/components/charts/chartOptions'
 import { useQuery } from '@tanstack/react-query'
 import { Plus } from 'lucide-react'
 import { Link, useLoaderData } from 'react-router-dom'
 import Heading from '../../components/Heading.js'
-import SearchComponent from '../../components/Search.js'
-import Stats, { stats } from '../../components/Stats.js'
+import SearchComponent from '../../components/Search'
+import Stats, { stats } from '../../components/Stats'
 import DataTable from '../../components/Table.js'
-import ChartsOptions, { FilterButtonPosition } from '../../components/charts/chartOptions.js'
-import { data } from '../../components/charts/react-chartjs-2.js'
-import { Button } from '../../components/ui/button.js'
+import { data } from '@/components/charts/react-chartjs-2'
+import {
+    Breadcrumb,
+    BreadcrumbItem,
+    BreadcrumbLink,
+    BreadcrumbList,
+    BreadcrumbPage,
+    BreadcrumbSeparator,
+} from "../../components/ui/breadcrumb"
+import { Button } from '../../components/ui/button'
 import {
     Dialog,
     DialogContent,
@@ -27,15 +35,6 @@ import customFetch from '../../utils/customFetch.js'
 import debounce from '../../utils/debounce.js'
 import { user } from '../../utils/types.js'
 import { Register } from '../Auth/index.js'
-import CustomSelect from '../../components/dropdowns/CustomSelect.js'
-import {
-    Breadcrumb,
-    BreadcrumbItem,
-    BreadcrumbLink,
-    BreadcrumbList,
-    BreadcrumbPage,
-    BreadcrumbSeparator,
-} from "../../components/ui/breadcrumb"
 interface Props {
     search?: string,
     page?: number,

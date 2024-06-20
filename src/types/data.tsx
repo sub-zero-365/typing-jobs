@@ -34,6 +34,7 @@ import { statusOptions } from "../constants/options.js"
 import { StatusButtom } from "../components/buttons/button.js"
 import CustomSelect from "../components/dropdowns/CustomSelect.js"
 import { Badge } from "../components/ui/badge.js"
+import dayjs from "dayjs"
 
 type Payment = {
   id: string
@@ -412,11 +413,7 @@ export const allPdfDocuments: ColumnDef<iPDFDocument>[] = [
     },
 
   }
-  ,
-  {
-    accessorKey: "_id",
-    header: "Document id",
-  }
+ 
   , {
     header: "File Name",
     cell(props) {
@@ -441,7 +438,7 @@ export const allPdfDocuments: ColumnDef<iPDFDocument>[] = [
                 status == "completed" && "bg-green-950 ",
               )}>{status}</Badge></TooltipTrigger>
           <TooltipContent className="ring bg-colorPrimary/60 text-white">
-              {status}
+            {status}
           </TooltipContent>
         </Tooltip>
       </TooltipProvider>)
@@ -449,13 +446,25 @@ export const allPdfDocuments: ColumnDef<iPDFDocument>[] = [
 
   }
   ,
+  {
+    accessorKey: "createdAt",
+    header: "Date_Created",
+    cell({ row }) {
+      const utc_date = row.original.createdAt
+      return (<div className="text-gray-600">
+        {dayjs(utc_date ?? (new Date())).format("ddd, MMM D, YYYY h:mm A")}
 
+      </div>)
+    },
+
+  }
+  ,
   {
     // accessorKey: "_id",
     header: "N of edits",
     cell({ row }) {
       const editCount = row.original.edits.length
-      return <>{editCount}</>
+      return <span className="whitespace-nowrap overflow-hidden text-ellipsis">{editCount}</span>
     },
   }
   ,
@@ -466,7 +475,7 @@ export const allPdfDocuments: ColumnDef<iPDFDocument>[] = [
       const log = row.original
 
       return (
-        <Link className="text-muted" to={`/task/${log._id}`}><Button variant="ghost" className="text-gray-700">view</Button></Link>
+        <Link className="text-muted" to={`/task/${log._id}`}><Button variant="default" className="text-white rounded-full bg-colorPrimary text-xs px-10">view</Button></Link>
       )
     },
   },

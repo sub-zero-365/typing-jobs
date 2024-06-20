@@ -16,12 +16,12 @@ import { Scrollable } from "../Scrollable";
 export const ErrorElement = () => {
     // const navigatePath = UserRole()
     const error = useRouteError() || useAsyncError();
-
+console.log("this is the error message ",error)
     // const isAsyncError = useAsyncError()
     // const navigate = useNavigate()
     let errMsg = "";
     if (isAxiosError(error)) {
-        errMsg = error.response?.data?.msg || error.response?.data
+        errMsg = error.response?.data?.msg || error.response?.data?.message || error.response?.data
     }
     else if (typeof error === 'string') {
         errMsg = errMsg

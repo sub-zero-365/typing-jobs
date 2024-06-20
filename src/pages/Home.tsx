@@ -8,26 +8,32 @@ import Testimonial from "../sections/Testimonials.js";
 import NavigationArrow from "./ProtectedRoute/NavigationArrow.js";
 import Marquee from "react-fast-marquee";
 import OurProjectsExample from "../sections/OurProjectsExample.js";
+import ReactPlayer from 'react-player/youtube'
+// import ReactPlayer from 'react-player';
+import { motion } from 'framer-motion';
+// Render a YouTube video player
 import OurStaff from "../sections/OurStaff.js";
+import HeroSection from "../components/VideoHero.js";
 export default function Home() {
     return (
         <>
             <NavigationArrow />
             <Hero />
-            <div className="mb-4"/>
+
+            <div className="mb-4" />
             <div className="border-2 w-[calc(100%-1rem)] max-w-6xl border-colorPrimary rounded-full px-6 mx-auto">
 
-            <Marquee className="px-0" pauseOnHover speed={100}>
-               <pre className="px-0 py-2"> I can be a React component, multiple React components, or just some text. Lorem, ipsum dolor sit amet consectetur adipisicing elit. Earum, laborum.</pre>
-            </Marquee>
-
+                <Marquee className="px-0" pauseOnHover speed={100}>
+                    <pre className="px-0 py-2"> I can be a React component, multiple React components, or just some text. Lorem, ipsum dolor sit amet consectetur adipisicing elit. Earum, laborum.</pre>
+                </Marquee>
+                {/* <HeroSection /> */}
             </div>
             <Trusted />
             <Stats />
             <RequestService />
             <Testimonial />
-            <OurProjectsExample/>
-            <OurStaff/>
+            <OurProjectsExample />
+            <OurStaff />
             <HowItWorks />
         </>
     );

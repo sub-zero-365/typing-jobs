@@ -33,7 +33,7 @@ const ParallaxSection = ({ imageUrl, children }) => {
             {/* <VariantHeading>Staffss</VariantHeading> */}
             <div className='size-full bg-colorPrimary/70 bg-opacity-65 py-14'>
      <div className='w-[calc(100%-1rem)] max-w-5xl mx-auto'>
-     <VariantHeading  className='text-center font-black text-4xl text-blue-950 lg:text-6xl pb-10 px-5 max-w-4xl mx-auto'>
+     <VariantHeading  className='text-center font-black text-4xl text-white lg:text-6xl pb-10 px-5 max-w-4xl mx-auto'>
                Our Top Management
                 </VariantHeading>
                 {children}

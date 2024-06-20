@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import React from 'react'
-import { Link, defer, useAsyncValue, useLoaderData } from 'react-router-dom'
+import { Link, defer, useAsyncValue, useLoaderData, useRouteLoaderData } from 'react-router-dom'
 import { IUserState } from '../../actions/userSlice.js'
 import DisplayUserInformationCard from '../../components/DisplayUserInformationCard.js'
 import { Scrollable } from '../../components/Scrollable.js'
@@ -39,8 +39,8 @@ import {
 } from "../../components/ui/breadcrumb"
 import { cn } from '../../lib/utils.js'
 import { DatePickerWithRange } from '../../components/DatePicker/CustomDatePicker.js'
-import { data } from '../../components/charts/react-chartjs-2.js'
-import ChartsOptions, { FilterButtonPosition } from '../../components/charts/chartOptions.js'
+import { data } from '@/components/charts/react-chartjs-2'
+import ChartsOptions, { FilterButtonPosition } from '@/components/charts/chartOptions.js'
 import Heading from '../../components/Heading.js'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../../components/ui/tabs.js"
 
@@ -94,16 +94,11 @@ export const loader = (queryClient) => async ({ params }) => {
 
 }
 
-const UserInfo = () => {
-    const [stats] = useAsyncValue() as any
-    return (<div>
-        some code here
-        <Stats defaultStats={stats.defaultStats} />
 
-    </div>)
-}
 type iType = Partial<Exclude<IUserState["user"], null>>
 const SingleUser = () => {
+    // const { searchValues } = useLoaderData() as any
+
     const { id, userDetails,
         userStats } = useLoaderData() as any
     const user = useQuery(singleUserQuery(id)).data as unknown as iType
@@ -216,10 +211,11 @@ const SingleUser = () => {
                 // buttonRef.current?.click()
                 setOpen(c => !c)
             }}>view user stats</Button>
-            <div className='flex items-start max-w-[calc(100%-1rem)] lg:gap-x-2 mx-auto mt-2 rounded-xl py-5  border-[1px] border-muted min-h-screen'>
+            <div className='flex flex-row-reverse items-start max-w-[calc(100%-1rem)] lg:gap-x-2 mx-auto mt-2 rounded-xl py-5  border-[1px] border-muted min-h-screen'>
                 {/* userinformation */}
                 <div className='sticky top-14 flex-none'>
-                    <DisplayUserInformationCard className='lg:w-[20rem] mb-6 hidden lg:block' {...user!} />
+                    <DisplayUserInformationCard className='lg:w-[18rem] mb-6 hidden lg:block' 
+                    {...user!} />
                 </div>
 
                 {/* main layout */}

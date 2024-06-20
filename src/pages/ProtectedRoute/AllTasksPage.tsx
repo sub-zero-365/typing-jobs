@@ -36,13 +36,15 @@ type Params = {
   search?: string,
   sort?: "asc" | "desc",
   page?: number,
-  status?: "pending" | "approved" | "rejected"
+  status?: "pending" | "approved" | "rejected",
+  date?: string,
+  userId?: string
 
 }
 const AllLogisticsQuery = (params: Params) => {
 
   const { search,
-    sort, page, status } = params;
+    sort, page, status, date, userId } = params;
   return {
     queryKey: [
       'tasks',
@@ -51,6 +53,8 @@ const AllLogisticsQuery = (params: Params) => {
         status: status ?? 'all',
         sort: sort ?? 'asc',
         page: page ?? 1,
+        date: date ?? '',
+        userId: userId ?? ''
       }
     ],
     queryFn: async () => {
@@ -64,7 +68,7 @@ const AllLogisticsQuery = (params: Params) => {
     keepPreviousData: true,
   };
 };
-const statsQuery = {
+export const statsQuery = {
   queryKey: ['stats'],
   queryFn: async () => {
     const { data } = await customFetch.get<{ pdfDocuments: iPDFDocument[], edits: iEdit[] }>('/pdfdocument/stats');
@@ -76,7 +80,7 @@ export const loader = (queryClient) => async ({ request }) => {
     ...new URL(request.url).searchParams.entries(),
   ]);
   const x = await queryClient.ensureQueryData(statsQuery)
-  console.log(x, "x")
+  // console.log(x, "x")
   return defer({
     id: params.tracking_number,
     Logistics: queryClient.ensureQueryData(AllLogisticsQuery(params)),
@@ -89,54 +93,56 @@ const RenderTable = () => {
   const { pdfDocuments, edits } = useQuery(AllLogisticsQuery(searchValues)).data as { pdfDocuments: iPDFDocument[], edits: iEdit[] }
   const [searchParams] = useSearchParams()
   const Query = () => {
-    return (<>
+    return (<div className=''>
       <DatePickerWithRange />
-      <Button
-        className='bg-colorPrimary  w-[calc(100%-1rem)] mx-auto block my-4 rounded-md'
-      >Query Date</Button>
+      <div className='mb-6' />
       <FindMyId searchPath={`/task/`} />
       <p className='italic text-sm capitalize pt-1'>enter document id to get document</p>
       <div className='mb-6' />
-    </>)
+    </div>)
   }
 
   const showTable = searchParams.get('table-view') && searchParams.get('table-view') == 'card'
   const stats = [
     {
-        title: 'Total Documents',
-        count: totalPdfDocs || 0,
-        icon: User,
-        className: 'bg-green-900 shadow-lg shadow-colorPrimary rounded-xl text-white',
+      title: 'Total Documents',
+      count: totalPdfDocs || 0,
+      icon: User,
+      className: 'bg-green-900 shadow-lg shadow-colorPrimary rounded-xl text-white',
     },
     {
-        title: 'uploaded',
-        count: defaultStats["uploaded"] || 0,
-        icon: User,
-        className: 'bg-blue-200 shadow-lg shadow-colorPrimary rounded-xl',
+      title: 'uploaded',
+      count: defaultStats["uploaded"] || 0,
+      icon: User,
+      className: 'bg-blue-200 shadow-lg shadow-colorPrimary rounded-xl',
     },
     {
-        title: 'in-progress',
-        count: defaultStats["in-progress"] || 0,
-        icon: PersonStanding,
-        className: 'bg-orange-200 shadow-lg shadow-colorPrimary rounded-xl',
+      title: 'in-progress',
+      count: defaultStats["in-progress"] || 0,
+      icon: PersonStanding,
+      className: 'bg-orange-200 shadow-lg shadow-colorPrimary rounded-xl',
     },
     {
-        title: 'completed',
-        count: defaultStats["completed"] || 0,
-        icon: Car,
-        className: 'bg-green-200 shadow-lg shadow-colorPrimary rounded-xl',
+      title: 'completed',
+      count: defaultStats["completed"] || 0,
+      icon: Car,
+      className: 'bg-green-200 shadow-lg shadow-colorPrimary rounded-xl',
     },
-];
+  ];
   return (
     <div className='px-2'>
 
       <div className='lg:flex  lg:flex-row items-start gap-x-6 '>
 
         <div className='flex-1 flex-grow lg:w-[calc(100%-762626rem)]'>
-         
+
           <Stats stats={stats}
             nHits={0} />
           <CustomSelect searchKey='table-view' values={["card", "table"]} defaultValue='view' className='mb-6 ml-auto' />
+          <div className='sm:hidden'>
+          <Query/>
+
+          </div>
           {
             !showTable ? <Table columns={allPdfDocuments} data={pdfDocuments} /> :
               <div className='grid gap-x-4 gap-6  grid-cols-[repeat(auto-fit,minmax(min(20rem,calc(100%-2rem)),1fr))]'>

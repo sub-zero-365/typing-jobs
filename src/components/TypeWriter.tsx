@@ -36,7 +36,9 @@ export const TypewriterEffect = ({
                 {
                     display: "inline-block",
                     opacity: [0.1, 1],
-                    rotate: [15, 0]
+                    rotate: [15, 0],
+                    y: [20, 0],
+                    x: [10, 0],
                 },
                 {
                     duration: 0.3,

@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { BarChart,PieChart,Pie, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { BarChart, PieChart, Pie, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 const data = [
     {
         name: 'Page A',
@@ -44,7 +44,7 @@ const data = [
         amt: 2100,
     },
 ];
-export const Bar_Chart = () => {
+const Bar_Chart = () => {
     return (
         <ResponsiveContainer width='100%' height={300}>
             <BarChart width={150} height={40} data={data}>
@@ -52,4 +52,5 @@ export const Bar_Chart = () => {
             </BarChart>
         </ResponsiveContainer>
     )
-}  
+}
+export { Bar_Chart }

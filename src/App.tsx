@@ -262,7 +262,9 @@ const router = createBrowserRouter([
       {
         path: "logistics",
         element: <AllLogisticsPage />,
-        loader: allLogisticsLoader(queryClient)
+        loader: allLogisticsLoader(queryClient),
+        id: "taskquery"
+
       },
       {
         path: "logistic/:tracking_number",

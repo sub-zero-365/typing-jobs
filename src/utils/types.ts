@@ -1,5 +1,12 @@
 import { LucideIcon } from "lucide-react";
 import { userRole } from "../types/usertype";
+export interface CardData {
+  id: string;
+  category: string;
+  title: string;
+  pointOfInterest: number;
+  backgroundColor: string;
+}
 
 export interface iLogistic {
   price: number;
@@ -48,6 +55,7 @@ export interface iPDFDocument {
     fullname: string;
     userId: number;
   }[];
+  createdAt:string
 }
 export interface iEdit {
   readonly pdfId: string;

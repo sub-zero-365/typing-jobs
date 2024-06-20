@@ -1,20 +1,32 @@
-# Base image for Node.js environment
-FROM node:lts-alpine
+# Stage 1: Build the Vite.js app
+FROM node:16-alpine AS build
 
-# Set working directory
+# Set the working directory
 WORKDIR /app
 
-# Copy package.json and package-lock.json (or yarn.lock)
+# Copy package.json and package-lock.json
 COPY package*.json ./
 
 # Install dependencies
-RUN npm install --production  # Or yarn install --production
+RUN npm install
 
 # Copy the rest of the application code
 COPY . .
 
-# Expose port (adjust if your app uses a different port)
-EXPOSE 5173
+# Build the application
+RUN npm run build
 
-# Start the development server (replace with your command if different)
-CMD [ "npm", "run", "dev" ]  # Or yarn dev
+# Stage 2: Serve the app using Nginx
+FROM nginx:alpine
+
+# Copy the built files from the previous stage
+COPY --from=build /app/dist /usr/share/nginx/html
+
+# Copy the Nginx configuration file
+COPY nginx.conf /etc/nginx/nginx.conf
+
+# Expose port 80
+EXPOSE 80
+
+# Start Nginx
+CMD ["nginx", "-g", "daemon off;"]

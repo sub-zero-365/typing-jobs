@@ -5,31 +5,26 @@
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "module": "ESNext",
     "skipLibCheck": true,
-    
-    /* Bundler mode */
-    "moduleResolution": "bundler",
+    "moduleResolution": "node", // Change bundler to node for better compatibility with VS Code
     "allowImportingTsExtensions": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-
-    /* Linting */
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
-    "baseUrl": ".",
+    "baseUrl": "./src", // Ensure baseUrl is set to src
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["*"]
     }
   },
-  "include": [ "./pages/**/*.{ts,tsx}",
-  "./components/**/*.{ts,tsx}",
-  "./app/**/*.{ts,tsx}",
-  "./src/**/*.{ts,tsx}",
-  
+  "include": [
+    "pages/**/*.{ts,tsx}",
+    "components/**/*.{ts,tsx}",
+    "app/**/*.{ts,tsx}",
+    "src/**/*.{ts,tsx}"
   ],
- 
   "references": [{ "path": "./tsconfig.node.json" }]
 }

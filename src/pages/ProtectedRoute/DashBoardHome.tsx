@@ -2,9 +2,8 @@ import React, { useState } from 'react'
 import StatsCard from '../../components/Cards/StatsCard.js'
 import Heading from '../../components/Heading.js'
 import { LucideIcon, PercentSquare } from 'lucide-react'
-// import { Table } from '../../components/ui/table.js'
 import Table, { columns, payments } from '../../components/Table.js'
-import { Bar_Chart } from '../../components/charts/recharts.js'
+// import { Bar_Chart } from '../../components/charts/recharts'
 import { iStat } from '../../utils/types.js'
 
 export interface dashBoardItemsProps extends iStat {
@@ -59,7 +58,7 @@ const DashBoardHome = () => {
           />)
         })}
       </div>
-      <Bar_Chart />
+      {/* <Bar_Chart /> */}
       <Table columns={columns} data={payments} />
     </div>
   )

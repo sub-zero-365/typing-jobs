@@ -114,11 +114,7 @@ const ServiceCard = ({
         className='group-hover:scale-125 lg:hidden transition-all duration-500 peer size-full object-fit rounded-xl'
         src={Icon}
       />
-      <Button
-        onClick={() => {
-          setSelectedId(content)
-        }}
-        className='absolute bottom-2 bg-[#fb5711] shadow-sm top-auto right-2'>Details</Button>
+   
     </div>
     <VariantHeading className='font-black text-blue-950 text-2xl'>
       {title}:
@@ -178,40 +174,26 @@ const WhyChooseUs = () => {
               onClick={() => setSelectedId(null)}
               className='fixed inset-0 z-[100] bg-slate-900/20 backdrop-blur flex justify-center items-center'>
               <div className='relative  mx-auto max-w-[40rem] w-[calc(100%-1rem)]'>
-                <span className='absolute top-0 right-0 size-10 rounded-sm shadow-sm flex items-center justify-center place-items-center text-white bg-red-50   z-50 '
-                  onClick={() => setSelectedId(null)}
-
-                >
-                  <X color='red' className='font-black' />
-                </span>
 
                 <motion.div
-                  transition={{
-                    duration: 0.2
-                  }}
-                  exit={{
-                    transition: {
-                      duration: 0.2
-                    }
-                  }}
                   onClick={(e) => {
                     e.stopPropagation()
                   }}
 
                   layoutId={selectedId.title}
-                  className=' overflow-hidden relative w-full scrollto  rounded-lg  text-black  bg-white py-10 px-6 h-[min(40rem,calc(100vh-2rem))] lg:h-[min(30rem,calc(100vh-2rem))] overflow-y-auto'>
+                  className=' overflow-hidden- relative w-full scrollto  rounded-lg  text-black  bg-white py-10 px-6 h-[min(40rem,calc(100vh-2rem))] lg:h-[min(30rem,calc(100vh-2rem))] overflow-y-auto'>
 
 
 
 
-                  <div className=' relative  overflow-hidden h-56 sm:h-60 lg:h-64   rounded-xl'>
+                  <div className=' relative  overflow-hidden- h-56 sm:h-60 lg:h-64   rounded-xl'>
 
                     <img
-                      className='group-hover:scale-125 hidden lg:block transition-all duration-500 peer size-full object-fit rounded-xl'
+                      className='group-hover:scale-125 sticky top-0 hidden lg:block transition-all duration-500 peer size-full object-fit rounded-xl'
                       src={selectedId.Icon}
                     />
                     <img
-                      className='group-hover:scale-125 lg:hidden transition-all duration-500 peer size-full object-fit rounded-xl'
+                      className='group-hover:scale-125 sticky top-0 lg:hidden transition-all duration-500 peer size-full object-fit rounded-xl'
                       src={selectedId.Icon}
                     />
                   </div>

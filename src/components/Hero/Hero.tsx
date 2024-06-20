@@ -63,12 +63,12 @@ const words: {
 
                 [{
                     text: "Bring ",
-                    className: "!text-5xl"
+                    className: ""
 
                 },
                 {
                     text: "Your",
-                    className: "!text-5xl"
+                    className: ""
                 },
 
                 {
@@ -160,8 +160,8 @@ const Hero = () => {
                                     <div className=" p-4 max-w-7xl  mx-auto relative z-10  w-full pt-20 md:pt-0">
                                         <div className='mb-4'>
                                             <TypewriterEffect
-                                                className="text-4xl- font-pacifico text-white"
-                                                wordClassName="text-4xl lg:text-7xl xxl:text-8xl"
+                                                className="font-pacifico text-white"
+                                                wordClassName="text-5xl  lg:text-8xl xxl:text-8xl"
                                                 words={word.text} />
                                         </div>
 
@@ -191,7 +191,7 @@ const Hero = () => {
 
                                                     className="w-full font-medium text-lg "
                                                 >
-                                                    get started <MoveRight className='inline-block ml-0.5' />
+                                                    get started <MoveRight className='inline-block ml-0.5 animate-spin' />
                                                 </AnimatedLinks>
 
                                             </Button>
