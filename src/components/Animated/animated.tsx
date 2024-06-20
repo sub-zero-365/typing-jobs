@@ -106,13 +106,15 @@ export function AnimateError({
 const _singleword = {
     initial: {
         // y: 50,
-        x: 40,
+        x: 20,
         opacity: 0.1,
-        scale: 0.1
+        // scale: 0.1
     },
     animate: {
         // y: 0,
-        opacity: 1, x: 0, scale: 1
+        opacity: 1,
+        x: 0,
+        scale: 1
         , transition: {
             duration: 0.8,
         }

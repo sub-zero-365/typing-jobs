@@ -35,7 +35,7 @@ export default function ThemeToggler({ className,
             {/* <p className='text-green-600 dark:text-blue-600'>testing the code here</p> */}
             <div
                 key='somerandomtexthere'
-                className={cn('w-[min(8rem,calc(100%-1rem))] relative bg-white ring-1 cursor-pointer py-1.5 px-4  rounded-full flex items-center mx-auto ',
+                className={cn('w-[min(8rem,calc(100%-1rem))] relative bg-white border border-colorPrimary cursor-pointer py-1 px-2  rounded-full flex items-center mx-auto ',
                     isDarkTheme && 'justify-end',
                     isDarkTheme && 'bg-gray-600 active',
                     containerClassName
@@ -43,13 +43,13 @@ export default function ThemeToggler({ className,
                 // data-isDarkTheme={isDarkTheme}
                 onClick={toggleSwitch}>
              
-                <motion.div className={cn('size-10  transition-colors duration-500 ring-[1px] bg-gray-500 rounded-full',
+                <motion.div className={cn('size-8  transition-colors duration-500 ring-[1px] bg-gray-500 rounded-full',
                     isDarkTheme && 'bg-red-600',
                     className
                 )} layout transition={spring} >
                     <div className='size-full  flex items-center justify-center rounded-full'>
                         {
-                            isDarkTheme ? <SunIcon width={20} height={20} /> : <SunDim size={20} />
+                            isDarkTheme ? <SunIcon size={20} /> : <SunDim size={20} />
                         }
                     </div>
                 </motion.div>

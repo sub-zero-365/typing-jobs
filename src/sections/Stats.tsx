@@ -66,13 +66,13 @@ function SingleStat({ title, value, unit }: iStat) {
 
         <div className='space-y-2'>
             <VariantHeading className='text-6xl font-medium text-center'>
-                <AnimatedNumber
+                <AnimatedNumber className='font-black'
                     value={progress}
                 />
                 <span>{unit}</span>
                 {/* <sup className='text-blue-400'>+</sup> */}
             </VariantHeading>
-            <p className='font-medium  text-gray-600 text-lg '>{title}</p>
+            <p className='font-pacifico  text-gray-600 text-lg font-black '>{title}</p>
 
 
         </div>

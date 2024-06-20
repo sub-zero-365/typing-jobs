@@ -5,7 +5,7 @@ import { Swiper, SwiperSlide, } from 'swiper/react';
 import { motion } from "framer-motion";
 
 
-import { AnimatedSlideText, Spotlight } from '../Animated/animated';
+import {  Spotlight } from '../Animated/animated';
 import { TypewriterEffect } from '../TypeWriter';
 import { Button } from '../ui/button';
 import { MoveRight } from "lucide-react"
@@ -160,8 +160,8 @@ const Hero = () => {
                                     <div className=" p-4 max-w-7xl  mx-auto relative z-10  w-full pt-20 md:pt-0">
                                         <div className='mb-4'>
                                             <TypewriterEffect
-                                                className="font-pacifico text-white"
-                                                wordClassName="text-5xl  lg:text-8xl xxl:text-8xl"
+                                                className="font-pacifico  text-white"
+                                                wordClassName="text-6xl sm:text-7xl   lg:text-8xl xxl:text-8xl"
                                                 words={word.text} />
                                         </div>
 

@@ -11,29 +11,25 @@ import { BlackKeyBoard, CartoonKeyBoard, ManTyping, WomanTyping } from '../asset
 import { X } from "lucide-react"
 export const contents = [
   {
-    title: "We Provide 1",
-    description:
-      "By truck, rail or barge, we take your goods from farm to store doors.",
+    title: 'Digital Printing',
+    description: 'High-quality digital printing for various types of documents and marketing materials.',
     Icon: CartoonKeyBoard
 
   },
   {
-    title: "We Provide 2",
-    description:
-      "Reduce the cost of transporting your urgent or time critical cargo with our global Air Freight solutions. Learn more about FWD Air",
+    title: 'Offset Printing',
+    description: 'Traditional offset printing services for large quantities and precise color reproduction.',
     Icon: WomanTyping
   },
 
   {
-    title: "We Provide 3",
-    description:
-      "As one of the world's largest freight forwarders, we move over 1million containers every year and deliver to all corners of the globe",
+    title: 'Large Format Printing',
+    description: 'Large format printing solutions for posters, banners, and signage.',
     Icon: BlackKeyBoard
   },
   {
-    title: "We Provide Int Servcices 4",
-    description:
-      "We offer top class international delivery services all over the globe and we also provide security for all packages.",
+    title: 'Custom Printing Projects',
+    description: 'Customized printing services tailored to meet specific business and personal needs.',
     Icon: ManTyping
   },
 
@@ -81,7 +77,7 @@ const ServiceCard = ({
       delay: isDesktop ? idx * 0.1 : 0,
       duration: 0.5
     }}
-    className='flex flex-col   rounded-md shadow-lg w-full
+    className='flex flex-col   rounded-md  w-full
         space-y-6 px-4 py-4 relative my-4b group mx-auto flex-none '>
     <AnimatePresence>
       {hoveredIndex === idx && (
@@ -103,7 +99,7 @@ const ServiceCard = ({
         />
       )}
     </AnimatePresence>
-    <div className=' relative  overflow-hidden h-56 sm:h-60 lg:h-64   rounded-xl'>
+    <div className=' relative   overflow-hidden h-[10rem] sm:h-60    rounded-xl'>
 
       <motion.img
 
@@ -114,12 +110,16 @@ const ServiceCard = ({
         className='group-hover:scale-125 lg:hidden transition-all duration-500 peer size-full object-fit rounded-xl'
         src={Icon}
       />
-   
+
     </div>
     <VariantHeading className='font-black text-blue-950 text-2xl'>
       {title}:
     </VariantHeading>
-    <ol className='list-disc pl-6'>
+    <p>
+      {description}
+
+    </p>
+    <ol className='list-disc pl-6 '>
       {Array.from({ length: 2 }, (arr, idx) => <li
         className='text-sm'
         key={idx}>
@@ -150,7 +150,9 @@ const WhyChooseUs = () => {
     }
   }, [selectedId])
   return (
-    <section className='bg-white- py-32 overflow-hidden'>
+    <section className='bg-white- py-32 overflow-hidden'
+      id='ourservices'
+    >
       <div className="max-w-7xl mx-auto px-4">
         <VariantHeading className='text-center gap-x-3 uppercase mb-6 flex items-center text-colorPrimary [font-family:var(--second-font)] font-black text-3xl lg:text-4xl max-w-fit mx-auto'>
 

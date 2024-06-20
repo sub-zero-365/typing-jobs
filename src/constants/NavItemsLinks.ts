@@ -29,11 +29,7 @@ export const NavItemsLinks: INavItemsLinks[] = [
     link: "/home",
     icon: HomeIcon,
   },
-  {
-    name: "Services",
-    link: "/#services",
-    icon: LogInIcon,
-  },
+
   {
     name: "DashBoard",
     link: "/",

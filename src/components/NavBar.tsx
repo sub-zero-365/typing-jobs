@@ -168,7 +168,7 @@ const NavBar = () => {
 
                     {
                       !user ? <>
-                        <Button asChild className='bg-gradient-to-r from-green-400 to-blue-500 hover:from-pink-500 hover:to-yellow-500'>
+                        <Button asChild className='bg-gradient-to-r h-auto px-2.5 from-green-400 to-blue-500 hover:from-pink-500 hover:to-yellow-500'>
                           <Link
                             to='/home/auth/register'
                             className='text-xs'
@@ -176,7 +176,7 @@ const NavBar = () => {
                             Create Acount
                           </Link>
                         </Button>
-                        <Button asChild className='relative'>
+                        <Button asChild className='relative h-auto bg-colorPrimary'>
                           <Link
                             to='/home/auth'
                             className='text-xs'
@@ -186,7 +186,7 @@ const NavBar = () => {
                         </Button>
                       </> : <>
                         <Link to={"/dashboard/profile"}
-                          className='p-1 hover:ring-2
+                          className='p-1 hover:ring-2 
       size-[2.5rem] rounded-full grid place-items-center
       bg-slate-400/15 hover:bg-slate-400/25
       transition-all duration-500 '>

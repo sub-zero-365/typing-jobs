@@ -139,7 +139,7 @@ const RenderTable = () => {
           <Stats stats={stats}
             nHits={0} />
           <CustomSelect searchKey='table-view' values={["card", "table"]} defaultValue='view' className='mb-6 ml-auto' />
-          <div className='sm:hidden'>
+          <div className='sm:hidden '>
           <Query/>
 
           </div>

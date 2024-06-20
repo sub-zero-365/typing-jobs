@@ -14,6 +14,7 @@ import {
 import wait from '../constants/wait';
 import customFetch from '../utils/customFetch';
 import useError from '../utils/useError';
+import ShiftingCountdown from '../components/ui/shiftingcountdown';
 const FormSchema = z.object({
     otp: z.string().min(4, {
         message: "Your one-time password must be 4 characters.",
@@ -51,7 +52,7 @@ const OPTPage = () => {
     }
     return (
         <div className='max-w-2xl w-[calc(100%-1rem)] mx-auto border rounded-md border-black py-10 mt-6 shadow'>
-            <Heading className='text-center font-bold text-2xl'>verify OPT</Heading>
+            <Heading className='text-center font-bold text-4xl'>verify OPT</Heading>
             <Heading className=' mr-2 text-colorPrimary text-center text-xl italic font-black'>{emailAdress}</Heading>
             <img src={HippoEmail}
                 alt='digital hippo image'
@@ -79,6 +80,9 @@ const OPTPage = () => {
                         </InputOTPGroup>
                     </InputOTP>
                 </div>
+                <p className='text-center italic text-xl text-red-600 mb-4'>OTP will expired in </p>
+                <ShiftingCountdown />
+
 
                 {isValid && <SubmitBtn
                     className="bg-gradient-to-br relative group/btn mb-6 h-14 rounded-full
