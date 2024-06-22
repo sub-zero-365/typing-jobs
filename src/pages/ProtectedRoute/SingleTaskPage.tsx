@@ -85,7 +85,7 @@ const SingleTaskPage = () => {
     useEffect(() => {
         fetchPdf().then((blob) => setPdfBlob(blob));
     }, []);
-    const { id, Edits } = useLoaderData() as any;
+    const { id } = useLoaderData() as any;
     const { pdfDocument } = useQuery(singleTaskQuery(id!))?.data as { pdfDocument: iPDFDocument }
     const navigate = useNavigate()
     const isDesktop = useMediaQuery({ query: "(min-width: 768px)" })
@@ -135,7 +135,7 @@ const SingleTaskPage = () => {
                                 replace
                                 end
                             >
-                              Pdf Document
+                                Pdf Document
                             </CustomNavLink>
                             <CustomNavLink to='.'
                                 selectedClassName='text-green-800   text-white bg-colorPrimary'

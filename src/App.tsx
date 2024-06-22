@@ -174,9 +174,12 @@ const router = createBrowserRouter([
     errorElement: <ErrorElement />,
     children: [
       {
+        // path: "logistics",
         index: true,
-        element: <DashBoardHome />,
-        // loader: userLoader(queryClient)
+        element: <AllLogisticsPage />,
+        loader: allLogisticsLoader(queryClient),
+        // id: "taskquery"
+
       },
       {
         // index: true,
@@ -213,11 +216,7 @@ const router = createBrowserRouter([
         element: <SingleUser.default />,
         loader: SingleUser.loader(queryClient)
       },
-      // {
-      //   path: "newlogistic",
-      //   element: <NewLogistics />,
-      //   action: newLogisticAction(queryClient)
-      // },
+
       {
         path: "upload",
         element: <SubmitDocLayout />,

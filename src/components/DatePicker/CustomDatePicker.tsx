@@ -11,7 +11,7 @@ import {
     Popover,
     PopoverContent,
     PopoverTrigger,
-} from "@/components/ui/popover"
+} from "../../components/ui/popover"
 interface ParsedDates {
     startDate: Date | null;
     endDate: Date | null;
@@ -28,7 +28,7 @@ function parseDateRange(date: string): ParsedDates {
     return { startDate, endDate };
 }
 
-export function DatePickerWithRange({ className }: React.HTMLAttributes<HTMLDivElement>) {
+export function DatePickerWithRange({ className,open }: React.HTMLAttributes<HTMLDivElement> ) {
     const { handleFilterChange, searchQuery } = useFilter();
 
     const is_date_query = searchQuery.get("date")
@@ -56,7 +56,7 @@ export function DatePickerWithRange({ className }: React.HTMLAttributes<HTMLDivE
     return (
         <>
 
-            <Popover>
+            <Popover >
                 <PopoverTrigger asChild>
                     <Button
                         id="date"

@@ -29,7 +29,7 @@ function StatsCard({ className,
                 onMouseEnter={() => setHoverIndex(index)}
                 onMouseLeave={() => setHoverIndex(null)}
                 className={cn(
-                    ' flex-none relative p-2  py-4 mb-4 block rounded-md shadow-xl shadow-colorPrimary  transition-all duration-300 bg-white', className
+                    ' flex-none relative p-2  py-4 mb-4 block rounded-md shadow-sm shadow-colorPrimary  transition-all duration-300 bg-white', className
 
                 )}>
                 <AnimatePresence>

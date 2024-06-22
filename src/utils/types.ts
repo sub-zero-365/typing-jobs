@@ -55,7 +55,7 @@ export interface iPDFDocument {
     fullname: string;
     userId: number;
   }[];
-  createdAt:string
+  createdAt: string
 }
 export interface iEdit {
   readonly pdfId: string;
@@ -80,3 +80,11 @@ export interface iStat {
   className?: string;
 }
 [];
+type Type = {
+  [key in "uploaded" | "in-progress" | "completed"]: number;
+};
+export interface defaultStats {
+  inprogress: number,
+  completed: number,
+  uploaded: number,
+};

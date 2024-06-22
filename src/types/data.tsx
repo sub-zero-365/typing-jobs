@@ -433,8 +433,8 @@ export const allPdfDocuments: ColumnDef<iPDFDocument>[] = [
             <Badge variant={
               status == "uploaded" ? "destructive" : "default"
             }
-              className={cn("py-2 px-3 ",
-                status == "in-progress" && "bg-colorPrimary",
+              className={cn("py-1.5 h-auto text-[0.6rem] px-3 rounded-full  ",
+                status == "in-progress" && "bg-colorPrimary/30 text-colorPrimary",
                 status == "completed" && "bg-green-950 ",
               )}>{status}</Badge></TooltipTrigger>
           <TooltipContent className="ring bg-colorPrimary/60 text-white">
@@ -452,7 +452,7 @@ export const allPdfDocuments: ColumnDef<iPDFDocument>[] = [
     cell({ row }) {
       const utc_date = row.original.createdAt
       return (<div className="text-gray-600">
-        {dayjs(utc_date ?? (new Date())).format("ddd, MMM D, YYYY h:mm A")}
+        {dayjs(utc_date ?? (new Date())).format("ddd, MMM D, YYYY")}
 
       </div>)
     },
@@ -475,7 +475,7 @@ export const allPdfDocuments: ColumnDef<iPDFDocument>[] = [
       const log = row.original
 
       return (
-        <Link className="text-muted" to={`/task/${log._id}`}><Button variant="default" className="text-white rounded-full bg-colorPrimary text-xs px-10">view</Button></Link>
+        <Link className="text-muted" to={`/task/${log._id}`}><Button variant="default" className="text-white h-auto py-2 rounded-lg bg-colorPrimary text-xs ">detail</Button></Link>
       )
     },
   },

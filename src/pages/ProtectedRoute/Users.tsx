@@ -1,6 +1,7 @@
 import React, { Suspense, useState } from 'react'
 // import wait from '../../constants/wait.js'
 import ChartsOptions, { FilterButtonPosition } from '@/components/charts/chartOptions'
+import { data } from '@/components/charts/react-chartjs-2'
 import { useQuery } from '@tanstack/react-query'
 import { Plus } from 'lucide-react'
 import { Link, useLoaderData } from 'react-router-dom'
@@ -8,7 +9,6 @@ import Heading from '../../components/Heading.js'
 import SearchComponent from '../../components/Search'
 import Stats, { stats } from '../../components/Stats'
 import DataTable from '../../components/Table.js'
-import { data } from '@/components/charts/react-chartjs-2'
 import {
     Breadcrumb,
     BreadcrumbItem,

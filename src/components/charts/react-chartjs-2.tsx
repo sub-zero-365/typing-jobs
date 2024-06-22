@@ -122,18 +122,9 @@ export const data = {
   labels,
   datasets: [
     {
-      // fill: true,
-      label: 'Dataset 2',
-      data: labels.map(() => Math.random() * 1000),
-      // borderColor: 'rgb(53, 162, 235)',
-      // backgroundColor: 'rgba(53, 162, 235, 0.5)',
-    },
-    {
-      // fill: true,
       label: 'Dataset 1',
       data: labels.map(() => Math.random() * 1000),
-      // borderColor: 'rgb(53, 162, 235)',
-      // backgroundColor: 'rgba(53, 162, 235, 0.5)',
+
     },
   ],
 };
@@ -146,7 +137,7 @@ export function AreaChart({ chartData }) {
     })),
 
   }
-  return <Line  data={data} />;
+  return <Line data={data} />;
 }
 export function LineChart({ chartData }) {
   return <Line options={options} data={chartData} />;
@@ -155,5 +146,5 @@ export function PieChart({ chartData }) {
   return <Pie data={chartData} />;
 }
 export function BarChart({ chartData }) {
-  return <Bar  data={chartData} />;
+  return <Bar data={chartData} />;
 }

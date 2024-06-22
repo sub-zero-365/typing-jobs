@@ -6,6 +6,7 @@ import useGetLoginUser from '../utils/getLogInUser.js'
 import CustomNavLink from './CustomNavlink.js'
 import UserProfileCard from './UserProfileCard.js'
 import { Button } from './ui/button.js'
+import ThemeToggler from './Theme.js'
 const Sidebar = ({ className }: { className?: string }) => {
     const { toggleSideBar, setToggleSideBar, showFullContent, direction } = useDashBoardContext()
     const user = useGetLoginUser()
@@ -37,7 +38,7 @@ const Sidebar = ({ className }: { className?: string }) => {
                 </div>
                 {/* <Button onClick={() => setShowFullContent(c => !c)}>toggle</Button> */}
                 <div className='flex flex-col space-y-3 mt-4 px-2 flex-1 overflow-y-auto'>
-                   
+
                     {DashboardNavLinks.map((arr, index) => {
                         const { icon: Icon, name, link } = arr
                         if (user?.role != "admin" && name.toLocaleLowerCase() == "users") return
@@ -64,9 +65,15 @@ const Sidebar = ({ className }: { className?: string }) => {
                         )
                     })}
                 </div>
-                <div className='flex-none h-20 mb-6 md:hidden'>
+
+                <div className='flex-none h-20 mb-6'>
+
+                    <ThemeToggler
+                        className='size-4'
+                        containerClassName='w-14'
+                    />
                     <Button variant="destructive"
-                        className='w-[calc(100%-1rem)] block mx-auto'
+                        className='w-[calc(100%-1rem)] h-auto p-1.5 text-xs italic mb-4 block mx-auto'
                     >logout</Button>
                 </div>
             </div>
